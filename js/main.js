@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initLenisAndScrollWorld();
   initNavbar();
   initHeroCanvas();
+  initHeroCurtainPortal();
   initTelemetryHUD();
   initStatCounters();
   initAdvancedSimulator();
@@ -282,6 +283,56 @@ function initHeroCanvas() {
   }
 
   render();
+}
+
+/* ==========================================================================
+   4b. Hero Curtain Gates Portal (RR Estudio Style Scroll Opening)
+   ========================================================================== */
+function initHeroCurtainPortal() {
+  const portal = document.getElementById('heroPortal');
+  const curtainLeft = document.getElementById('curtainLeft');
+  const curtainRight = document.getElementById('curtainRight');
+  const gateSeal = document.getElementById('gateSeal');
+  const entryIndicator = document.getElementById('entryIndicator');
+  const watermark = document.getElementById('gateWatermark');
+  const revealedContent = document.getElementById('heroRevealedContent');
+
+  if (!portal || !curtainLeft || !curtainRight) return;
+
+  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: portal,
+        start: 'top top',
+        end: '+=70%',
+        scrub: 0.8,
+        pin: true,
+        anticipatePin: 1
+      }
+    });
+
+    tl.to(curtainLeft, { xPercent: -102, ease: 'power2.inOut' }, 0)
+      .to(curtainRight, { xPercent: 102, ease: 'power2.inOut' }, 0)
+      .to(gateSeal, { scale: 0.5, opacity: 0, ease: 'power2.in' }, 0)
+      .to(entryIndicator, { opacity: 0, y: 25, ease: 'power2.in' }, 0)
+      .to(watermark, { scale: 1.1, opacity: 0.12, ease: 'power1.out' }, 0)
+      .fromTo(revealedContent,
+        { scale: 0.94, opacity: 0.2 },
+        { scale: 1, opacity: 1, ease: 'power2.out' },
+        0.1
+      );
+  }
+
+  // Smooth scroll past gates on indicator click
+  if (entryIndicator) {
+    entryIndicator.addEventListener('click', () => {
+      if (lenisInstance) {
+        lenisInstance.scrollTo(window.innerHeight * 0.85, { duration: 1.2 });
+      } else {
+        window.scrollTo({ top: window.innerHeight * 0.85, behavior: 'smooth' });
+      }
+    });
+  }
 }
 
 /* ==========================================================================
