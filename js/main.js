@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initAdvancedSimulator();
   initSoftwareMockup();
   init3DParallax();
-  initHorizontalPCBuilds();
+  init3DHardwarePanels();
   initFaqAccordion();
   initQuoteForm();
   initCurrencySwitcher();
@@ -537,33 +537,117 @@ function initAdvancedSimulator() {
 }
 
 /* ==========================================================================
-   7. Horizontal Scroll Showcase for Custom PC Builds (#armados)
+   7. Interactive 3D Hardware Panels & Spatial Podium Stage (#armados)
    ========================================================================== */
-function initHorizontalPCBuilds() {
-  const track = document.getElementById('pcBuildsTrack');
-  const section = document.getElementById('armados');
-  if (!track || !section) return;
+function init3DHardwarePanels() {
+  const cards = document.querySelectorAll('.pc-tier-card[data-tilt-card]');
+  const podiumStage = document.getElementById('pcBuildsPodium');
+  if (!cards.length) return;
 
-  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-    const isDesktop = () => window.innerWidth > 992;
+  const isDesktop = () => window.innerWidth > 992;
 
-    if (isDesktop()) {
-      const scrollDist = () => track.scrollWidth - track.parentElement.clientWidth;
-      
-      if (scrollDist() > 0) {
-        gsap.to(track, {
-          x: () => -scrollDist(),
-          ease: 'none',
-          scrollTrigger: {
-            trigger: section,
-            start: 'top top+=75',
-            end: () => '+=' + scrollDist(),
-            pin: true,
-            scrub: 0.8,
-            invalidateOnRefresh: true
-          }
-        });
+  // 1. Mouse-Tracking 3D Tilt & Specular Border Glare Controller with Lerp
+  cards.forEach(card => {
+    let currentRotX = 0;
+    let currentRotY = 0;
+    let currentTransZ = 0;
+    let targetRotX = 0;
+    let targetRotY = 0;
+    let targetTransZ = 0;
+    let isHovered = false;
+    let animId = null;
+
+    const isCenter = card.classList.contains('card-podium-center');
+    const isLeft = card.classList.contains('card-podium-left');
+    const isRight = card.classList.contains('card-podium-right');
+
+    const baseRotY = isLeft ? 6 : (isRight ? -6 : 0);
+    const baseTransZ = isCenter ? 45 : 0;
+    const baseScale = isCenter ? 1.03 : 1;
+
+    function loop() {
+      // Lerp physics (0.1 interpolation factor for butter-smooth tracking)
+      currentRotX += (targetRotX - currentRotX) * 0.1;
+      currentRotY += (targetRotY - currentRotY) * 0.1;
+      currentTransZ += (targetTransZ - currentTransZ) * 0.1;
+
+      if (isDesktop()) {
+        if (isHovered) {
+          card.style.transform = `perspective(1400px) rotateX(${currentRotX.toFixed(2)}deg) rotateY(${currentRotY.toFixed(2)}deg) translateZ(${currentTransZ.toFixed(1)}px) scale(${baseScale * 1.02})`;
+        } else {
+          card.style.transform = `perspective(1400px) rotateX(0deg) rotateY(${baseRotY}deg) translateZ(${baseTransZ}px) scale(${baseScale})`;
+        }
+      } else {
+        card.style.transform = isHovered ? `scale(1.02)` : 'none';
       }
+
+      if (isHovered || Math.abs(currentRotX - targetRotX) > 0.05 || Math.abs(currentRotY - targetRotY) > 0.05) {
+        animId = requestAnimationFrame(loop);
+      } else {
+        animId = null;
+      }
+    }
+
+    card.addEventListener('mouseenter', () => {
+      isHovered = true;
+      targetTransZ = isCenter ? 80 : 60;
+      if (!animId) animId = requestAnimationFrame(loop);
+    });
+
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      // Update specular spotlight position in percent
+      const pctX = (x / rect.width) * 100;
+      const pctY = (y / rect.height) * 100;
+      card.style.setProperty('--mouse-x', `${pctX}%`);
+      card.style.setProperty('--mouse-y', `${pctY}%`);
+
+      // Calculate tilt angles (up to ±12deg)
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      targetRotX = -((y - centerY) / centerY) * 12;
+      targetRotY = ((x - centerX) / centerX) * 12;
+
+      if (!animId) animId = requestAnimationFrame(loop);
+    }, { passive: true });
+
+    card.addEventListener('mouseleave', () => {
+      isHovered = false;
+      targetRotX = 0;
+      targetRotY = baseRotY;
+      targetTransZ = baseTransZ;
+      if (!animId) animId = requestAnimationFrame(loop);
+    });
+  });
+
+  // 2. Scroll-Driven Assembly via GSAP ScrollTrigger
+  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined' && podiumStage) {
+    if (isDesktop()) {
+      gsap.fromTo(cards, 
+        {
+          transform: 'perspective(1400px) translateZ(-300px) rotateX(25deg)',
+          opacity: 0
+        },
+        {
+          transform: (i, target) => {
+            if (target.classList.contains('card-podium-center')) return 'perspective(1400px) translateZ(45px) rotateY(0deg) scale(1.03)';
+            if (target.classList.contains('card-podium-left')) return 'perspective(1400px) translateZ(0px) rotateY(6deg) scale(1)';
+            return 'perspective(1400px) translateZ(0px) rotateY(-6deg) scale(1)';
+          },
+          opacity: 1,
+          duration: 1.1,
+          stagger: 0.15,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: podiumStage,
+            start: 'top 80%',
+            toggleActions: 'play none none reverse'
+          }
+        }
+      );
     }
   }
 }
