@@ -530,11 +530,26 @@ function initAdvancedSimulator() {
 function init3DHardwarePanels() {
   const isDesktop = () => window.innerWidth > 992;
 
-  // 1. Hardware PC Tier Cards (Podium special layout)
-  const cards = document.querySelectorAll('.pc-tier-card[data-tilt-card]');
-  const podiumStage = document.getElementById('pcBuildsPodium');
+  // Universal 3D Hardware Panels Selector
+  const panels = document.querySelectorAll(`
+    .pc-tier-card,
+    .service-pillar-card,
+    .pricing-card,
+    .software-pricing-card,
+    .software-app-window,
+    .benchmark-card,
+    .frametime-graph-card,
+    .latencymon-proof-box,
+    .review-card,
+    .quote-builder-box,
+    .faq-card,
+    .channel-item,
+    .stat-item,
+    .marquee-card,
+    .opt-detail-item
+  `);
 
-  cards.forEach(card => {
+  panels.forEach(panel => {
     let currentRotX = 0;
     let currentRotY = 0;
     let currentTransZ = 0;
@@ -544,83 +559,38 @@ function init3DHardwarePanels() {
     let isHovered = false;
     let animId = null;
 
-    const isCenter = card.classList.contains('card-podium-center');
-    const isLeft = card.classList.contains('card-podium-left');
-    const isRight = card.classList.contains('card-podium-right');
+    // Detect if this card has an architectural base angle on desktop
+    let baseRotY = 0;
+    let baseRotX = 0;
+    let baseTransZ = 0;
+    let baseScale = 1;
 
-    const baseRotY = isLeft ? 6 : (isRight ? -6 : 0);
-    const baseTransZ = isCenter ? 45 : 0;
-    const baseScale = isCenter ? 1.03 : 1;
-
-    function loop() {
-      currentRotX += (targetRotX - currentRotX) * 0.1;
-      currentRotY += (targetRotY - currentRotY) * 0.1;
-      currentTransZ += (targetTransZ - currentTransZ) * 0.1;
-
-      if (isDesktop()) {
-        if (isHovered) {
-          card.style.transform = `perspective(1400px) rotateX(${currentRotX.toFixed(2)}deg) rotateY(${currentRotY.toFixed(2)}deg) translateZ(${currentTransZ.toFixed(1)}px) scale(${baseScale * 1.02})`;
-        } else {
-          card.style.transform = `perspective(1400px) rotateX(0deg) rotateY(${baseRotY}deg) translateZ(${baseTransZ}px) scale(${baseScale})`;
-        }
-      } else {
-        card.style.transform = isHovered ? `scale(1.02)` : 'none';
-      }
-
-      if (isHovered || Math.abs(currentRotX - targetRotX) > 0.05 || Math.abs(currentRotY - targetRotY) > 0.05) {
-        animId = requestAnimationFrame(loop);
-      } else {
-        animId = null;
-      }
+    if (panel.classList.contains('card-podium-center')) {
+      baseTransZ = 45;
+      baseScale = 1.03;
+    } else if (panel.classList.contains('card-podium-left')) {
+      baseRotY = 6;
+    } else if (panel.classList.contains('card-podium-right')) {
+      baseRotY = -6;
+    } else if (panel.classList.contains('service-pillar-card')) {
+      const idx = Array.from(panel.parentNode.children).indexOf(panel);
+      if (idx === 0) baseRotY = 5;
+      else if (idx === 1) { baseTransZ = 35; baseScale = 1.02; }
+      else if (idx === 2) baseRotY = -5;
+    } else if (panel.classList.contains('software-app-window')) {
+      baseRotY = -4;
+      baseRotX = 2;
+      baseTransZ = 15;
+    } else if (panel.classList.contains('software-pricing-card')) {
+      baseRotY = 4;
+      baseTransZ = 25;
+    } else if (panel.classList.contains('benchmark-card')) {
+      baseRotY = 2;
+      baseTransZ = 15;
+    } else if (panel.classList.contains('highlight')) {
+      baseTransZ = 30;
+      baseScale = 1.02;
     }
-
-    card.addEventListener('mouseenter', () => {
-      isHovered = true;
-      targetTransZ = isCenter ? 80 : 60;
-      if (!animId) animId = requestAnimationFrame(loop);
-    });
-
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
-      const pctX = (x / rect.width) * 100;
-      const pctY = (y / rect.height) * 100;
-      card.style.setProperty('--mouse-x', `${pctX}%`);
-      card.style.setProperty('--mouse-y', `${pctY}%`);
-
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      targetRotX = -((y - centerY) / centerY) * 12;
-      targetRotY = ((x - centerX) / centerX) * 12;
-
-      if (!animId) animId = requestAnimationFrame(loop);
-    }, { passive: true });
-
-    card.addEventListener('mouseleave', () => {
-      isHovered = false;
-      targetRotX = 0;
-      targetRotY = baseRotY;
-      targetTransZ = baseTransZ;
-      if (!animId) animId = requestAnimationFrame(loop);
-    });
-  });
-
-  // 2. Universal 3D Tilt & Specular Controller for All Other Panels
-  const allOtherPanels = document.querySelectorAll(
-    '.service-pillar-card, .pricing-card, .software-pricing-card, .software-app-window, .review-card, .quote-builder-box, .stat-item, .faq-card, .channel-item'
-  );
-
-  allOtherPanels.forEach(panel => {
-    let currentRotX = 0;
-    let currentRotY = 0;
-    let currentTransZ = 0;
-    let targetRotX = 0;
-    let targetRotY = 0;
-    let targetTransZ = 0;
-    let isHovered = false;
-    let animId = null;
 
     function loop() {
       currentRotX += (targetRotX - currentRotX) * 0.12;
@@ -628,13 +598,13 @@ function init3DHardwarePanels() {
       currentTransZ += (targetTransZ - currentTransZ) * 0.12;
 
       if (isDesktop()) {
-        if (isHovered) {
-          panel.style.transform = `perspective(1200px) rotateX(${currentRotX.toFixed(2)}deg) rotateY(${currentRotY.toFixed(2)}deg) translateZ(${currentTransZ.toFixed(1)}px) scale(1.02)`;
-        } else {
-          panel.style.transform = `perspective(1200px) rotateX(0deg) rotateY(0deg) translateZ(0px) scale(1)`;
-        }
+        const rX = baseRotX + currentRotX;
+        const rY = baseRotY + currentRotY;
+        const tZ = baseTransZ + currentTransZ;
+        const s = isHovered ? (baseScale * 1.02) : baseScale;
+        panel.style.transform = `perspective(1400px) rotateX(${rX.toFixed(2)}deg) rotateY(${rY.toFixed(2)}deg) translateZ(${tZ.toFixed(1)}px) scale(${s.toFixed(3)})`;
       } else {
-        panel.style.transform = isHovered ? `scale(1.02)` : 'none';
+        panel.style.transform = isHovered ? 'scale(1.02)' : 'none';
       }
 
       if (isHovered || Math.abs(currentRotX - targetRotX) > 0.05 || Math.abs(currentRotY - targetRotY) > 0.05 || Math.abs(currentTransZ - targetTransZ) > 0.5) {
@@ -646,7 +616,7 @@ function init3DHardwarePanels() {
 
     panel.addEventListener('mouseenter', () => {
       isHovered = true;
-      targetTransZ = 28;
+      targetTransZ = 45;
       if (!animId) animId = requestAnimationFrame(loop);
     });
 
@@ -662,8 +632,8 @@ function init3DHardwarePanels() {
 
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
-      targetRotX = -((y - centerY) / centerY) * 9;
-      targetRotY = ((x - centerX) / centerX) * 9;
+      targetRotX = -((y - centerY) / centerY) * 10;
+      targetRotY = ((x - centerX) / centerX) * 10;
 
       if (!animId) animId = requestAnimationFrame(loop);
     }, { passive: true });
@@ -677,14 +647,13 @@ function init3DHardwarePanels() {
     });
   });
 
-  // 3. Scroll-Driven Assembly via GSAP ScrollTrigger
-  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined' && podiumStage) {
-    if (isDesktop()) {
-      gsap.fromTo(cards, 
-        {
-          transform: 'perspective(1400px) translateZ(-300px) rotateX(25deg)',
-          opacity: 0
-        },
+  // Scroll-Driven 3D Assembly via GSAP ScrollTrigger
+  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined' && isDesktop()) {
+    const pcCards = document.querySelectorAll('.pc-tier-card[data-tilt-card]');
+    const pcStage = document.getElementById('pcBuildsPodium');
+    if (pcStage && pcCards.length) {
+      gsap.fromTo(pcCards,
+        { transform: 'perspective(1400px) translateZ(-260px) rotateX(20deg)', opacity: 0 },
         {
           transform: (i, target) => {
             if (target.classList.contains('card-podium-center')) return 'perspective(1400px) translateZ(45px) rotateY(0deg) scale(1.03)';
@@ -696,8 +665,32 @@ function init3DHardwarePanels() {
           stagger: 0.15,
           ease: 'power3.out',
           scrollTrigger: {
-            trigger: podiumStage,
+            trigger: pcStage,
             start: 'top 80%',
+            toggleActions: 'play none none reverse'
+          }
+        }
+      );
+    }
+
+    const servicesGrid = document.querySelector('.services-main-grid');
+    const serviceCards = document.querySelectorAll('.service-pillar-card');
+    if (servicesGrid && serviceCards.length) {
+      gsap.fromTo(serviceCards,
+        { transform: 'perspective(1400px) translateZ(-200px) rotateX(15deg)', opacity: 0 },
+        {
+          transform: (i) => {
+            if (i === 0) return 'perspective(1400px) rotateY(5deg) translateZ(0px)';
+            if (i === 1) return 'perspective(1400px) rotateY(0deg) translateZ(35px) scale(1.02)';
+            return 'perspective(1400px) rotateY(-5deg) translateZ(0px)';
+          },
+          opacity: 1,
+          duration: 1,
+          stagger: 0.15,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: servicesGrid,
+            start: 'top 82%',
             toggleActions: 'play none none reverse'
           }
         }

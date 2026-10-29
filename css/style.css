@@ -3884,23 +3884,30 @@ h1 em, h2 em, h3 em, .editorial-title em, .banner-title em {
    UNIVERSAL 3D HARDWARE PANELS & INTERACTIVE DEPTH
    ========================================================================== */
 
-/* 1. Parent Grids with 3D Perspective */
+/* 1. Parent Grids with 3D Perspective Stage */
 .services-main-grid,
 .pricing-grid,
 .software-grid-content,
 .optimization-container,
 .contact-section-grid,
 .faq-grid,
-.stats-grid {
+.stats-grid,
+.pc-builds-podium-grid,
+.reviews-grid,
+.reviews-marquee-track {
   perspective: 1400px;
   transform-style: preserve-3d;
 }
 
 /* 2. All Major Panels as Tactile 3D Slabs */
 .service-pillar-card,
+.pc-tier-card,
 .pricing-card,
 .software-pricing-card,
 .software-app-window,
+.benchmark-card,
+.frametime-graph-card,
+.latencymon-proof-box,
 .review-card,
 .quote-builder-box,
 .mode-badge-card,
@@ -3908,60 +3915,133 @@ h1 em, h2 em, h3 em, .editorial-title em, .banner-title em {
 .faq-card,
 .stat-item,
 .reviews-summary-block,
-.channel-item {
+.channel-item,
+.marquee-card {
   transform-style: preserve-3d;
   will-change: transform, box-shadow;
   position: relative;
-  overflow: visible;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.12), inset 0 0 20px rgba(0, 240, 255, 0.04);
+  overflow: visible !important;
+  transition: border-color 0.35s ease, box-shadow 0.35s ease, transform 0.35s cubic-bezier(0.2, 0, 0.2, 1);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.75), 
+              inset 0 1px 0 rgba(255, 255, 255, 0.15), 
+              inset 0 -1px 0 rgba(0, 0, 0, 0.5), 
+              inset 0 0 25px rgba(0, 240, 255, 0.05);
 }
 
 /* 3. Dynamic Specular Spotlight Glare on Hover/Cursor */
 .service-pillar-card::after,
+.pc-tier-card::after,
 .pricing-card::after,
 .software-pricing-card::after,
+.software-app-window::after,
+.benchmark-card::after,
 .review-card::after,
 .quote-builder-box::after,
 .faq-card::after,
-.channel-item::after {
+.channel-item::after,
+.marquee-card::after {
   content: '';
   position: absolute;
   inset: 0;
   border-radius: inherit;
   pointer-events: none;
-  background: radial-gradient(circle 320px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.16) 0%, rgba(0, 240, 255, 0.08) 40%, transparent 80%);
+  background: radial-gradient(circle 320px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.18) 0%, rgba(0, 240, 255, 0.09) 40%, transparent 80%);
   opacity: 0;
   transition: opacity 0.3s ease;
-  transform: translateZ(6px);
+  transform: translateZ(8px);
   mix-blend-mode: screen;
   z-index: 10;
 }
 
 .service-pillar-card:hover::after,
+.pc-tier-card:hover::after,
 .pricing-card:hover::after,
 .software-pricing-card:hover::after,
+.software-app-window:hover::after,
+.benchmark-card:hover::after,
 .review-card:hover::after,
 .quote-builder-box:hover::after,
 .faq-card:hover::after,
-.channel-item:hover::after {
+.channel-item:hover::after,
+.marquee-card:hover::after {
   opacity: 1;
 }
 
-/* 4. Internal Z-Axis Staggered Elevation */
+/* 4. Spatial Desktop 3D Stages (Podium & Isometric Staging) */
+@media (min-width: 993px) {
+  /* Services 3D Podium */
+  .services-main-grid .service-pillar-card:nth-child(1) {
+    transform: perspective(1400px) rotateY(6deg) translateZ(0px);
+  }
+  .services-main-grid .service-pillar-card:nth-child(2) {
+    transform: perspective(1400px) rotateY(0deg) translateZ(40px) scale(1.02);
+    border-color: rgba(0, 240, 255, 0.45);
+    background: linear-gradient(180deg, rgba(20, 33, 61, 0.9) 0%, rgba(11, 17, 32, 0.96) 100%);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(37, 99, 235, 0.3);
+    z-index: 2;
+  }
+  .services-main-grid .service-pillar-card:nth-child(3) {
+    transform: perspective(1400px) rotateY(-6deg) translateZ(0px);
+  }
+  .services-main-grid .service-pillar-card:hover {
+    transform: perspective(1400px) rotateY(0deg) translateZ(65px) scale(1.04) !important;
+    border-color: rgba(0, 240, 255, 0.6);
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.9), 0 0 45px rgba(0, 240, 255, 0.35);
+    z-index: 10;
+  }
+
+  /* Software Stage 3D Perspective */
+  .software-grid-content .software-pricing-card {
+    transform: perspective(1400px) rotateY(5deg) translateZ(25px);
+  }
+  .software-grid-content .software-pricing-card:hover {
+    transform: perspective(1400px) rotateY(0deg) translateZ(60px) scale(1.03) !important;
+  }
+  .software-grid-content .software-app-window {
+    transform: perspective(1400px) rotateY(-5deg) rotateX(2deg) translateZ(20px);
+  }
+  .software-grid-content .software-app-window:hover {
+    transform: perspective(1400px) rotateY(0deg) rotateX(0deg) translateZ(55px) scale(1.02) !important;
+  }
+
+  /* Benchmark Card 3D Slab */
+  .benchmark-card {
+    transform: perspective(1400px) rotateY(2deg) translateZ(15px);
+  }
+  .benchmark-card:hover {
+    transform: perspective(1400px) rotateY(0deg) translateZ(45px) scale(1.02) !important;
+    border-color: rgba(0, 240, 255, 0.5);
+    box-shadow: 0 28px 65px rgba(0, 0, 0, 0.9), 0 0 35px rgba(0, 240, 255, 0.25);
+  }
+
+  /* Pricing Cards Staging */
+  .pricing-card.highlight {
+    transform: perspective(1400px) translateZ(35px) scale(1.03);
+    border-color: rgba(0, 240, 255, 0.5);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(37, 99, 235, 0.3);
+    z-index: 2;
+  }
+}
+
+/* 5. Internal Z-Axis Staggered Elevation */
 /* Tier 1: Icons, Headings, Badges (translateZ: 28px) */
 .service-pillar-card .service-icon-box,
 .service-pillar-card .service-pillar-title,
 .pricing-card .pricing-header,
 .pricing-card .pricing-badge,
+.pricing-card .popular-ribbon,
 .software-pricing-card .soft-price-tag,
 .software-pricing-card .soft-ars-tag,
+.software-app-window .app-window-header,
+.benchmark-card .benchmark-header,
+.benchmark-card .benchmark-badge,
 .review-card .review-stars,
 .review-card .author-avatar,
 .quote-builder-box h3,
 .faq-card .faq-question,
 .stat-item .stat-number,
-.channel-item .channel-icon {
+.channel-item .channel-icon,
+.marquee-card-badge {
   transform: translateZ(28px);
   transform-style: preserve-3d;
   text-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
@@ -3973,22 +4053,29 @@ h1 em, h2 em, h3 em, .editorial-title em, .banner-title em {
 .pricing-card .pricing-checklist,
 .pricing-card .pricing-price-wrap,
 .software-pricing-card .soft-license-type,
+.software-app-window .app-window-body,
+.benchmark-card .sim-controls-grid,
+.benchmark-card .metric-bar-group,
 .review-card .review-text,
 .quote-builder-box .form-group,
 .faq-card .faq-body,
 .stat-item .stat-label,
-.channel-item .channel-title {
+.channel-item .channel-title,
+.marquee-card h4,
+.marquee-card p {
   transform: translateZ(18px);
   transform-style: preserve-3d;
 }
 
-/* Tier 3: Floating Action Buttons (translateZ: 44px) */
+/* Tier 3: Floating Action Buttons & Inputs (translateZ: 44px) */
 .service-pillar-card .service-action-link,
 .pricing-card .btn,
 .pricing-card button,
 .software-pricing-card .btn,
+.benchmark-card .sim-select,
 .quote-builder-box .btn-whatsapp,
-.mode-badge-card i {
+.mode-badge-card i,
+.channel-item .channel-desc {
   transform: translateZ(44px);
   transform-style: preserve-3d;
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.65);
