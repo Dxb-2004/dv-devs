@@ -428,24 +428,24 @@ img {
 
 /* Flying Papers: Riso Benchmark Spec Ticket Card */
 .benchmark-ticket-card {
-  position: absolute;
-  bottom: -15px;
-  right: -15px;
+  position: relative;
   background: var(--color-bone-white);
   color: var(--color-ink-black);
   border: 2px solid var(--color-pure-black);
-  border-radius: var(--radius-cards); /* 6px sharp */
-  padding: 1rem 1.15rem;
-  width: 270px;
+  border-radius: var(--radius-cards);
+  padding: 1rem 1.25rem;
+  width: 100%;
+  max-width: 320px;
   box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.9);
   font-family: var(--font-mono);
   z-index: 4;
   transition: var(--transition-normal);
+  margin: 0 auto;
 }
 
 .benchmark-ticket-card:hover {
-  transform: translateY(-4px) rotate(1deg);
-  box-shadow: 8px 8px 0px rgba(244, 237, 54, 0.9);
+  transform: translateY(-3px);
+  box-shadow: 8px 8px 0px var(--color-hi-vis-yellow);
 }
 
 .ticket-header {
@@ -761,8 +761,11 @@ img {
 .hero-visual-wrapper {
   position: relative;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 1.25rem;
+  width: 100%;
 }
 
 .hero-mascot-card {
@@ -770,13 +773,13 @@ img {
   z-index: 2;
   text-align: center;
   width: 100%;
-  max-width: 520px;
+  max-width: 380px;
 }
 
 .hero-mascot-img-box {
   position: relative;
-  width: 420px;
-  height: 420px;
+  width: 290px;
+  height: 290px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -785,11 +788,11 @@ img {
 
 .mascot-glow-ring {
   position: absolute;
-  inset: -25px;
+  inset: -18px;
   border-radius: 50%;
   background: conic-gradient(from 180deg at 50% 50%, #2563eb 0deg, #60a5fa 90deg, #f59e0b 180deg, #00f0ff 270deg, #2563eb 360deg);
   opacity: 0.65;
-  filter: blur(36px);
+  filter: blur(28px);
   animation: rotateGlow 18s linear infinite;
 }
 
@@ -804,7 +807,7 @@ img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 20px 35px rgba(0, 0, 0, 0.75)) drop-shadow(0 0 30px rgba(0, 240, 255, 0.45));
+  filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.75)) drop-shadow(0 0 25px rgba(0, 240, 255, 0.45));
   animation: floatMascot 4.5s ease-in-out infinite;
 }
 
@@ -3054,21 +3057,22 @@ html.lenis, html.lenis body {
 .hero-mascot-hologram-wrap {
   position: relative;
   width: 100%;
-  max-width: 520px;
-  height: 520px;
+  max-width: 380px;
+  height: 380px;
   display: flex;
   align-items: center;
   justify-content: center;
   perspective: 1200px;
+  margin: 0 auto;
 }
 
 .hologram-ring {
   position: absolute;
-  width: 420px;
-  height: 420px;
+  width: 310px;
+  height: 310px;
   border-radius: 50%;
   border: 1.5px dashed rgba(0, 240, 255, 0.45);
-  box-shadow: 0 0 35px rgba(0, 240, 255, 0.25), inset 0 0 35px rgba(0, 240, 255, 0.18);
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.25), inset 0 0 30px rgba(0, 240, 255, 0.15);
   animation: rotateHolo 24s linear infinite;
   pointer-events: none;
   z-index: 1;
@@ -3076,8 +3080,8 @@ html.lenis, html.lenis body {
 
 .hologram-ring-outer {
   position: absolute;
-  width: 500px;
-  height: 500px;
+  width: 360px;
+  height: 360px;
   border-radius: 50%;
   border: 1px solid rgba(245, 158, 11, 0.3);
   border-top-color: rgba(0, 240, 255, 0.75);
@@ -3097,120 +3101,6 @@ html.lenis, html.lenis body {
   to { transform: rotate(0deg); }
 }
 
-/* Persistent Real-time Telemetry HUD Overlay */
-.telemetry-hud {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  z-index: 998;
-  background: rgba(7, 10, 17, 0.9);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border: 1px solid rgba(0, 240, 255, 0.35);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 240, 255, 0.15);
-  border-radius: var(--radius-cards);
-  padding: 0.85rem 1.15rem;
-  width: 295px;
-  font-family: var(--font-mono);
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
-  user-select: none;
-}
-
-.telemetry-hud.minimized {
-  transform: translateY(calc(100% - 38px));
-  border-color: rgba(0, 240, 255, 0.2);
-}
-
-.telemetry-hud-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-bottom: 0.45rem;
-  border-bottom: 1px dashed rgba(255, 255, 255, 0.15);
-  margin-bottom: 0.55rem;
-  cursor: pointer;
-}
-
-.telemetry-hud-title {
-  font-size: 0.68rem;
-  font-weight: 800;
-  color: var(--color-hi-vis-yellow);
-  letter-spacing: 0.05em;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-}
-
-.telemetry-hud-badge {
-  font-size: 0.62rem;
-  background: rgba(0, 255, 136, 0.15);
-  border: 1px solid #00ff88;
-  color: #00ff88;
-  padding: 0.1rem 0.45rem;
-  border-radius: 100px;
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-}
-
-.telemetry-hud-bar {
-  height: 4px;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 2px;
-  overflow: hidden;
-  margin-bottom: 0.65rem;
-  position: relative;
-}
-
-.telemetry-hud-bar-fill {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, #ef4444 0%, #f59e0b 35%, #00f0ff 70%, #00ff88 100%);
-  transition: width 0.15s ease-out;
-}
-
-.telemetry-hud-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.45rem 0.6rem;
-  font-size: 0.72rem;
-  font-variant-numeric: tabular-nums;
-}
-
-.telemetry-hud-item {
-  display: flex;
-  flex-direction: column;
-}
-
-.telemetry-hud-label {
-  font-size: 0.58rem;
-  color: var(--text-dim);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.telemetry-hud-value {
-  font-weight: 800;
-  color: #fff;
-  letter-spacing: -0.01em;
-  font-variant-numeric: tabular-nums;
-  transition: color 0.2s ease;
-}
-
-.telemetry-hud-state {
-  margin-top: 0.5rem;
-  padding-top: 0.45rem;
-  border-top: 1px dashed rgba(255, 255, 255, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 0.62rem;
-  color: var(--text-muted);
-}
-
-.telemetry-hud-state-val {
-  font-weight: 800;
-  color: var(--color-hi-vis-yellow);
-}
 
 /* Frametime Graph Card & Canvas */
 .frametime-graph-card {
@@ -3263,41 +3153,6 @@ html.lenis, html.lenis body {
   background: rgba(0, 0, 0, 0.4);
 }
 
-/* Telemetry HUD Responsive Position */
-@media (max-width: 992px) {
-  .telemetry-hud {
-    bottom: 16px;
-    right: 80px;
-    width: 260px;
-  }
-}
-
-@media (max-width: 768px) {
-  .telemetry-hud {
-    bottom: 14px;
-    left: 12px;
-    right: auto;
-    width: calc(100% - 84px);
-    max-width: 310px;
-    padding: 0.65rem 0.85rem;
-    border-radius: 10px;
-    z-index: 990;
-  }
-  .telemetry-hud.minimized {
-    transform: translateY(calc(100% - 34px));
-    border-color: rgba(0, 240, 255, 0.35);
-  }
-  .telemetry-hud.minimized .telemetry-hud-header {
-    border-bottom: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
-  }
-  .telemetry-hud.minimized .telemetry-hud-bar,
-  .telemetry-hud.minimized .telemetry-hud-grid,
-  .telemetry-hud.minimized .telemetry-hud-state {
-    display: none;
-  }
-}
 
 /* ==========================================================================
    RR ESTUDIO EDITORIAL & HIGH-END ESPORTS CLUB ARCHITECTURE
@@ -4147,4 +4002,81 @@ h1 em, h2 em, h3 em, .editorial-title em, .banner-title em {
 .quote-builder-box .btn-whatsapp:hover {
   transform: translateZ(52px) translateY(-3px);
   box-shadow: 0 18px 36px rgba(0, 240, 255, 0.35);
+}
+
+/* Responsive Overrides & Mobile Layout Polish */
+@media (max-width: 1024px) {
+  .hero-visual-wrapper {
+    width: 100%;
+    max-width: 380px;
+    margin: 0 auto;
+  }
+  .hero-mascot-hologram-wrap {
+    max-width: 280px;
+    height: 280px;
+    perspective: none;
+  }
+  .hero-mascot-card {
+    max-width: 260px;
+  }
+  .hero-mascot-img-box {
+    width: 210px;
+    height: 210px;
+  }
+  .hologram-ring {
+    width: 220px;
+    height: 220px;
+  }
+  .hologram-ring-outer {
+    width: 260px;
+    height: 260px;
+  }
+  .floating-badge {
+    display: none !important;
+  }
+  .benchmark-ticket-card {
+    position: relative;
+    margin: 1.25rem auto 0;
+    width: 100%;
+    max-width: 320px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-visual-wrapper {
+    width: 100%;
+    max-width: 330px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  .hero-mascot-hologram-wrap {
+    max-width: 220px;
+    height: 220px;
+  }
+  .hero-mascot-card {
+    max-width: 210px;
+  }
+  .hero-mascot-img-box {
+    width: 165px;
+    height: 165px;
+  }
+  .hologram-ring {
+    width: 175px;
+    height: 175px;
+  }
+  .hologram-ring-outer {
+    width: 210px;
+    height: 210px;
+  }
+  .floating-badge {
+    display: none !important;
+  }
+  .benchmark-ticket-card {
+    position: relative;
+    margin: 1rem auto 0;
+    width: 100%;
+    max-width: 295px;
+    padding: 0.85rem 1rem;
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.9);
+  }
 }

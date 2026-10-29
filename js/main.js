@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavbar();
   initHeroCanvas();
   initHeroCurtainPortal();
-  initTelemetryHUD();
   initStatCounters();
   initAdvancedSimulator();
   initSoftwareMockup();
@@ -63,7 +62,6 @@ function initLenisAndScrollWorld() {
     }
 
     lenisInstance.on('scroll', ({ progress }) => {
-      updateTelemetryHUD(progress);
       updateScrollProgressBar(progress);
     });
   } else {
@@ -71,7 +69,6 @@ function initLenisAndScrollWorld() {
     window.addEventListener('scroll', () => {
       const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
       const progress = totalHeight > 0 ? window.scrollY / totalHeight : 0;
-      updateTelemetryHUD(progress);
       updateScrollProgressBar(progress);
     }, { passive: true });
   }
@@ -81,95 +78,6 @@ function updateScrollProgressBar(progress) {
   const progressBar = document.getElementById('scrollProgress');
   if (progressBar) {
     progressBar.style.width = `${Math.min(100, Math.max(0, progress * 100))}%`;
-  }
-}
-
-/* ==========================================================================
-   2. Persistent Real-Time Telemetry HUD Overlay
-   ========================================================================== */
-function initTelemetryHUD() {
-  const hud = document.getElementById('telemetryHud');
-  const toggleBtn = document.getElementById('hudToggleBtn');
-  if (!hud || !toggleBtn) return;
-
-  toggleBtn.addEventListener('click', () => {
-    hud.classList.toggle('minimized');
-  });
-
-  // On mobile screens, start minimized by default so it never blocks the view
-  if (window.innerWidth <= 768) {
-    hud.classList.add('minimized');
-  }
-
-  // Initial update
-  updateTelemetryHUD(0);
-}
-
-function updateTelemetryHUD(progress) {
-  const p = Math.min(1, Math.max(0, progress));
-  const percentText = document.getElementById('hudProgressPercent');
-  const barFill = document.getElementById('hudProgressBar');
-  const fpsVal = document.getElementById('hudFpsVal');
-  const latencyVal = document.getElementById('hudLatencyVal');
-  const dpcVal = document.getElementById('hudDpcVal');
-  const stutterVal = document.getElementById('hudStutterVal');
-  const stateText = document.getElementById('hudStateText');
-
-  if (percentText) percentText.textContent = `${Math.round(p * 100)}% OPT`;
-  if (barFill) barFill.style.width = `${p * 100}%`;
-
-  // Telemetry metric interpolations based on scroll progress:
-  // 0% (Stock) -> 50% (Tuned) -> 100% (Zero Delay Peak)
-  const currentFps = Math.round(92 + (240 - 92) * p);
-  const currentLatency = (18.5 - (18.5 - 3.2) * p).toFixed(1);
-
-  if (fpsVal) {
-    fpsVal.textContent = p > 0.85 ? `${currentFps}+ FPS (Locked)` : `${currentFps} FPS`;
-    fpsVal.style.color = p > 0.6 ? '#00ff88' : (p > 0.3 ? '#f59e0b' : '#ef4444');
-  }
-
-  if (latencyVal) {
-    latencyVal.textContent = `${currentLatency} ms`;
-    latencyVal.style.color = p > 0.6 ? '#00ff88' : (p > 0.3 ? '#00f0ff' : '#ef4444');
-  }
-
-  if (dpcVal) {
-    if (p < 0.35) {
-      dpcVal.textContent = '1.840 µs (High)';
-      dpcVal.style.color = '#ef4444';
-    } else if (p < 0.75) {
-      dpcVal.textContent = '120 µs (Med)';
-      dpcVal.style.color = '#f59e0b';
-    } else {
-      dpcVal.textContent = '32 µs (Zero Delay)';
-      dpcVal.style.color = '#00ff88';
-    }
-  }
-
-  if (stutterVal) {
-    if (p < 0.35) {
-      stutterVal.textContent = 'Activo';
-      stutterVal.style.color = '#ef4444';
-    } else if (p < 0.75) {
-      stutterVal.textContent = '5% Leve';
-      stutterVal.style.color = '#f59e0b';
-    } else {
-      stutterVal.textContent = '0% Eliminado';
-      stutterVal.style.color = '#00ff88';
-    }
-  }
-
-  if (stateText) {
-    if (p < 0.35) {
-      stateText.textContent = 'STOCK / UNTUNED';
-      stateText.style.color = '#ef4444';
-    } else if (p < 0.75) {
-      stateText.textContent = 'CALIBRATING KERNEL';
-      stateText.style.color = '#f59e0b';
-    } else {
-      stateText.textContent = 'BYTE FIX ZERO DELAY';
-      stateText.style.color = '#00ff88';
-    }
   }
 }
 
