@@ -71,6 +71,9 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
 }
 
 body {
@@ -79,6 +82,8 @@ body {
   color: var(--text-main);
   line-height: 1.6;
   overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
   position: relative;
   min-height: 100vh;
 }
@@ -2676,15 +2681,19 @@ img {
 
 @media (max-width: 992px) {
   .mobile-toggle {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .nav-menu {
     position: fixed;
-    top: 82px;
+    top: 72px;
     left: 0;
     width: 100%;
-    background: var(--dark-950);
+    background: rgba(7, 10, 17, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border-glass);
     flex-direction: column;
     padding: 2rem 1.5rem;
@@ -2693,6 +2702,7 @@ img {
     opacity: 0;
     transition: var(--transition-normal);
     pointer-events: none;
+    z-index: 1005;
   }
 
   .nav-menu.open {
@@ -2700,42 +2710,306 @@ img {
     opacity: 1;
     pointer-events: auto;
   }
+
+  /* Reset 3D Podium rotation angles on tablets/mobile so they don't skew outside screen */
+  .card-podium-left,
+  .card-podium-center,
+  .card-podium-right {
+    transform: none !important;
+  }
+
+  /* Reset 3D tilts for mobile */
+  .service-pillar-card,
+  .pricing-card,
+  .software-pricing-card,
+  .review-card,
+  .quote-builder-box {
+    perspective: none !important;
+  }
 }
 
 @media (max-width: 768px) {
-  .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
+  /* Navbar Compactness */
+  .navbar {
+    height: 68px;
+    padding: 0 0.85rem;
   }
 
-  .floating-badge.badge-fps {
-    left: 0;
+  .brand-logo-wrap {
+    gap: 0.65rem;
   }
 
-  .floating-badge.badge-verified {
-    right: 0;
+  .brand-logo-img {
+    width: 44px;
+    height: 44px;
+    filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.6));
+  }
+
+  .brand-name {
+    font-size: 1.25rem;
+    letter-spacing: 0.5px;
+  }
+
+  .brand-slogan {
+    display: none !important; /* Hide subtitle slogan to prevent navbar crowding */
+  }
+
+  .nav-actions {
+    gap: 0.45rem;
+  }
+
+  .nav-actions .btn-sm span {
+    display: none; /* Show only WhatsApp icon in navbar button on mobile */
+  }
+
+  .nav-actions .btn-sm {
+    padding: 0.45rem 0.65rem;
+    font-size: 1.15rem;
+    border-radius: 8px;
+    min-width: 38px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobile-toggle {
+    width: 38px;
+    height: 38px;
+    font-size: 1.35rem;
+    padding: 0;
+  }
+
+  .nav-menu {
+    top: 68px;
+    max-height: calc(100vh - 68px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Hero Section Mobile Optimization */
+  .hero {
+    padding: 2.5rem 0 3rem;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .club-exclusive-pill {
+    font-size: 0.68rem;
+    padding: 0.35rem 0.8rem;
+    margin-inline: auto;
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 7.8vw, 2.6rem);
+    line-height: 1.15;
+    margin-bottom: 0.8rem;
+  }
+
+  .hero-slogan-lead {
+    font-size: 1.05rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .hero-desc {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-inline: auto;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-cta-club-row {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.8rem;
+    align-items: stretch;
+    justify-content: center;
+  }
+
+  .hero-cta-club-row a.btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    font-size: 1rem;
+    padding: 0.85rem 1.2rem;
+  }
+
+  .hero-social-proof-pill {
+    border-left: none;
+    border-top: 1px solid rgba(0, 240, 255, 0.25);
+    padding: 0.65rem 0 0;
+    text-align: center;
+    margin-inline: auto;
+  }
+
+  .hero-features-strip {
+    flex-direction: column;
+    gap: 0.6rem;
+    align-items: center;
+    justify-content: center;
+    padding-top: 1.2rem;
+  }
+
+  /* Mascot scaled properly for phone screen width */
+  .hero-visual-wrapper {
+    margin-top: 0.5rem;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .hero-mascot-hologram-wrap {
+    width: 100%;
+    max-width: 240px;
+    height: 240px;
+    margin: 0 auto;
+    perspective: none;
+  }
+
+  .hero-mascot-card {
+    max-width: 240px;
+  }
+
+  .hero-mascot-img-box {
+    width: 195px;
+    height: 195px;
+  }
+
+  .hero-mascot-img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .hologram-ring {
+    width: 195px;
+    height: 195px;
+  }
+
+  .hologram-ring-outer {
+    width: 240px;
+    height: 240px;
+  }
+
+  .mascot-glow-ring {
+    inset: -8px;
+    filter: blur(16px);
+  }
+
+  /* Hide absolute floating badges on mobile to prevent clipping & overflow */
+  .floating-badge {
+    display: none !important;
   }
 
   .benchmark-ticket-card {
     position: static;
-    margin: 1.5rem auto 0;
+    margin: 1.2rem auto 0;
     width: 100%;
-    max-width: 320px;
+    max-width: 310px;
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.9);
   }
 
-  .testimonials-grid {
-    grid-template-columns: 1fr;
+  /* Portal Curtain Elements on Mobile */
+  .hero-gate-seal {
+    width: 96px;
+    height: 96px;
   }
 
-  .sim-controls-grid {
+  .gate-seal-img {
+    width: 54px;
+    height: 54px;
+  }
+
+  .gate-seal-tag {
+    font-size: 0.52rem;
+  }
+
+  .gate-monogram-half {
+    font-size: 2.6rem;
+  }
+
+  .hero-giant-watermark {
+    font-size: 3.2rem;
+    max-width: 90vw;
+  }
+
+  .hero-entry-indicator {
+    bottom: 12px;
+    font-size: 0.65rem;
+  }
+
+  /* Stats Grid */
+  .stats-bar-section {
+    padding: 1.5rem 0 2.5rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.8rem;
+  }
+
+  .stat-item {
+    padding: 1rem 0.65rem;
+  }
+
+  .stat-number {
+    font-size: 1.85rem;
+  }
+
+  .stat-label {
+    font-size: 0.76rem;
+  }
+
+  /* Software Showcase Box */
+  .software-showcase-box {
+    padding: 1.6rem 1.15rem;
+  }
+
+  .software-pricing-card {
+    padding: 1.5rem 1.1rem;
+  }
+
+  .soft-price-tag {
+    font-size: 2.6rem;
+  }
+
+  /* Contact and Forms: 16px to prevent iOS Safari auto-zoom */
+  .form-control {
+    font-size: 16px !important;
+  }
+
+  .contact-section-grid {
     grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .quote-builder-box {
+    padding: 1.5rem 1.15rem;
+  }
+
+  /* Floating WhatsApp Button */
+  .floating-wp-btn {
+    bottom: 14px;
+    right: 14px;
+    width: 52px;
+    height: 52px;
+    font-size: 1.6rem;
+    z-index: 995;
   }
 
   .toast-floating-badge {
-    display: none;
+    display: none !important;
   }
 
   .footer-grid {
     grid-template-columns: 1fr;
+    gap: 2rem;
   }
 
   .footer-bottom {
@@ -2989,21 +3263,39 @@ html.lenis, html.lenis body {
   background: rgba(0, 0, 0, 0.4);
 }
 
-/* Horizontal Scroll PC Builds Track */
+/* Telemetry HUD Responsive Position */
 @media (max-width: 992px) {
   .telemetry-hud {
-    bottom: 85px;
-    right: 15px;
-    width: 270px;
+    bottom: 16px;
+    right: 80px;
+    width: 260px;
   }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 768px) {
   .telemetry-hud {
-    bottom: 85px;
-    right: 10px;
-    left: 10px;
-    width: calc(100% - 20px);
+    bottom: 14px;
+    left: 12px;
+    right: auto;
+    width: calc(100% - 84px);
+    max-width: 310px;
+    padding: 0.65rem 0.85rem;
+    border-radius: 10px;
+    z-index: 990;
+  }
+  .telemetry-hud.minimized {
+    transform: translateY(calc(100% - 34px));
+    border-color: rgba(0, 240, 255, 0.35);
+  }
+  .telemetry-hud.minimized .telemetry-hud-header {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  .telemetry-hud.minimized .telemetry-hud-bar,
+  .telemetry-hud.minimized .telemetry-hud-grid,
+  .telemetry-hud.minimized .telemetry-hud-state {
+    display: none;
   }
 }
 

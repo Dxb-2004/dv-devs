@@ -96,6 +96,11 @@ function initTelemetryHUD() {
     hud.classList.toggle('minimized');
   });
 
+  // On mobile screens, start minimized by default so it never blocks the view
+  if (window.innerWidth <= 768) {
+    hud.classList.add('minimized');
+  }
+
   // Initial update
   updateTelemetryHUD(0);
 }
@@ -299,37 +304,61 @@ function initHeroCurtainPortal() {
 
   if (!portal || !curtainLeft || !curtainRight) return;
 
-  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: portal,
-        start: 'top top',
-        end: '+=70%',
-        scrub: 0.8,
-        pin: true,
-        anticipatePin: 1
-      }
-    });
+  const isMobile = window.innerWidth <= 768;
 
-    tl.to(curtainLeft, { xPercent: -102, ease: 'power2.inOut' }, 0)
-      .to(curtainRight, { xPercent: 102, ease: 'power2.inOut' }, 0)
-      .to(gateSeal, { scale: 0.5, opacity: 0, ease: 'power2.in' }, 0)
-      .to(entryIndicator, { opacity: 0, y: 25, ease: 'power2.in' }, 0)
-      .to(watermark, { scale: 1.1, opacity: 0.12, ease: 'power1.out' }, 0)
-      .fromTo(revealedContent,
-        { scale: 0.94, opacity: 0.2 },
-        { scale: 1, opacity: 1, ease: 'power2.out' },
-        0.1
-      );
+  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    if (isMobile) {
+      // Mobile: Smooth, unpinned scroll scrub so touch inertia is never blocked
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: portal,
+          start: 'top top',
+          end: 'top -30%',
+          scrub: true,
+          pin: false
+        }
+      });
+
+      tl.to(curtainLeft, { xPercent: -105, ease: 'none' }, 0)
+        .to(curtainRight, { xPercent: 105, ease: 'none' }, 0)
+        .to(gateSeal, { scale: 0.5, opacity: 0, ease: 'none' }, 0)
+        .to(entryIndicator, { opacity: 0, ease: 'none' }, 0)
+        .to(watermark, { opacity: 0.08, ease: 'none' }, 0)
+        .to(revealedContent, { opacity: 1, scale: 1, ease: 'none' }, 0);
+    } else {
+      // Desktop: Pinned cinematic gate opening
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: portal,
+          start: 'top top',
+          end: '+=70%',
+          scrub: 0.8,
+          pin: true,
+          anticipatePin: 1
+        }
+      });
+
+      tl.to(curtainLeft, { xPercent: -102, ease: 'power2.inOut' }, 0)
+        .to(curtainRight, { xPercent: 102, ease: 'power2.inOut' }, 0)
+        .to(gateSeal, { scale: 0.5, opacity: 0, ease: 'power2.in' }, 0)
+        .to(entryIndicator, { opacity: 0, y: 25, ease: 'power2.in' }, 0)
+        .to(watermark, { scale: 1.1, opacity: 0.12, ease: 'power1.out' }, 0)
+        .fromTo(revealedContent,
+          { scale: 0.94, opacity: 0.2 },
+          { scale: 1, opacity: 1, ease: 'power2.out' },
+          0.1
+        );
+    }
   }
 
   // Smooth scroll past gates on indicator click
   if (entryIndicator) {
     entryIndicator.addEventListener('click', () => {
+      const scrollTarget = isMobile ? window.innerHeight * 0.45 : window.innerHeight * 0.85;
       if (lenisInstance) {
-        lenisInstance.scrollTo(window.innerHeight * 0.85, { duration: 1.2 });
+        lenisInstance.scrollTo(scrollTarget, { duration: 1.1 });
       } else {
-        window.scrollTo({ top: window.innerHeight * 0.85, behavior: 'smooth' });
+        window.scrollTo({ top: scrollTarget, behavior: 'smooth' });
       }
     });
   }
