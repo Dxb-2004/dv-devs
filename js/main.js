@@ -588,16 +588,15 @@ function initAdvancedSimulator() {
 }
 
 /* ==========================================================================
-   7. Interactive 3D Hardware Panels & Spatial Podium Stage (#armados)
+   7. Interactive 3D Hardware Panels & Spatial Stage (Universal 3D Engine)
    ========================================================================== */
 function init3DHardwarePanels() {
-  const cards = document.querySelectorAll('.pc-tier-card[data-tilt-card]');
-  const podiumStage = document.getElementById('pcBuildsPodium');
-  if (!cards.length) return;
-
   const isDesktop = () => window.innerWidth > 992;
 
-  // 1. Mouse-Tracking 3D Tilt & Specular Border Glare Controller with Lerp
+  // 1. Hardware PC Tier Cards (Podium special layout)
+  const cards = document.querySelectorAll('.pc-tier-card[data-tilt-card]');
+  const podiumStage = document.getElementById('pcBuildsPodium');
+
   cards.forEach(card => {
     let currentRotX = 0;
     let currentRotY = 0;
@@ -617,7 +616,6 @@ function init3DHardwarePanels() {
     const baseScale = isCenter ? 1.03 : 1;
 
     function loop() {
-      // Lerp physics (0.1 interpolation factor for butter-smooth tracking)
       currentRotX += (targetRotX - currentRotX) * 0.1;
       currentRotY += (targetRotY - currentRotY) * 0.1;
       currentTransZ += (targetTransZ - currentTransZ) * 0.1;
@@ -650,13 +648,11 @@ function init3DHardwarePanels() {
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
 
-      // Update specular spotlight position in percent
       const pctX = (x / rect.width) * 100;
       const pctY = (y / rect.height) * 100;
       card.style.setProperty('--mouse-x', `${pctX}%`);
       card.style.setProperty('--mouse-y', `${pctY}%`);
 
-      // Calculate tilt angles (up to ±12deg)
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
       targetRotX = -((y - centerY) / centerY) * 12;
@@ -674,7 +670,77 @@ function init3DHardwarePanels() {
     });
   });
 
-  // 2. Scroll-Driven Assembly via GSAP ScrollTrigger
+  // 2. Universal 3D Tilt & Specular Controller for All Other Panels
+  const allOtherPanels = document.querySelectorAll(
+    '.service-pillar-card, .pricing-card, .software-pricing-card, .software-app-window, .review-card, .quote-builder-box, .stat-item, .faq-card, .channel-item'
+  );
+
+  allOtherPanels.forEach(panel => {
+    let currentRotX = 0;
+    let currentRotY = 0;
+    let currentTransZ = 0;
+    let targetRotX = 0;
+    let targetRotY = 0;
+    let targetTransZ = 0;
+    let isHovered = false;
+    let animId = null;
+
+    function loop() {
+      currentRotX += (targetRotX - currentRotX) * 0.12;
+      currentRotY += (targetRotY - currentRotY) * 0.12;
+      currentTransZ += (targetTransZ - currentTransZ) * 0.12;
+
+      if (isDesktop()) {
+        if (isHovered) {
+          panel.style.transform = `perspective(1200px) rotateX(${currentRotX.toFixed(2)}deg) rotateY(${currentRotY.toFixed(2)}deg) translateZ(${currentTransZ.toFixed(1)}px) scale(1.02)`;
+        } else {
+          panel.style.transform = `perspective(1200px) rotateX(0deg) rotateY(0deg) translateZ(0px) scale(1)`;
+        }
+      } else {
+        panel.style.transform = isHovered ? `scale(1.02)` : 'none';
+      }
+
+      if (isHovered || Math.abs(currentRotX - targetRotX) > 0.05 || Math.abs(currentRotY - targetRotY) > 0.05 || Math.abs(currentTransZ - targetTransZ) > 0.5) {
+        animId = requestAnimationFrame(loop);
+      } else {
+        animId = null;
+      }
+    }
+
+    panel.addEventListener('mouseenter', () => {
+      isHovered = true;
+      targetTransZ = 28;
+      if (!animId) animId = requestAnimationFrame(loop);
+    });
+
+    panel.addEventListener('mousemove', (e) => {
+      const rect = panel.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const pctX = (x / rect.width) * 100;
+      const pctY = (y / rect.height) * 100;
+      panel.style.setProperty('--mouse-x', `${pctX}%`);
+      panel.style.setProperty('--mouse-y', `${pctY}%`);
+
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      targetRotX = -((y - centerY) / centerY) * 9;
+      targetRotY = ((x - centerX) / centerX) * 9;
+
+      if (!animId) animId = requestAnimationFrame(loop);
+    }, { passive: true });
+
+    panel.addEventListener('mouseleave', () => {
+      isHovered = false;
+      targetRotX = 0;
+      targetRotY = 0;
+      targetTransZ = 0;
+      if (!animId) animId = requestAnimationFrame(loop);
+    });
+  });
+
+  // 3. Scroll-Driven Assembly via GSAP ScrollTrigger
   if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined' && podiumStage) {
     if (isDesktop()) {
       gsap.fromTo(cards, 

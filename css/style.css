@@ -549,25 +549,26 @@ img {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 82px;
+  height: 94px;
 }
 
 .brand-logo-wrap {
   display: flex;
   align-items: center;
-  gap: 0.85rem;
+  gap: 1rem;
+  flex-shrink: 0;
 }
 
 .brand-logo-img {
-  width: 52px;
-  height: 52px;
+  width: 76px;
+  height: 76px;
   object-fit: contain;
-  filter: drop-shadow(0 0 8px rgba(37, 99, 235, 0.5));
+  filter: drop-shadow(0 0 16px rgba(0, 240, 255, 0.65)) drop-shadow(0 0 32px rgba(37, 99, 235, 0.4));
   transition: var(--transition-bounce);
 }
 
 .brand-logo-wrap:hover .brand-logo-img {
-  transform: scale(1.08) rotate(-4deg);
+  transform: scale(1.12) rotate(-4deg);
 }
 
 .brand-text {
@@ -576,9 +577,9 @@ img {
 }
 
 .brand-name {
-  font-size: 1.55rem;
-  font-weight: 800;
-  letter-spacing: 1px;
+  font-size: 1.85rem;
+  font-weight: 900;
+  letter-spacing: 1.5px;
   line-height: 1;
   text-transform: uppercase;
 }
@@ -764,13 +765,13 @@ img {
   z-index: 2;
   text-align: center;
   width: 100%;
-  max-width: 440px;
+  max-width: 520px;
 }
 
 .hero-mascot-img-box {
   position: relative;
-  width: 320px;
-  height: 320px;
+  width: 420px;
+  height: 420px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -779,11 +780,11 @@ img {
 
 .mascot-glow-ring {
   position: absolute;
-  inset: -15px;
+  inset: -25px;
   border-radius: 50%;
-  background: conic-gradient(from 180deg at 50% 50%, #2563eb 0deg, #60a5fa 90deg, #f59e0b 180deg, #2563eb 360deg);
-  opacity: 0.55;
-  filter: blur(28px);
+  background: conic-gradient(from 180deg at 50% 50%, #2563eb 0deg, #60a5fa 90deg, #f59e0b 180deg, #00f0ff 270deg, #2563eb 360deg);
+  opacity: 0.65;
+  filter: blur(36px);
   animation: rotateGlow 18s linear infinite;
 }
 
@@ -798,7 +799,7 @@ img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.65));
+  filter: drop-shadow(0 20px 35px rgba(0, 0, 0, 0.75)) drop-shadow(0 0 30px rgba(0, 240, 255, 0.45));
   animation: floatMascot 4.5s ease-in-out infinite;
 }
 
@@ -2779,21 +2780,21 @@ html.lenis, html.lenis body {
 .hero-mascot-hologram-wrap {
   position: relative;
   width: 100%;
-  max-width: 440px;
-  height: 440px;
+  max-width: 520px;
+  height: 520px;
   display: flex;
   align-items: center;
   justify-content: center;
-  perspective: 1000px;
+  perspective: 1200px;
 }
 
 .hologram-ring {
   position: absolute;
-  width: 320px;
-  height: 320px;
+  width: 420px;
+  height: 420px;
   border-radius: 50%;
-  border: 1.5px dashed rgba(0, 240, 255, 0.4);
-  box-shadow: 0 0 25px rgba(0, 240, 255, 0.18), inset 0 0 25px rgba(0, 240, 255, 0.12);
+  border: 1.5px dashed rgba(0, 240, 255, 0.45);
+  box-shadow: 0 0 35px rgba(0, 240, 255, 0.25), inset 0 0 35px rgba(0, 240, 255, 0.18);
   animation: rotateHolo 24s linear infinite;
   pointer-events: none;
   z-index: 1;
@@ -2801,12 +2802,12 @@ html.lenis, html.lenis body {
 
 .hologram-ring-outer {
   position: absolute;
-  width: 400px;
-  height: 400px;
+  width: 500px;
+  height: 500px;
   border-radius: 50%;
-  border: 1px solid rgba(245, 158, 11, 0.22);
-  border-top-color: rgba(0, 240, 255, 0.6);
-  border-bottom-color: rgba(245, 158, 11, 0.6);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-top-color: rgba(0, 240, 255, 0.75);
+  border-bottom-color: rgba(245, 158, 11, 0.75);
   animation: rotateHoloReverse 32s linear infinite;
   pointer-events: none;
   z-index: 1;
@@ -3031,12 +3032,17 @@ h1 em, h2 em, h3 em, .editorial-title em, .banner-title em {
 }
 
 .editorial-monogram {
-  width: 36px;
-  height: 36px;
+  width: 56px;
+  height: 56px;
   object-fit: contain;
-  margin-bottom: 0.85rem;
-  filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.5));
-  opacity: 0.9;
+  margin-bottom: 1rem;
+  filter: drop-shadow(0 0 16px rgba(0, 240, 255, 0.65));
+  opacity: 0.95;
+  transition: transform 0.3s ease;
+}
+
+.editorial-monogram:hover {
+  transform: scale(1.15) rotate(6deg);
 }
 
 .editorial-kicker {
@@ -3162,12 +3168,12 @@ h1 em, h2 em, h3 em, .editorial-title em, .banner-title em {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 110px;
-  height: 110px;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
   background: #080d19;
-  border: 2px solid rgba(0, 240, 255, 0.6);
-  box-shadow: 0 0 40px rgba(0, 240, 255, 0.4), inset 0 0 20px rgba(0, 240, 255, 0.2);
+  border: 2.5px solid rgba(0, 240, 255, 0.75);
+  box-shadow: 0 0 60px rgba(0, 240, 255, 0.55), inset 0 0 35px rgba(0, 240, 255, 0.3);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -3177,19 +3183,19 @@ h1 em, h2 em, h3 em, .editorial-title em, .banner-title em {
 }
 
 .gate-seal-img {
-  width: 56px;
-  height: 56px;
+  width: 110px;
+  height: 110px;
   object-fit: contain;
-  filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.7));
+  filter: drop-shadow(0 0 20px rgba(0, 240, 255, 0.85));
 }
 
 .gate-seal-tag {
   font-family: var(--font-mono);
-  font-size: 0.58rem;
+  font-size: 0.72rem;
   font-weight: 800;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.16em;
   color: var(--color-hi-vis-yellow);
-  margin-top: 2px;
+  margin-top: 4px;
 }
 
 .hero-giant-watermark {
@@ -3725,4 +3731,128 @@ h1 em, h2 em, h3 em, .editorial-title em, .banner-title em {
   .gate-monogram-half {
     font-size: 4rem;
   }
+}
+
+/* ==========================================================================
+   UNIVERSAL 3D HARDWARE PANELS & INTERACTIVE DEPTH
+   ========================================================================== */
+
+/* 1. Parent Grids with 3D Perspective */
+.services-main-grid,
+.pricing-grid,
+.software-grid-content,
+.optimization-container,
+.contact-section-grid,
+.faq-grid,
+.stats-grid {
+  perspective: 1400px;
+  transform-style: preserve-3d;
+}
+
+/* 2. All Major Panels as Tactile 3D Slabs */
+.service-pillar-card,
+.pricing-card,
+.software-pricing-card,
+.software-app-window,
+.review-card,
+.quote-builder-box,
+.mode-badge-card,
+.opt-detail-item,
+.faq-card,
+.stat-item,
+.reviews-summary-block,
+.channel-item {
+  transform-style: preserve-3d;
+  will-change: transform, box-shadow;
+  position: relative;
+  overflow: visible;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.12), inset 0 0 20px rgba(0, 240, 255, 0.04);
+}
+
+/* 3. Dynamic Specular Spotlight Glare on Hover/Cursor */
+.service-pillar-card::after,
+.pricing-card::after,
+.software-pricing-card::after,
+.review-card::after,
+.quote-builder-box::after,
+.faq-card::after,
+.channel-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(circle 320px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.16) 0%, rgba(0, 240, 255, 0.08) 40%, transparent 80%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  transform: translateZ(6px);
+  mix-blend-mode: screen;
+  z-index: 10;
+}
+
+.service-pillar-card:hover::after,
+.pricing-card:hover::after,
+.software-pricing-card:hover::after,
+.review-card:hover::after,
+.quote-builder-box:hover::after,
+.faq-card:hover::after,
+.channel-item:hover::after {
+  opacity: 1;
+}
+
+/* 4. Internal Z-Axis Staggered Elevation */
+/* Tier 1: Icons, Headings, Badges (translateZ: 28px) */
+.service-pillar-card .service-icon-box,
+.service-pillar-card .service-pillar-title,
+.pricing-card .pricing-header,
+.pricing-card .pricing-badge,
+.software-pricing-card .soft-price-tag,
+.software-pricing-card .soft-ars-tag,
+.review-card .review-stars,
+.review-card .author-avatar,
+.quote-builder-box h3,
+.faq-card .faq-question,
+.stat-item .stat-number,
+.channel-item .channel-icon {
+  transform: translateZ(28px);
+  transform-style: preserve-3d;
+  text-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
+}
+
+/* Tier 2: Spec lists, text copy, toggles (translateZ: 18px) */
+.service-pillar-card .service-pillar-desc,
+.service-pillar-card .service-pillar-features,
+.pricing-card .pricing-checklist,
+.pricing-card .pricing-price-wrap,
+.software-pricing-card .soft-license-type,
+.review-card .review-text,
+.quote-builder-box .form-group,
+.faq-card .faq-body,
+.stat-item .stat-label,
+.channel-item .channel-title {
+  transform: translateZ(18px);
+  transform-style: preserve-3d;
+}
+
+/* Tier 3: Floating Action Buttons (translateZ: 44px) */
+.service-pillar-card .service-action-link,
+.pricing-card .btn,
+.pricing-card button,
+.software-pricing-card .btn,
+.quote-builder-box .btn-whatsapp,
+.mode-badge-card i {
+  transform: translateZ(44px);
+  transform-style: preserve-3d;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.65);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.service-pillar-card .service-action-link:hover,
+.pricing-card .btn:hover,
+.pricing-card button:hover,
+.software-pricing-card .btn:hover,
+.quote-builder-box .btn-whatsapp:hover {
+  transform: translateZ(52px) translateY(-3px);
+  box-shadow: 0 18px 36px rgba(0, 240, 255, 0.35);
 }
