@@ -1,944 +1,677 @@
 /**
- * BYTE FIX - Official Website Scripts (Scroll-World & Awwwards Experience)
- * Features:
- * - Lenis Smooth Inertial Scrolling synced with GSAP ScrollTrigger (120Hz/240Hz feel)
- * - Persistent Real-Time Telemetry HUD Overlay (Dynamic Pipeline Monitor)
- * - Interactive Hero Cyber Canvas & 3D Holographic Core
- * - Scroll-Scrubbed Performance Simulator & Live Frametime Jitter Waveform Canvas
- * - Desktop Horizontal Scroll Pan for Custom PC Builds Showcase (#armados)
- * - Interactive Byte Fix Optimizer Software UI Mockup with simulated scan
- * - Animated Number Counters (IntersectionObserver & ScrollTrigger)
- * - Currency Switcher (USD <-> ARS)
- * - FAQ Accordion with smooth transitions
- * - Direct WhatsApp Lead & Quote Generator
+ * ==========================================================================
+ * D&V DEVS - OFFICIAL CORE CLIENT SCRIPT
+ * Architecture: Three.js 3D WebGL, Lenis Smooth Scroll, GSAP 3 + ScrollTrigger
+ * Features: 
+ *   - Custom Cyber Magnetic Cursor
+ *   - WebGL 3D Cyber Grid Tunnel & Particle Matrix with Scroll Acceleration
+ *   - Scene 1: Dimensional Code Portal (3D Bracket Split & Parallax Hero Logo)
+ *   - Scene 2: Horizontal Scroll Pinning & 3D Tilt on 4 Bento Service Cards
+ *   - Scene 3: Live Synchronized Architecture Simulation (Admin -> Conduit -> Store)
+ *   - Scene 4: Vertical Laser Timeline Illumination
+ *   - Scene 5: Digital Particle Vortex & Magnetic Spring CTA
+ * ==========================================================================
  */
 
-const BYTEFIX_PHONE = '5492914380467'; // WhatsApp Oficial: +54 291 438-0467
-let lenisInstance = null;
-
 document.addEventListener('DOMContentLoaded', () => {
-  initLenisAndScrollWorld();
-  initNavbar();
-  initHeroCanvas();
-  initHeroCurtainPortal();
-  initStatCounters();
-  initAdvancedSimulator();
-  initSoftwareMockup();
-  init3DParallax();
-  init3DHardwarePanels();
-  initFaqAccordion();
-  initQuoteForm();
-  initCurrencySwitcher();
-  initSmoothScroll();
-});
 
-/* ==========================================================================
-   1. Lenis Smooth Scroll & Scroll-World Pipeline Engine
-   ========================================================================== */
-function initLenisAndScrollWorld() {
-  if (typeof Lenis !== 'undefined') {
-    lenisInstance = new Lenis({
-      duration: 1.15,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-      smoothTouch: false,
-      touchMultiplier: 1.5
-    });
+  // ==========================================================================
+  // 1. LENIS SMOOTH SCROLL & GSAP SCROLLTRIGGER SYNCHRONIZATION
+  // ==========================================================================
+  let lenis = null;
 
-    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-      gsap.registerPlugin(ScrollTrigger);
-      lenisInstance.on('scroll', ScrollTrigger.update);
+  try {
+    if (typeof Lenis !== 'undefined') {
+      lenis = new Lenis({
+        duration: 1.25,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        smoothWheel: true,
+        wheelMultiplier: 1.0,
+        touchMultiplier: 1.8,
+        infinite: false
+      });
+
+      // Synchronize Lenis with GSAP ScrollTrigger
+      lenis.on('scroll', ScrollTrigger.update);
 
       gsap.ticker.add((time) => {
-        lenisInstance.raf(time * 1000);
+        lenis.raf(time * 1000);
       });
       gsap.ticker.lagSmoothing(0);
-    } else {
-      function raf(time) {
-        lenisInstance.raf(time);
-        requestAnimationFrame(raf);
-      }
-      requestAnimationFrame(raf);
     }
-
-    lenisInstance.on('scroll', ({ progress }) => {
-      updateScrollProgressBar(progress);
-    });
-  } else {
-    // Fallback if Lenis CDN is blocked or unavailable
-    window.addEventListener('scroll', () => {
-      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = totalHeight > 0 ? window.scrollY / totalHeight : 0;
-      updateScrollProgressBar(progress);
-    }, { passive: true });
-  }
-}
-
-function updateScrollProgressBar(progress) {
-  const progressBar = document.getElementById('scrollProgress');
-  if (progressBar) {
-    progressBar.style.width = `${Math.min(100, Math.max(0, progress * 100))}%`;
-  }
-}
-
-/* ==========================================================================
-   3. Navbar Sticky & Mobile Menu
-   ========================================================================== */
-function initNavbar() {
-  const header = document.querySelector('.header');
-  const mobileToggle = document.getElementById('mobileToggle');
-  const navMenu = document.getElementById('navMenu');
-  const navLinks = document.querySelectorAll('.nav-link');
-
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 40) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
-    }
-  }, { passive: true });
-
-  if (mobileToggle && navMenu) {
-    mobileToggle.addEventListener('click', () => {
-      navMenu.classList.toggle('open');
-      const icon = mobileToggle.querySelector('i');
-      if (icon) {
-        icon.className = navMenu.classList.contains('open') ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
-      }
-    });
-
-    navLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        navMenu.classList.remove('open');
-        const icon = mobileToggle.querySelector('i');
-        if (icon) icon.className = 'fa-solid fa-bars';
-      });
-    });
-  }
-}
-
-/* ==========================================================================
-   4. Hero Cyber Particles Canvas (High-FPS Background)
-   ========================================================================== */
-function initHeroCanvas() {
-  const canvas = document.getElementById('heroCanvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  if (!ctx) return;
-
-  let width = (canvas.width = canvas.parentElement.offsetWidth || window.innerWidth);
-  let height = (canvas.height = canvas.parentElement.offsetHeight || window.innerHeight);
-
-  window.addEventListener('resize', () => {
-    width = canvas.width = canvas.parentElement.offsetWidth || window.innerWidth;
-    height = canvas.height = canvas.parentElement.offsetHeight || window.innerHeight;
-  }, { passive: true });
-
-  const particlesCount = Math.min(50, Math.floor(width / 30));
-  const particles = [];
-
-  for (let i = 0; i < particlesCount; i++) {
-    particles.push({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      vx: (Math.random() - 0.5) * 0.6,
-      vy: (Math.random() - 0.5) * 0.6,
-      size: Math.random() * 2 + 1,
-      color: Math.random() > 0.4 ? 'rgba(0, 240, 255, 0.4)' : 'rgba(245, 158, 11, 0.4)'
-    });
+  } catch (err) {
+    console.warn('Lenis could not be initialized, falling back to native scroll:', err);
   }
 
-  let mouse = { x: width / 2, y: height / 2, active: false };
-  window.addEventListener('mousemove', (e) => {
-    const rect = canvas.getBoundingClientRect();
-    mouse.x = e.clientX - rect.left;
-    mouse.y = e.clientY - rect.top;
-    mouse.active = true;
-  }, { passive: true });
-
-  function render() {
-    ctx.clearRect(0, 0, width, height);
-
-    // Draw connecting lines between nearby particles
-    for (let i = 0; i < particles.length; i++) {
-      const p1 = particles[i];
-      p1.x += p1.vx;
-      p1.y += p1.vy;
-
-      if (p1.x < 0) p1.x = width;
-      if (p1.x > width) p1.x = 0;
-      if (p1.y < 0) p1.y = height;
-      if (p1.y > height) p1.y = 0;
-
-      ctx.beginPath();
-      ctx.arc(p1.x, p1.y, p1.size, 0, Math.PI * 2);
-      ctx.fillStyle = p1.color;
-      ctx.fill();
-
-      for (let j = i + 1; j < particles.length; j++) {
-        const p2 = particles[j];
-        const dx = p1.x - p2.x;
-        const dy = p1.y - p2.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-
-        if (dist < 110) {
-          ctx.beginPath();
-          ctx.moveTo(p1.x, p1.y);
-          ctx.lineTo(p2.x, p2.y);
-          ctx.strokeStyle = `rgba(0, 240, 255, ${0.15 * (1 - dist / 110)})`;
-          ctx.lineWidth = 0.75;
-          ctx.stroke();
-        }
-      }
-    }
-
-    requestAnimationFrame(render);
-  }
-
-  render();
-}
-
-/* ==========================================================================
-   4b. Hero Curtain Gates Portal (RR Estudio Style Scroll Opening)
-   ========================================================================== */
-function initHeroCurtainPortal() {
-  const portal = document.getElementById('heroPortal');
-  const curtainLeft = document.getElementById('curtainLeft');
-  const curtainRight = document.getElementById('curtainRight');
-  const gateSeal = document.getElementById('gateSeal');
-  const entryIndicator = document.getElementById('entryIndicator');
-  const watermark = document.getElementById('gateWatermark');
-  const revealedContent = document.getElementById('heroRevealedContent');
-
-  if (!portal || !curtainLeft || !curtainRight) return;
-
-  const isMobile = window.innerWidth <= 768;
-
-  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-    if (isMobile) {
-      // Mobile: Smooth, unpinned scroll scrub so touch inertia is never blocked
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: portal,
-          start: 'top top',
-          end: 'top -30%',
-          scrub: true,
-          pin: false
-        }
-      });
-
-      tl.to(curtainLeft, { xPercent: -105, ease: 'none' }, 0)
-        .to(curtainRight, { xPercent: 105, ease: 'none' }, 0)
-        .to(gateSeal, { scale: 0.5, opacity: 0, ease: 'none' }, 0)
-        .to(entryIndicator, { opacity: 0, ease: 'none' }, 0)
-        .to(watermark, { opacity: 0.08, ease: 'none' }, 0)
-        .to(revealedContent, { opacity: 1, scale: 1, ease: 'none' }, 0);
-    } else {
-      // Desktop: Pinned cinematic gate opening
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: portal,
-          start: 'top top',
-          end: '+=70%',
-          scrub: 0.8,
-          pin: true,
-          anticipatePin: 1
-        }
-      });
-
-      tl.to(curtainLeft, { xPercent: -102, ease: 'power2.inOut' }, 0)
-        .to(curtainRight, { xPercent: 102, ease: 'power2.inOut' }, 0)
-        .to(gateSeal, { scale: 0.5, opacity: 0, ease: 'power2.in' }, 0)
-        .to(entryIndicator, { opacity: 0, y: 25, ease: 'power2.in' }, 0)
-        .to(watermark, { scale: 1.1, opacity: 0.12, ease: 'power1.out' }, 0)
-        .fromTo(revealedContent,
-          { scale: 0.94, opacity: 0.2 },
-          { scale: 1, opacity: 1, ease: 'power2.out' },
-          0.1
-        );
-    }
-  }
-
-  // Smooth scroll past gates on indicator click
-  if (entryIndicator) {
-    entryIndicator.addEventListener('click', () => {
-      const scrollTarget = isMobile ? window.innerHeight * 0.45 : window.innerHeight * 0.85;
-      if (lenisInstance) {
-        lenisInstance.scrollTo(scrollTarget, { duration: 1.1 });
-      } else {
-        window.scrollTo({ top: scrollTarget, behavior: 'smooth' });
-      }
-    });
-  }
-}
-
-/* ==========================================================================
-   5. Animated Number Counters (Scene 2 Telemetry Bar)
-   ========================================================================== */
-function initStatCounters() {
-  const statNumbers = document.querySelectorAll('.stat-number[data-target]');
-  if (!statNumbers.length) return;
-
-  const observer = new IntersectionObserver((entries, obs) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const el = entry.target;
-        const target = parseInt(el.getAttribute('data-target'), 10);
-        const prefix = el.getAttribute('data-prefix') || '';
-        const suffix = el.getAttribute('data-suffix') || '';
-        
-        let start = 0;
-        const duration = 1200; // ms
-        const startTime = performance.now();
-
-        function updateCount(currentTime) {
-          const elapsed = currentTime - startTime;
-          const progress = Math.min(elapsed / duration, 1);
-          const easeProgress = 1 - Math.pow(1 - progress, 3);
-          const currentVal = Math.floor(start + (target - start) * easeProgress);
-
-          el.textContent = `${prefix}${currentVal}${suffix}`;
-
-          if (progress < 1) {
-            requestAnimationFrame(updateCount);
-          } else {
-            el.textContent = `${prefix}${target}${suffix}`;
-          }
-        }
-
-        requestAnimationFrame(updateCount);
-        obs.unobserve(el);
-      }
-    });
-  }, { threshold: 0.3 });
-
-  statNumbers.forEach(num => observer.observe(num));
-}
-
-/* ==========================================================================
-   6. Interactive Performance Simulator & Live Frametime Canvas
-   ========================================================================== */
-function initAdvancedSimulator() {
-  const gameSelect = document.getElementById('simGameSelect');
-  const gpuSelect = document.getElementById('simGpuSelect');
-  const toggleBtns = document.querySelectorAll('.toggle-opt-btn');
-
-  const fpsText = document.getElementById('benchmarkFpsText');
-  const fpsBar = document.getElementById('benchmarkFpsBar');
-  const latencyText = document.getElementById('benchmarkLatencyText');
-  const latencyBar = document.getElementById('benchmarkLatencyBar');
-  const sim1PercentVal = document.getElementById('sim1PercentVal');
-  const sim1PercentGain = document.getElementById('sim1PercentGain');
-  const simDpcVal = document.getElementById('simDpcVal');
-  const simWpBtn = document.getElementById('simWpBtn');
-
-  const frametimeCanvas = document.getElementById('frametimeCanvas');
-  const frametimeStatus = document.getElementById('frametimeStatus');
-  const frametimeVariance = document.getElementById('frametimeVariance');
-
-  if (!gameSelect || !gpuSelect || !fpsBar) return;
-
-  const benchmarkData = {
-    cs2: {
-      name: 'Counter-Strike 2',
-      entry: { beforeFps: 115, afterFps: 195, beforeLat: 19.4, afterLat: 4.8, lowBefore: 55, lowAfter: 125, dpc: '42 µs' },
-      mid:   { beforeFps: 165, afterFps: 275, beforeLat: 16.8, afterLat: 4.1, lowBefore: 85, lowAfter: 185, dpc: '38 µs' },
-      high:  { beforeFps: 245, afterFps: 390, beforeLat: 13.9, afterLat: 3.4, lowBefore: 135, lowAfter: 260, dpc: '32 µs' }
-    },
-    valorant: {
-      name: 'Valorant',
-      entry: { beforeFps: 145, afterFps: 235, beforeLat: 17.2, afterLat: 4.2, lowBefore: 75, lowAfter: 155, dpc: '39 µs' },
-      mid:   { beforeFps: 225, afterFps: 365, beforeLat: 14.5, afterLat: 3.8, lowBefore: 125, lowAfter: 245, dpc: '35 µs' },
-      high:  { beforeFps: 330, afterFps: 530, beforeLat: 12.0, afterLat: 3.1, lowBefore: 190, lowAfter: 350, dpc: '30 µs' }
-    },
-    warzone: {
-      name: 'Call of Duty: Warzone',
-      entry: { beforeFps: 58,  afterFps: 98,  beforeLat: 28.5, afterLat: 6.8, lowBefore: 28, lowAfter: 68, dpc: '48 µs' },
-      mid:   { beforeFps: 92,  afterFps: 148, beforeLat: 22.1, afterLat: 5.4, lowBefore: 52, lowAfter: 110, dpc: '42 µs' },
-      high:  { beforeFps: 135, afterFps: 215, beforeLat: 17.4, afterLat: 4.3, lowBefore: 80, lowAfter: 160, dpc: '36 µs' }
-    },
-    fortnite: {
-      name: 'Fortnite (Rendimiento)',
-      entry: { beforeFps: 105, afterFps: 180, beforeLat: 18.9, afterLat: 4.5, lowBefore: 50, lowAfter: 120, dpc: '40 µs' },
-      mid:   { beforeFps: 165, afterFps: 265, beforeLat: 15.2, afterLat: 3.9, lowBefore: 88, lowAfter: 180, dpc: '36 µs' },
-      high:  { beforeFps: 240, afterFps: 395, beforeLat: 12.8, afterLat: 3.2, lowBefore: 140, lowAfter: 270, dpc: '31 µs' }
-    },
-    apex: {
-      name: 'Apex Legends',
-      entry: { beforeFps: 82,  afterFps: 138, beforeLat: 21.0, afterLat: 5.2, lowBefore: 42, lowAfter: 95, dpc: '44 µs' },
-      mid:   { beforeFps: 135, afterFps: 210, beforeLat: 16.5, afterLat: 4.2, lowBefore: 75, lowAfter: 150, dpc: '38 µs' },
-      high:  { beforeFps: 185, afterFps: 290, beforeLat: 13.8, afterLat: 3.5, lowBefore: 110, lowAfter: 210, dpc: '33 µs' }
-    },
-    rust: {
-      name: 'Rust',
-      entry: { beforeFps: 48,  afterFps: 82,  beforeLat: 29.0, afterLat: 7.2, lowBefore: 24, lowAfter: 58, dpc: '50 µs' },
-      mid:   { beforeFps: 78,  afterFps: 128, beforeLat: 23.4, afterLat: 5.8, lowBefore: 45, lowAfter: 92, dpc: '42 µs' },
-      high:  { beforeFps: 115, afterFps: 180, beforeLat: 18.2, afterLat: 4.6, lowBefore: 70, lowAfter: 135, dpc: '37 µs' }
-    }
-  };
-
-  let currentMode = 'after'; // 'before' | 'after'
-
-  // Live Frametime Graph Waveform Canvas Engine
-  let fCtx = frametimeCanvas ? frametimeCanvas.getContext('2d') : null;
-  let historyPoints = new Array(60).fill(16);
-  let animationFrameId = null;
-
-  function renderFrametime() {
-    if (!fCtx || !frametimeCanvas) return;
-    const w = (frametimeCanvas.width = frametimeCanvas.offsetWidth || 300);
-    const h = (frametimeCanvas.height = frametimeCanvas.offsetHeight || 80);
-
-    fCtx.clearRect(0, 0, w, h);
-
-    // Shift and push a new simulated frametime value
-    historyPoints.shift();
-    if (currentMode === 'after') {
-      // Very flat line at ~4ms with tiny variance
-      const val = 15 + (Math.random() - 0.5) * 2;
-      historyPoints.push(val);
-    } else {
-      // Spiky jagged line with big frame spikes
-      const isSpike = Math.random() < 0.15;
-      const val = isSpike ? (40 + Math.random() * 30) : (22 + (Math.random() - 0.5) * 16);
-      historyPoints.push(val);
-    }
-
-    // Draw baseline
-    fCtx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
-    fCtx.lineWidth = 1;
-    fCtx.setLineDash([4, 4]);
-    fCtx.beginPath();
-    fCtx.moveTo(0, h * 0.75);
-    fCtx.lineTo(w, h * 0.75);
-    fCtx.stroke();
-    fCtx.setLineDash([]);
-
-    // Draw frametime wave
-    fCtx.beginPath();
-    const step = w / (historyPoints.length - 1);
-    for (let i = 0; i < historyPoints.length; i++) {
-      const ptY = h - (historyPoints[i] / 80) * h;
-      if (i === 0) fCtx.moveTo(0, ptY);
-      else fCtx.lineTo(i * step, ptY);
-    }
-
-    if (currentMode === 'after') {
-      fCtx.strokeStyle = '#00ff88';
-      fCtx.shadowColor = 'rgba(0, 255, 136, 0.6)';
-      fCtx.shadowBlur = 8;
-    } else {
-      fCtx.strokeStyle = '#ef4444';
-      fCtx.shadowColor = 'rgba(239, 68, 68, 0.6)';
-      fCtx.shadowBlur = 8;
-    }
-    fCtx.lineWidth = 2.2;
-    fCtx.stroke();
-    fCtx.shadowBlur = 0;
-
-    animationFrameId = requestAnimationFrame(renderFrametime);
-  }
-
-  if (frametimeCanvas) renderFrametime();
-
-  function updateSimulator() {
-    const gameKey = gameSelect.value;
-    const gpuKey = gpuSelect.value;
-    const data = benchmarkData[gameKey][gpuKey];
-
-    if (currentMode === 'after') {
-      fpsBar.style.width = '92%';
-      fpsBar.className = 'metric-bar-fill after-fps';
-      fpsText.innerHTML = `<span class="highlight-blue">+${data.afterFps} FPS</span> (Ultra Fluido)`;
-
-      latencyBar.style.width = '88%';
-      latencyBar.className = 'metric-bar-fill after-latency';
-      latencyText.innerHTML = `<span class="highlight-blue">${data.afterLat} ms</span> (Zero Delay)`;
-
-      if (sim1PercentVal) sim1PercentVal.textContent = `${data.lowAfter} FPS`;
-      if (sim1PercentGain) sim1PercentGain.textContent = `+${Math.round(((data.lowAfter - data.lowBefore) / data.lowBefore) * 100)}% Estabilidad`;
-      if (simDpcVal) simDpcVal.textContent = data.dpc;
-
-      if (frametimeStatus) {
-        frametimeStatus.textContent = 'ZERO DELAY LOCKED';
-        frametimeStatus.className = 'frametime-graph-status status-good';
-      }
-      if (frametimeVariance) frametimeVariance.textContent = 'Varianza: ±0.3 ms';
-    } else {
-      fpsBar.style.width = '45%';
-      fpsBar.className = 'metric-bar-fill before';
-      fpsText.innerHTML = `${data.beforeFps} FPS (Inestable)`;
-
-      latencyBar.style.width = '35%';
-      latencyBar.className = 'metric-bar-fill before';
-      latencyText.innerHTML = `${data.beforeLat} ms (Alto Retardo)`;
-
-      if (sim1PercentVal) sim1PercentVal.textContent = `${data.lowBefore} FPS`;
-      if (sim1PercentGain) sim1PercentGain.textContent = 'Caídas Bruscas';
-      if (simDpcVal) simDpcVal.textContent = '1.840 µs (Spikes)';
-
-      if (frametimeStatus) {
-        frametimeStatus.textContent = 'PICOS INESTABLES (STUTTER)';
-        frametimeStatus.className = 'frametime-graph-status status-bad';
-      }
-      if (frametimeVariance) frametimeVariance.textContent = 'Varianza: ±14.8 ms';
-    }
-
-    // Update WhatsApp link dynamically with selected setup
-    if (simWpBtn) {
-      const msg = `👋 *¡Hola Byte Fix!* Hice la simulación en la web para *${benchmarkData[gameKey].name}* en gráfica *${gpuSelect.options[gpuSelect.selectedIndex].text}*.%0A%0A` +
-        `🎯 *Resultado esperado:* +${data.afterFps} FPS estables y ${data.afterLat} ms de delay.%0A` +
-        `¿Podrían indicarme qué optimización o software me conviene para lograrlo? ¡Gracias!`;
-      simWpBtn.href = `https://wa.me/${BYTEFIX_PHONE}?text=${msg}`;
-    }
-  }
-
-  gameSelect.addEventListener('change', updateSimulator);
-  gpuSelect.addEventListener('change', updateSimulator);
-
-  toggleBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      toggleBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentMode = btn.getAttribute('data-mode');
-      updateSimulator();
-    });
-  });
-
-  // ScrollTrigger for Performance Simulator Scrubbing
-  if (typeof ScrollTrigger !== 'undefined') {
-    ScrollTrigger.create({
-      trigger: '#optimizacion',
-      start: 'top 65%',
-      onEnter: () => {
-        // Automatically switch to optimized state as visitor arrives
-        toggleBtns.forEach(b => b.classList.remove('active'));
-        const afterBtn = document.querySelector('.toggle-opt-btn[data-mode="after"]');
-        if (afterBtn) afterBtn.classList.add('active');
-        currentMode = 'after';
-        updateSimulator();
-      }
-    });
-  }
-
-  updateSimulator();
-}
-
-/* ==========================================================================
-   7. Interactive 3D Hardware Panels & Spatial Stage (Universal 3D Engine)
-   ========================================================================== */
-function init3DHardwarePanels() {
-  const isDesktop = () => window.innerWidth > 992;
-
-  // Universal 3D Hardware Panels Selector
-  const panels = document.querySelectorAll(`
-    .pc-tier-card,
-    .service-pillar-card,
-    .pricing-card,
-    .software-pricing-card,
-    .software-app-window,
-    .benchmark-card,
-    .frametime-graph-card,
-    .latencymon-proof-box,
-    .review-card,
-    .quote-builder-box,
-    .faq-card,
-    .channel-item,
-    .stat-item,
-    .marquee-card,
-    .opt-detail-item
-  `);
-
-  panels.forEach(panel => {
-    let currentRotX = 0;
-    let currentRotY = 0;
-    let currentTransZ = 0;
-    let targetRotX = 0;
-    let targetRotY = 0;
-    let targetTransZ = 0;
-    let isHovered = false;
-    let animId = null;
-
-    // Detect if this card has an architectural base angle on desktop
-    let baseRotY = 0;
-    let baseRotX = 0;
-    let baseTransZ = 0;
-    let baseScale = 1;
-
-    if (panel.classList.contains('card-podium-center')) {
-      baseTransZ = 45;
-      baseScale = 1.03;
-    } else if (panel.classList.contains('card-podium-left')) {
-      baseRotY = 6;
-    } else if (panel.classList.contains('card-podium-right')) {
-      baseRotY = -6;
-    } else if (panel.classList.contains('service-pillar-card')) {
-      const idx = Array.from(panel.parentNode.children).indexOf(panel);
-      if (idx === 0) baseRotY = 5;
-      else if (idx === 1) { baseTransZ = 35; baseScale = 1.02; }
-      else if (idx === 2) baseRotY = -5;
-    } else if (panel.classList.contains('software-app-window')) {
-      baseRotY = -4;
-      baseRotX = 2;
-      baseTransZ = 15;
-    } else if (panel.classList.contains('software-pricing-card')) {
-      baseRotY = 4;
-      baseTransZ = 25;
-    } else if (panel.classList.contains('benchmark-card')) {
-      baseRotY = 2;
-      baseTransZ = 15;
-    } else if (panel.classList.contains('highlight')) {
-      baseTransZ = 30;
-      baseScale = 1.02;
-    }
-
-    function loop() {
-      currentRotX += (targetRotX - currentRotX) * 0.12;
-      currentRotY += (targetRotY - currentRotY) * 0.12;
-      currentTransZ += (targetTransZ - currentTransZ) * 0.12;
-
-      if (isDesktop()) {
-        const rX = baseRotX + currentRotX;
-        const rY = baseRotY + currentRotY;
-        const tZ = baseTransZ + currentTransZ;
-        const s = isHovered ? (baseScale * 1.02) : baseScale;
-        panel.style.transform = `perspective(1400px) rotateX(${rX.toFixed(2)}deg) rotateY(${rY.toFixed(2)}deg) translateZ(${tZ.toFixed(1)}px) scale(${s.toFixed(3)})`;
-      } else {
-        panel.style.transform = isHovered ? 'scale(1.02)' : 'none';
-      }
-
-      if (isHovered || Math.abs(currentRotX - targetRotX) > 0.05 || Math.abs(currentRotY - targetRotY) > 0.05 || Math.abs(currentTransZ - targetTransZ) > 0.5) {
-        animId = requestAnimationFrame(loop);
-      } else {
-        animId = null;
-      }
-    }
-
-    panel.addEventListener('mouseenter', () => {
-      isHovered = true;
-      targetTransZ = 45;
-      if (!animId) animId = requestAnimationFrame(loop);
-    });
-
-    panel.addEventListener('mousemove', (e) => {
-      const rect = panel.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
-      const pctX = (x / rect.width) * 100;
-      const pctY = (y / rect.height) * 100;
-      panel.style.setProperty('--mouse-x', `${pctX}%`);
-      panel.style.setProperty('--mouse-y', `${pctY}%`);
-
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      targetRotX = -((y - centerY) / centerY) * 10;
-      targetRotY = ((x - centerX) / centerX) * 10;
-
-      if (!animId) animId = requestAnimationFrame(loop);
-    }, { passive: true });
-
-    panel.addEventListener('mouseleave', () => {
-      isHovered = false;
-      targetRotX = 0;
-      targetRotY = 0;
-      targetTransZ = 0;
-      if (!animId) animId = requestAnimationFrame(loop);
-    });
-  });
-
-  // Scroll-Driven 3D Assembly via GSAP ScrollTrigger
-  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined' && isDesktop()) {
-    const pcCards = document.querySelectorAll('.pc-tier-card[data-tilt-card]');
-    const pcStage = document.getElementById('pcBuildsPodium');
-    if (pcStage && pcCards.length) {
-      gsap.fromTo(pcCards,
-        { transform: 'perspective(1400px) translateZ(-260px) rotateX(20deg)', opacity: 0 },
-        {
-          transform: (i, target) => {
-            if (target.classList.contains('card-podium-center')) return 'perspective(1400px) translateZ(45px) rotateY(0deg) scale(1.03)';
-            if (target.classList.contains('card-podium-left')) return 'perspective(1400px) translateZ(0px) rotateY(6deg) scale(1)';
-            return 'perspective(1400px) translateZ(0px) rotateY(-6deg) scale(1)';
-          },
-          opacity: 1,
-          duration: 1.1,
-          stagger: 0.15,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: pcStage,
-            start: 'top 80%',
-            toggleActions: 'play none none reverse'
-          }
-        }
-      );
-    }
-
-    const servicesGrid = document.querySelector('.services-main-grid');
-    const serviceCards = document.querySelectorAll('.service-pillar-card');
-    if (servicesGrid && serviceCards.length) {
-      gsap.fromTo(serviceCards,
-        { transform: 'perspective(1400px) translateZ(-200px) rotateX(15deg)', opacity: 0 },
-        {
-          transform: (i) => {
-            if (i === 0) return 'perspective(1400px) rotateY(5deg) translateZ(0px)';
-            if (i === 1) return 'perspective(1400px) rotateY(0deg) translateZ(35px) scale(1.02)';
-            return 'perspective(1400px) rotateY(-5deg) translateZ(0px)';
-          },
-          opacity: 1,
-          duration: 1,
-          stagger: 0.15,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: servicesGrid,
-            start: 'top 82%',
-            toggleActions: 'play none none reverse'
-          }
-        }
-      );
-    }
-  }
-}
-
-/* ==========================================================================
-   8. Interactive Byte Fix Optimizer Software GUI Mockup
-   ========================================================================== */
-function initSoftwareMockup() {
-  const tabs = document.querySelectorAll('.app-tab-btn');
-  const togglesContainer = document.getElementById('appTogglesList');
-  const scanBtn = document.getElementById('btnSimulateScan');
-  const scanWrap = document.getElementById('appScanWrap');
-  const scanFill = document.getElementById('appScanFill');
-  const scanMsg = document.getElementById('appScanMsg');
-
-  if (!tabs.length || !togglesContainer) return;
-
-  const tabContents = {
-    boost: [
-      { title: 'Kernel Timer Resolution (0.500 ms)', desc: 'Reduce drásticamente el retardo de muestreo entre periféricos y pantalla.' },
-      { title: 'Prioridad de Procesos Gaming & Core Affinity', desc: 'Asigna núcleos limpios de CPU a tu juego y desprioriza tareas secundarias.' },
-      { title: 'Limpieza Automática de Standby RAM', desc: 'Libera memoria caché saturada en segundo plano para erradicar el stuttering.' },
-      { title: 'Eliminación de Telemetría & Cortana Bloat', desc: 'Desactiva registros espías y servicios innecesarios de Windows 10 y 11.' }
-    ],
-    debloat: [
-      { title: 'Desactivar Windows Xbox Game Bar & DVR', desc: 'Elimina grabaciones en segundo plano que consumen 15-20% de rendimiento de GPU.' },
-      { title: 'Remover Apps UWP y Bloatware Preinstalado', desc: 'Limpia 38 aplicaciones basura que arrancan con el sistema.' },
-      { title: 'Desactivar Indexado de Disco Pesado (Search Index)', desc: 'Reduce el uso de disco y SSD al 0% en reposo.' },
-      { title: 'Optimización de Servicios de Red & Diagnósticos', desc: 'Apaga conexiones redundantes a servidores de telemetría de Microsoft.' }
-    ],
-    latency: [
-      { title: 'NVIDIA / AMD Driver Micro-Lag Strip', desc: 'Desactiva buffers innecesarios en la cola de renderizado del driver de video.' },
-      { title: 'Algoritmo Nagle & TCP NoDelay', desc: 'Envía paquetes de red inmediatamente reduciendo el ping y jitter en partidas.' },
-      { title: 'USB Polling Rate & Interrupt Affinity', desc: 'Asegura que las interrupciones del mouse se procesen en un hilo aislado de CPU.' },
-      { title: 'Desactivar HPET (High Precision Event Timer)', desc: 'Evita discrepancias entre timers del motherboard y la CPU para un aim fluido.' }
-    ]
-  };
-
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      tabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-
-      const tabKey = tab.getAttribute('data-tab');
-      const rows = tabContents[tabKey] || tabContents.boost;
-
-      togglesContainer.innerHTML = rows.map(item => `
-        <div class="app-toggle-row">
-          <div class="app-toggle-info">
-            <span class="app-toggle-title">${item.title}</span>
-            <span class="app-toggle-desc">${item.desc}</span>
-          </div>
-          <label class="app-switch">
-            <input type="checkbox" checked>
-            <span class="app-slider"></span>
-          </label>
-        </div>
-      `).join('');
-    });
-  });
-
-  if (scanBtn && scanWrap && scanFill && scanMsg) {
-    scanBtn.addEventListener('click', () => {
-      scanBtn.disabled = true;
-      scanBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Optimizando Sistema...';
-      scanWrap.style.display = 'block';
-      scanFill.style.width = '0%';
-      scanMsg.style.display = 'none';
-
-      let progress = 0;
-      const interval = setInterval(() => {
-        progress += 20;
-        scanFill.style.width = `${progress}%`;
-
-        if (progress >= 100) {
-          clearInterval(interval);
-          setTimeout(() => {
-            scanBtn.disabled = false;
-            scanBtn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Sistema 100% Optimizado';
-            scanMsg.style.display = 'block';
-          }, 300);
-        }
-      }, 150);
-    });
-  }
-}
-
-/* ==========================================================================
-   9. 3D Mouse Parallax on Mascot Showcase
-   ========================================================================== */
-function init3DParallax() {
-  const visualWrapper = document.querySelector('.hero-visual-wrapper');
-  const mascotCard = document.querySelector('.hero-mascot-card');
-
-  if (!visualWrapper || !mascotCard) return;
-
-  visualWrapper.addEventListener('mousemove', (e) => {
-    const rect = visualWrapper.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-
-    const rotateX = -(y / rect.height) * 16;
-    const rotateY = (x / rect.width) * 16;
-
-    mascotCard.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`;
-  }, { passive: true });
-
-  visualWrapper.addEventListener('mouseleave', () => {
-    mascotCard.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-  });
-}
-
-/* ==========================================================================
-   10. FAQ Accordion
-   ========================================================================== */
-function initFaqAccordion() {
-  const faqHeaders = document.querySelectorAll('.faq-header');
-
-  faqHeaders.forEach(header => {
-    header.addEventListener('click', () => {
-      const card = header.parentElement;
-      const body = card.querySelector('.faq-body');
-      const isActive = card.classList.contains('active');
-
-      document.querySelectorAll('.faq-card').forEach(otherCard => {
-        if (otherCard !== card && otherCard.classList.contains('active')) {
-          otherCard.classList.remove('active');
-          const otherBody = otherCard.querySelector('.faq-body');
-          if (otherBody) otherBody.style.maxHeight = null;
-        }
-      });
-
-      if (isActive) {
-        card.classList.remove('active');
-        body.style.maxHeight = null;
-      } else {
-        card.classList.add('active');
-        body.style.maxHeight = body.scrollHeight + 'px';
-      }
-    });
-  });
-}
-
-/* ==========================================================================
-   11. Currency Switcher (USD <-> ARS)
-   ========================================================================== */
-function initCurrencySwitcher() {
-  const currBtns = document.querySelectorAll('.curr-btn');
-  const priceElements = document.querySelectorAll('[data-usd][data-ars]');
-
-  if (!currBtns.length || !priceElements.length) return;
-
-  currBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      currBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      const selectedCurr = btn.getAttribute('data-curr');
-
-      priceElements.forEach(el => {
-        el.textContent = selectedCurr === 'ars' ? el.getAttribute('data-ars') : el.getAttribute('data-usd');
-      });
-    });
-  });
-}
-
-/* ==========================================================================
-   12. WhatsApp Lead Generator Form
-   ========================================================================== */
-function initQuoteForm() {
-  const form = document.getElementById('quoteForm');
-  if (!form) return;
-
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const serviceSelect = document.getElementById('formService');
-    const clientName = document.getElementById('formName');
-    const pcSpecs = document.getElementById('formSpecs');
-    const details = document.getElementById('formDetails');
-
-    const service = serviceSelect ? serviceSelect.value : 'Consulta General';
-    const name = clientName && clientName.value.trim() ? clientName.value.trim() : 'Cliente';
-    const specs = pcSpecs && pcSpecs.value.trim() ? pcSpecs.value.trim() : 'No especificado';
-    const notes = details && details.value.trim() ? details.value.trim() : 'Quiero más información y asesoramiento';
-
-    const msg = `👋 *¡Hola Byte Fix!* Quiero consultar por un servicio.%0A%0A` +
-      `👤 *Nombre:* ${encodeURIComponent(name)}%0A` +
-      `🛠️ *Servicio de interés:* ${encodeURIComponent(service)}%0A` +
-      `💻 *Mi PC / Setup:* ${encodeURIComponent(specs)}%0A` +
-      `📝 *Detalles:* ${encodeURIComponent(notes)}%0A%0A` +
-      `_Enviado desde la web oficial de Byte Fix._`;
-
-    const whatsappUrl = `https://wa.me/${BYTEFIX_PHONE}?text=${msg}`;
-    window.open(whatsappUrl, '_blank');
-  });
-}
-
-/* ==========================================================================
-   13. Direct WhatsApp Plan Ordering Helper
-   ========================================================================== */
-window.contactWhatsAppPlan = function(planName, priceUsd, priceArs) {
-  const msg = `👋 *¡Hola Byte Fix!* Quiero adquirir el siguiente servicio:%0A%0A` +
-    `⭐ *Plan/Producto:* ${encodeURIComponent(planName)}%0A` +
-    `💵 *Precio:* ${encodeURIComponent(priceUsd)} / ${encodeURIComponent(priceArs)}%0A%0A` +
-    `¿Podrían indicarme los pasos para el pago y la entrega/servicio? ¡Muchas gracias!`;
-
-  const url = `https://wa.me/${BYTEFIX_PHONE}?text=${msg}`;
-  window.open(url, '_blank');
-};
-
-/* ==========================================================================
-   14. Smooth Scrolling for Anchor Links (Lenis Integration)
-   ========================================================================== */
-function initSmoothScroll() {
+  // Smooth scroll helper for internal anchors
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       const targetId = this.getAttribute('href');
       if (targetId === '#') return;
-
       const targetEl = document.querySelector(targetId);
       if (targetEl) {
         e.preventDefault();
-        if (lenisInstance) {
-          lenisInstance.scrollTo(targetEl, { offset: -80 });
+        if (lenis) {
+          lenis.scrollTo(targetEl, { offset: -60, duration: 1.4 });
         } else {
-          const headerOffset = 80;
-          const elementPosition = targetEl.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+          targetEl.scrollIntoView({ behavior: 'smooth' });
+        }
 
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-          });
+        // Close mobile drawer if open
+        const mobileDrawer = document.getElementById('mobileDrawer');
+        if (mobileDrawer && mobileDrawer.classList.contains('open')) {
+          mobileDrawer.classList.remove('open');
         }
       }
     });
   });
-}
 
-window.copyDiscord = function(tag) {
-  navigator.clipboard.writeText(tag).then(() => {
-    alert(`¡Tag de Discord copiado!: ${tag}\n¡Agrégalo para soporte y comunidad!`);
-  }).catch(() => {
-    alert(`Discord: ${tag}`);
-  });
-};
+  // Track global scroll for HUD & Nav
+  const navScrollGlow = document.getElementById('navScrollGlow');
+  const scrollPercentage = document.getElementById('scrollPercentage');
+  const mainHeader = document.getElementById('mainHeader');
+
+  window.addEventListener('scroll', () => {
+    const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = totalHeight > 0 ? (window.scrollY / totalHeight) : 0;
+    const pct = Math.min(100, Math.max(0, Math.round(progress * 100)));
+
+    if (navScrollGlow) {
+      navScrollGlow.style.width = `${pct}%`;
+    }
+    if (scrollPercentage) {
+      scrollPercentage.textContent = `SCRL: ${String(pct).padStart(3, '0')}%`;
+    }
+    if (mainHeader) {
+      if (window.scrollY > 40) {
+        mainHeader.classList.add('header-scrolled');
+      } else {
+        mainHeader.classList.remove('header-scrolled');
+      }
+    }
+  }, { passive: true });
+
+
+  // ==========================================================================
+  // 2. CUSTOM CYBER CURSOR (Neon Red Dot + Trailing Expanding Ring)
+  // ==========================================================================
+  const cursorDot = document.getElementById('cursorDot');
+  const cursorRing = document.getElementById('cursorRing');
+
+  if (cursorDot && cursorRing && window.matchMedia('(pointer: fine)').matches) {
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let ringX = mouseX;
+    let ringY = mouseY;
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+    }, { passive: true });
+
+    // Smooth Lerp loop for trailing ring
+    function renderCursorRing() {
+      ringX += (mouseX - ringX) * 0.18;
+      ringY += (mouseY - ringY) * 0.18;
+      cursorRing.style.transform = `translate(${ringX}px, ${ringY}px)`;
+      requestAnimationFrame(renderCursorRing);
+    }
+    requestAnimationFrame(renderCursorRing);
+
+    // Hover detection for interactive items
+    const hoverTargets = document.querySelectorAll('a, button, .magnetic-target, .service-bento-card, input[type="range"], .step-card-content');
+    hoverTargets.forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+    });
+
+    window.addEventListener('mousedown', () => document.body.classList.add('cursor-active'));
+    window.addEventListener('mouseup', () => document.body.classList.remove('cursor-active'));
+  }
+
+
+  // ==========================================================================
+  // 3. THREE.JS 3D WEBGL CYBER BACKGROUND
+  //    (Grid Tunnel Floor, Volumetric Fog & Flowing Particle Matrix)
+  // ==========================================================================
+  const canvasContainer = document.getElementById('webglContainer');
+  const canvasEl = document.getElementById('cyberCanvas');
+
+  if (canvasEl && typeof THREE !== 'undefined') {
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x070709, 0.015);
+
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.set(0, 1.8, 8);
+
+    const renderer = new THREE.WebGLRenderer({
+      canvas: canvasEl,
+      antialias: true,
+      alpha: true,
+      powerPreference: 'high-performance'
+    });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    // 1. Cyber Wireframe Ground Grid
+    const gridHelper = new THREE.GridHelper(160, 80, 0xFF1E27, 0x1E1E26);
+    gridHelper.position.y = -2;
+    scene.add(gridHelper);
+
+    // 2. Ceiling Cyber Grid for Tunnel sensation
+    const gridHelperCeil = new THREE.GridHelper(160, 80, 0x8A0006, 0x14141A);
+    gridHelperCeil.position.y = 8;
+    scene.add(gridHelperCeil);
+
+    // 3. Particle Starfield / Matrix (Particles moving in Z depth)
+    const particleCount = 1200;
+    const particleGeo = new THREE.BufferGeometry();
+    const posArray = new Float32Array(particleCount * 3);
+    const colorArray = new Float32Array(particleCount * 3);
+
+    const colorNeonRed = new THREE.Color(0xFF1E27);
+    const colorCrimson = new THREE.Color(0x8A0006);
+    const colorWhite = new THREE.Color(0xFFFFFF);
+
+    for (let i = 0; i < particleCount; i++) {
+      posArray[i * 3 + 0] = (Math.random() - 0.5) * 60;
+      posArray[i * 3 + 1] = (Math.random() - 0.5) * 30 + 2;
+      posArray[i * 3 + 2] = (Math.random() - 0.5) * 120;
+
+      // Color variation
+      const rand = Math.random();
+      const pColor = rand > 0.6 ? colorNeonRed : (rand > 0.25 ? colorCrimson : colorWhite);
+      colorArray[i * 3 + 0] = pColor.r;
+      colorArray[i * 3 + 1] = pColor.g;
+      colorArray[i * 3 + 2] = pColor.b;
+    }
+
+    particleGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+    particleGeo.setAttribute('color', new THREE.BufferAttribute(colorArray, 3));
+
+    // Generate circular soft particle texture
+    const pCanvas = document.createElement('canvas');
+    pCanvas.width = 32;
+    pCanvas.height = 32;
+    const pCtx = pCanvas.getContext('2d');
+    const grad = pCtx.createRadialGradient(16, 16, 0, 16, 16, 16);
+    grad.addColorStop(0, 'rgba(255,255,255,1)');
+    grad.addColorStop(0.3, 'rgba(255,30,39,0.8)');
+    grad.addColorStop(1, 'rgba(0,0,0,0)');
+    pCtx.fillStyle = grad;
+    pCtx.fillRect(0, 0, 32, 32);
+
+    const pTexture = new THREE.CanvasTexture(pCanvas);
+
+    const particleMat = new THREE.PointsMaterial({
+      size: 0.8,
+      vertexColors: true,
+      map: pTexture,
+      transparent: true,
+      blending: THREE.AdditiveBlending,
+      depthWrite: false
+    });
+
+    const particleSystem = new THREE.Points(particleGeo, particleMat);
+    scene.add(particleSystem);
+
+    // Parallax mouse variables
+    let targetCameraX = 0;
+    let targetCameraY = 1.8;
+    let scrollSpeedMultiplier = 1;
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('mousemove', (e) => {
+      const normX = (e.clientX / window.innerWidth) - 0.5;
+      const normY = (e.clientY / window.innerHeight) - 0.5;
+      targetCameraX = normX * 1.5;
+      targetCameraY = 1.8 - (normY * 0.8);
+    }, { passive: true });
+
+    // Track scroll velocity for camera thrust
+    window.addEventListener('scroll', () => {
+      const delta = Math.abs(window.scrollY - lastScrollY);
+      scrollSpeedMultiplier = 1 + Math.min(delta * 0.08, 4);
+      lastScrollY = window.scrollY;
+    }, { passive: true });
+
+    // Animation Loop
+    let clock = new THREE.Clock();
+
+    function animateThree() {
+      requestAnimationFrame(animateThree);
+      const delta = clock.getDelta();
+
+      // Camera parallax interpolation
+      camera.position.x += (targetCameraX - camera.position.x) * 0.05;
+      camera.position.y += (targetCameraY - camera.position.y) * 0.05;
+      camera.lookAt(0, 1.5, -20);
+
+      // Scroll speed decay
+      scrollSpeedMultiplier += (1 - scrollSpeedMultiplier) * 0.05;
+
+      // Animate Grid movement forward
+      const gridSpeed = 6 * delta * scrollSpeedMultiplier;
+      gridHelper.position.z = (gridHelper.position.z + gridSpeed) % 4;
+      gridHelperCeil.position.z = (gridHelperCeil.position.z + gridSpeed) % 4;
+
+      // Animate Particles traveling forward
+      const positions = particleGeo.attributes.position.array;
+      const pSpeed = 12 * delta * scrollSpeedMultiplier;
+
+      for (let i = 0; i < particleCount; i++) {
+        positions[i * 3 + 2] += pSpeed;
+        if (positions[i * 3 + 2] > 15) {
+          positions[i * 3 + 2] = -90;
+          positions[i * 3 + 0] = (Math.random() - 0.5) * 60;
+          positions[i * 3 + 1] = (Math.random() - 0.5) * 30 + 2;
+        }
+      }
+      particleGeo.attributes.position.needsUpdate = true;
+
+      renderer.render(scene, camera);
+    }
+    animateThree();
+
+    // Handle Resize
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  }
+
+
+  // ==========================================================================
+  // 4. SCENE 1: HERO DIMENSIONAL CODE PORTAL
+  //    (3D Brackets Split Apart & Parallax 3D Logo on Scroll)
+  // ==========================================================================
+  const bracketLeft = document.getElementById('bracketLeft');
+  const bracketRight = document.getElementById('bracketRight');
+  const heroLogoCard = document.getElementById('heroLogoCard');
+  const heroSection = document.getElementById('hero');
+
+  if (bracketLeft && bracketRight && heroSection && typeof gsap !== 'undefined') {
+    
+    // Initial entrance animation
+    gsap.fromTo([bracketLeft, bracketRight], 
+      { opacity: 0, scale: 0.6 },
+      { opacity: 1, scale: 1, duration: 1.6, ease: 'power3.out', stagger: 0.15 }
+    );
+
+    // ScrollTrigger to open the portal brackets outward
+    gsap.to(bracketLeft, {
+      x: '-35vw',
+      y: '5vh',
+      scale: 1.8,
+      rotationY: 35,
+      opacity: 0.1,
+      scrollTrigger: {
+        trigger: heroSection,
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1.2
+      }
+    });
+
+    gsap.to(bracketRight, {
+      x: '35vw',
+      y: '5vh',
+      scale: 1.8,
+      rotationY: -35,
+      opacity: 0.1,
+      scrollTrigger: {
+        trigger: heroSection,
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1.2
+      }
+    });
+
+    // Hero Logo Card 3D Depth Travel
+    if (heroLogoCard) {
+      gsap.to(heroLogoCard, {
+        scale: 0.8,
+        y: 80,
+        opacity: 0.7,
+        scrollTrigger: {
+          trigger: heroSection,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1
+        }
+      });
+
+      // Mouse Parallax on Hero Logo
+      window.addEventListener('mousemove', (e) => {
+        const rect = heroSection.getBoundingClientRect();
+        if (rect.bottom < 0) return;
+        const normX = (e.clientX / window.innerWidth) - 0.5;
+        const normY = (e.clientY / window.innerHeight) - 0.5;
+        heroLogoCard.style.transform = `perspective(800px) rotateY(${normX * 22}deg) rotateX(${-normY * 22}deg) translateZ(10px)`;
+      }, { passive: true });
+    }
+  }
+
+
+  // ==========================================================================
+  // 5. SCENE 2: SERVICIOS INTERACTIVOS (Horizontal Scroll Pinning)
+  //    (Pinned Track + 3D Tilt Effect on mousemove)
+  // ==========================================================================
+  const servicesTrack = document.getElementById('servicesTrack');
+  const servicesSection = document.getElementById('servicios');
+  const pinViewport = document.getElementById('pinViewport');
+
+  if (servicesTrack && servicesSection && typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    
+    // Only apply horizontal pinning on desktop (width > 900px)
+    ScrollTrigger.matchMedia({
+      "(min-width: 901px)": function() {
+        const totalScrollWidth = servicesTrack.scrollWidth;
+        const viewportWidth = window.innerWidth;
+        const distanceToScroll = totalScrollWidth - viewportWidth + 120;
+
+        gsap.to(servicesTrack, {
+          x: () => -distanceToScroll,
+          ease: "none",
+          scrollTrigger: {
+            trigger: pinViewport,
+            pin: true,
+            start: "top top",
+            end: () => `+=${distanceToScroll * 1.2}`,
+            scrub: 1,
+            anticipatePin: 1,
+            invalidateOnRefresh: true
+          }
+        });
+      }
+    });
+
+    // 3D Tilt Effect for Bento Cards
+    const tiltCards = document.querySelectorAll('.tilt-card');
+    tiltCards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const cardX = e.clientX - rect.left;
+        const cardY = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const rotateX = ((cardY - centerY) / centerY) * -12;
+        const rotateY = ((cardX - centerX) / centerX) * 12;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      });
+    });
+  }
+
+
+  // ==========================================================================
+  // 6. SCENE 3: EL "CORE" TECNOLÓGICO (Interactive Architecture Simulation)
+  //    (Admin Simulator -> Conduit Energy Pulse -> Store Simulator)
+  // ==========================================================================
+  const priceInputRange = document.getElementById('priceInputRange');
+  const adminPriceDisplay = document.getElementById('adminPriceDisplay');
+  const storePriceDisplay = document.getElementById('storePriceDisplay');
+  const triggerSyncBtn = document.getElementById('triggerSyncBtn');
+  const storeSimulator = document.getElementById('storeSimulator');
+  const productLiveFlash = document.getElementById('productLiveFlash');
+  const latencyDisplay = document.getElementById('latencyDisplay');
+  const conduitSpark = document.getElementById('conduitSpark');
+
+  function executeDataSync(newPrice) {
+    const formattedPrice = `$${Number(newPrice).toLocaleString('es-AR')}`;
+    
+    if (adminPriceDisplay) adminPriceDisplay.textContent = formattedPrice;
+
+    // Trigger visual energy surge down conduit
+    if (conduitSpark) {
+      conduitSpark.style.animation = 'none';
+      void conduitSpark.offsetWidth; // trigger reflow
+      conduitSpark.style.animation = 'sparkStream 0.6s 2 linear';
+    }
+
+    // Flash and update storefront
+    setTimeout(() => {
+      if (storePriceDisplay) {
+        storePriceDisplay.textContent = formattedPrice;
+        storePriceDisplay.classList.add('highlight');
+        setTimeout(() => storePriceDisplay.classList.remove('highlight'), 1000);
+      }
+
+      if (storeSimulator) {
+        storeSimulator.classList.add('flash-update');
+        setTimeout(() => storeSimulator.classList.remove('flash-update'), 800);
+      }
+
+      if (productLiveFlash) {
+        productLiveFlash.classList.add('flash');
+        productLiveFlash.innerHTML = '<i class="fa-solid fa-check"></i> PRECIO ACTUALIZADO EN TIEMPO REAL';
+        setTimeout(() => {
+          productLiveFlash.classList.remove('flash');
+          productLiveFlash.innerHTML = '<i class="fa-solid fa-arrows-rotate"></i> PRECIO ACTUALIZADO';
+        }, 2000);
+      }
+
+      if (latencyDisplay) {
+        const randomLatency = (Math.random() * 0.4 + 0.2).toFixed(1);
+        latencyDisplay.textContent = `${randomLatency}ms`;
+      }
+    }, 280);
+  }
+
+  if (priceInputRange) {
+    priceInputRange.addEventListener('input', (e) => {
+      executeDataSync(e.target.value);
+    });
+  }
+
+  if (triggerSyncBtn) {
+    triggerSyncBtn.addEventListener('click', () => {
+      const val = priceInputRange ? priceInputRange.value : 65000;
+      executeDataSync(val);
+    });
+  }
+
+  // Automatic trigger once when scrolling into view
+  const assemblyStage = document.getElementById('assemblyStage');
+  if (assemblyStage && typeof ScrollTrigger !== 'undefined') {
+    ScrollTrigger.create({
+      trigger: assemblyStage,
+      start: 'top 70%',
+      once: true,
+      onEnter: () => {
+        executeDataSync(58000);
+      }
+    });
+  }
+
+
+  // ==========================================================================
+  // 7. SCENE 4: PROCESO DE TRABAJO (Vertical Laser Timeline Illumination)
+  // ==========================================================================
+  const laserTrack = document.getElementById('laserTrack');
+  const laserBeamProgress = document.getElementById('laserBeamProgress');
+  const laserSparkHead = document.getElementById('laserSparkHead');
+  const timelineAssembly = document.getElementById('timelineAssembly');
+  const stepNodes = document.querySelectorAll('.timeline-step-node');
+
+  if (timelineAssembly && laserBeamProgress && typeof ScrollTrigger !== 'undefined') {
+    
+    ScrollTrigger.create({
+      trigger: timelineAssembly,
+      start: 'top 65%',
+      end: 'bottom 65%',
+      scrub: true,
+      onUpdate: (self) => {
+        const pct = self.progress * 100;
+        laserBeamProgress.style.height = `${pct}%`;
+        if (laserSparkHead) {
+          laserSparkHead.style.opacity = self.progress > 0.02 ? '1' : '0';
+        }
+
+        // Activate step cards as laser advances
+        stepNodes.forEach((node, idx) => {
+          const stepThreshold = (idx + 0.4) / stepNodes.length;
+          if (self.progress >= stepThreshold) {
+            node.classList.add('active');
+          } else {
+            node.classList.remove('active');
+          }
+        });
+      }
+    });
+  }
+
+
+  // ==========================================================================
+  // 8. SCENE 5: CTA FINAL (Digital Compiler Particle Vortex & Magnetic Button)
+  // ==========================================================================
+  const vortexCanvas = document.getElementById('vortexCanvas');
+  if (vortexCanvas) {
+    const vCtx = vortexCanvas.getContext('2d');
+    let vWidth = (vortexCanvas.width = vortexCanvas.offsetWidth || window.innerWidth);
+    let vHeight = (vortexCanvas.height = vortexCanvas.offsetHeight || window.innerHeight);
+
+    window.addEventListener('resize', () => {
+      vWidth = vortexCanvas.width = vortexCanvas.offsetWidth || window.innerWidth;
+      vHeight = vortexCanvas.height = vortexCanvas.offsetHeight || window.innerHeight;
+    });
+
+    const vParticles = [];
+    const vCount = 180;
+
+    for (let i = 0; i < vCount; i++) {
+      vParticles.push({
+        angle: Math.random() * Math.PI * 2,
+        radius: Math.random() * (Math.min(vWidth, vHeight) * 0.45) + 30,
+        speed: (Math.random() * 0.008 + 0.004) * (Math.random() > 0.5 ? 1 : -1),
+        size: Math.random() * 2.2 + 0.8,
+        color: Math.random() > 0.4 ? 'rgba(255, 30, 39, ' : 'rgba(138, 0, 6, ',
+        alpha: Math.random() * 0.7 + 0.3
+      });
+    }
+
+    function renderVortex() {
+      vCtx.clearRect(0, 0, vWidth, vHeight);
+      const centerX = vWidth / 2;
+      const centerY = vHeight / 2;
+
+      for (let i = 0; i < vCount; i++) {
+        const p = vParticles[i];
+        p.angle += p.speed;
+
+        const x = centerX + Math.cos(p.angle) * p.radius;
+        const y = centerY + Math.sin(p.angle) * p.radius;
+
+        vCtx.beginPath();
+        vCtx.arc(x, y, p.size, 0, Math.PI * 2);
+        vCtx.fillStyle = p.color + p.alpha + ')';
+        vCtx.fill();
+
+        // Subtle trailing line to center
+        if (i % 8 === 0) {
+          vCtx.beginPath();
+          vCtx.moveTo(x, y);
+          vCtx.lineTo(centerX, centerY);
+          vCtx.strokeStyle = 'rgba(255, 30, 39, 0.04)';
+          vCtx.stroke();
+        }
+      }
+
+      requestAnimationFrame(renderVortex);
+    }
+    renderVortex();
+  }
+
+  // Magnetic Button Physics
+  const magneticBtn = document.getElementById('finalMagneticBtn');
+  if (magneticBtn && window.matchMedia('(pointer: fine)').matches) {
+    let btnX = 0;
+    let btnY = 0;
+    let targetX = 0;
+    let targetY = 0;
+
+    magneticBtn.addEventListener('mousemove', (e) => {
+      const rect = magneticBtn.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      targetX = (e.clientX - centerX) * 0.35;
+      targetY = (e.clientY - centerY) * 0.35;
+    });
+
+    magneticBtn.addEventListener('mouseleave', () => {
+      targetX = 0;
+      targetY = 0;
+    });
+
+    function updateMagneticBtn() {
+      btnX += (targetX - btnX) * 0.15;
+      btnY += (targetY - btnY) * 0.15;
+      magneticBtn.style.transform = `translate3d(${btnX}px, ${btnY}px, 0)`;
+      requestAnimationFrame(updateMagneticBtn);
+    }
+    requestAnimationFrame(updateMagneticBtn);
+  }
+
+
+  // ==========================================================================
+  // 9. GENERAL REVEAL ANIMATIONS (Data-Reveal Elements)
+  // ==========================================================================
+  if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    const revealElements = document.querySelectorAll('[data-reveal]');
+    revealElements.forEach(el => {
+      gsap.fromTo(el,
+        { opacity: 0, y: 35 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 85%',
+            toggleActions: 'play none none none'
+          }
+        }
+      );
+    });
+  }
+
+
+  // ==========================================================================
+  // 10. MOBILE HAMBURGER MENU DRAWER
+  // ==========================================================================
+  const mobileToggle = document.getElementById('mobileToggle');
+  const mobileClose = document.getElementById('mobileClose');
+  const mobileDrawer = document.getElementById('mobileDrawer');
+
+  if (mobileToggle && mobileDrawer) {
+    mobileToggle.addEventListener('click', () => {
+      mobileDrawer.classList.toggle('open');
+    });
+  }
+
+  if (mobileClose && mobileDrawer) {
+    mobileClose.addEventListener('click', () => {
+      mobileDrawer.classList.remove('open');
+    });
+  }
+
+  // Close drawer if backdrop is clicked
+  const mobileBackdrop = document.querySelector('.mobile-nav-backdrop');
+  if (mobileBackdrop && mobileDrawer) {
+    mobileBackdrop.addEventListener('click', () => {
+      mobileDrawer.classList.remove('open');
+    });
+  }
+
+  console.log('%c [D&V DEVS] Digital Agency Core Initialized // 120Hz Smooth Experience ', 'background: #FF1E27; color: #fff; font-weight: bold; padding: 4px 8px; border-radius: 4px;');
+});

@@ -1,71 +1,56 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Byte Fix | Software de Optimización y Armados de PC Gamer</title>
-  <meta name="description" content="Byte Fix: Especialistas en software propio de optimización, armados de computadoras gamer a medida y optimizaciones de PC remotas o presenciales para el máximo rendimiento, FPS y cero input lag.">
-  <meta name="keywords" content="Byte Fix, software optimizacion pc, optimizar pc gamer, armados pc gamer, bajar input lag, aumentar fps, servicio tecnico pc gamer">
-  <meta name="theme-color" content="#0b1120">
-  <link rel="icon" type="image/png" href="assets/logo.png">
+  <title>D&amp;V Devs | Desarrollo Web &amp; Software a Medida | Tiendas &amp; Paneles Admin</title>
+  <meta name="description" content="D&amp;V Devs: Agencia de desarrollo web de alto impacto, tiendas online locales integradas y sistemas de software con panel de administración a medida. Control total de tu negocio.">
+  <meta name="keywords" content="desarrollo web a medida, tiendas online, panel de administracion, software a medida, landing pages, ecommerce argentina, D&V Devs">
+  <meta name="theme-color" content="#070709">
 
-  <!-- OpenGraph / Social Meta Tags -->
+  <!-- Favicon & Touch Icon -->
+  <link rel="icon" type="image/png" href="logo-dv-devs.png">
+  <link rel="apple-touch-icon" href="logo-dv-devs.png">
+
+  <!-- Open Graph / Social Media -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Byte Fix | Software de Optimización y Armados de PC Gamer">
-  <meta property="og:description" content="Especialistas en software propio de optimización, armados gamer a medida y servicio de optimización remota 1 a 1 para +FPS y cero latencia.">
-  <meta property="og:image" content="assets/logo.png">
+  <meta property="og:title" content="D&amp;V Devs | Desarrollo Web &amp; Software a Medida">
+  <meta property="og:description" content="Transformamos tu negocio en una potencia digital. Landing pages que convierten, tiendas integradas sin comisiones y paneles de control propios.">
+  <meta property="og:image" content="logo-dv-devs.png">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Byte Fix | Gaming & Tech Performance">
-  <meta name="twitter:description" content="Software propio, armados de PC y optimizaciones competitivas AnyDesk.">
+  <meta name="twitter:title" content="D&amp;V Devs | Desarrollo Web &amp; Software a Medida">
+  <meta name="twitter:description" content="Landing pages, tiendas online y paneles de administración propios. Código 100% a medida.">
+  <meta name="twitter:image" content="logo-dv-devs.png">
 
   <!-- Structured Data (JSON-LD) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "Byte Fix",
-    "description": "Servicios de optimización remota de computadoras gamer, software propio y armado de PCs de alto rendimiento.",
-    "telephone": "+542914380467",
-    "priceRange": "$10 - $40 USD",
-    "image": "assets/logo.png",
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Servicios Byte Fix",
-      "itemListElement": [
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "SoftwareApplication",
-            "name": "Byte Fix Optimizer",
-            "operatingSystem": "Windows 10, Windows 11",
-            "applicationCategory": "UtilitiesApplication"
-          },
-          "price": "30.00",
-          "priceCurrency": "USD"
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Optimización Personalizada AnyDesk"
-          },
-          "price": "40.00",
-          "priceCurrency": "USD"
-        }
-      ]
-    }
+    "@type": "ProfessionalService",
+    "name": "D&V Devs",
+    "description": "Agencia de desarrollo de páginas web a medida, tiendas locales integradas y software con paneles de administración propios.",
+    "image": "logo-dv-devs.png",
+    "currenciesAccepted": "ARS, USD",
+    "openingHours": "Mo-Fr 09:00-19:00",
+    "serviceType": [
+      "Desarrollo Web a Medida",
+      "Tiendas Online Locales Integradas",
+      "Sistemas y Paneles de Administración",
+      "Software y Herramientas Especiales"
+    ]
   }
   </script>
 
-  <!-- Google Fonts -->
+  <!-- Google Fonts: Syne (Display), Space Grotesk (Headings/Body), JetBrains Mono (Tech/HUD) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-  <!-- Smooth Scroll (Lenis) & GSAP ScrollTrigger (High-FPS 120Hz Animations) -->
+  <!-- Libraries: Three.js (WebGL 3D background), Lenis (Smooth Scroll), GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -73,1617 +58,866 @@
   <!-- Stylesheet -->
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="cyber-body">
 
-  <!-- Ambient Cyber Lighting Background -->
-  <div class="bg-ambient"></div>
-  <div class="bg-grid"></div>
+  <!-- Custom Cursor Elements -->
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
+
+  <!-- Background WebGL 3D Canvas (Cyber Tunnel, Particles & Spatial Lighting) -->
+  <div class="webgl-canvas-container" id="webglContainer" aria-hidden="true">
+    <canvas id="cyberCanvas"></canvas>
+    <div class="canvas-ambient-gradient"></div>
+    <div class="canvas-scanline-overlay"></div>
+    <div class="canvas-radial-vignette"></div>
+  </div>
+
+  <!-- HUD Telemetry Grid Elements -->
+  <div class="hud-frame top-left" aria-hidden="true">
+    <span class="hud-bracket">[</span>
+    <span class="hud-metric">SYS_CORE: ONLINE</span>
+    <span class="hud-metric-dot"></span>
+  </div>
+  <div class="hud-frame top-right" aria-hidden="true">
+    <span class="hud-metric" id="hudCoords">LAT: -34.6037° | FPS: 120</span>
+    <span class="hud-bracket">]</span>
+  </div>
+  <div class="hud-frame bottom-left" aria-hidden="true">
+    <span class="hud-bracket">[</span>
+    <span class="hud-metric">STACK: FULL_CUSTOM // NO_TEMPLATES</span>
+  </div>
+  <div class="hud-frame bottom-right" aria-hidden="true">
+    <span class="hud-metric" id="scrollPercentage">SCRL: 000%</span>
+    <span class="hud-bracket">]</span>
+  </div>
 
   <!-- ==========================================================================
-       Header / Navbar
+       BARRA DE NAVEGACIÓN (Navbar fijo con backdrop-filter: blur(16px))
        ========================================================================== -->
-  <header class="header">
-    <div class="scroll-progress-bar" id="scrollProgress"></div>
-    <div class="container navbar">
-      <a href="#inicio" class="brand-logo-wrap">
-        <img src="assets/logo.png" alt="Byte Fix Logo" class="brand-logo-img">
-        <div class="brand-text">
-          <div class="brand-name">BYTE <span>FIX</span></div>
-          <div class="brand-slogan"><span class="live-indicator-dot"></span> Soporte Gaming Online</div>
+  <header class="cyber-header" id="mainHeader">
+    <div class="nav-glow-line" id="navScrollGlow"></div>
+    <div class="nav-container">
+      
+      <!-- Izquierda: Logo + Texto -->
+      <a href="#hero" class="brand-brandmark magnetic-target" aria-label="D&V Devs Inicio">
+        <div class="brand-logo-wrapper">
+          <img src="logo-dv-devs.png" alt="D&amp;V Devs Logo" class="brand-logo-img">
+        </div>
+        <div class="brand-text-block">
+          <span class="brand-title">D&amp;V DEVS</span>
+          <span class="brand-subtitle"><span class="neon-live-pulse"></span> DIGITAL ARCHITECTS</span>
         </div>
       </a>
 
-      <ul class="nav-menu" id="navMenu">
-        <li><a href="#inicio" class="nav-link active">Inicio</a></li>
-        <li><a href="#software" class="nav-link" style="color: var(--amber-400); font-weight: 700;">★ Software</a></li>
-        <li><a href="#optimizacion" class="nav-link">Optimizaciones</a></li>
-        <li><a href="#armados" class="nav-link">Armados PC</a></li>
-        <li><a href="#galeria" class="nav-link">Galería</a></li>
-        <li><a href="#precios" class="nav-link">Precios</a></li>
-        <li><a href="#testimonios" class="nav-link">Opiniones</a></li>
-        <li><a href="#faq" class="nav-link">Preguntas</a></li>
-      </ul>
-
-      <div class="nav-actions">
-        <a href="https://wa.me/5492914380467?text=Hola%20Byte%20Fix,%20quiero%20consultar%20por%20un%20servicio" target="_blank" class="btn btn-primary btn-sm">
-          <i class="fa-brands fa-whatsapp"></i>
-          <span>WhatsApp</span>
+      <!-- Centro (Links de Navegación) -->
+      <nav class="nav-links-menu" id="navMenu">
+        <a href="#servicios" class="nav-anchor magnetic-target" data-hover-sound>
+          <span class="nav-anchor-num">01.</span>
+          <span class="nav-anchor-text">Servicios</span>
         </a>
-        <button class="mobile-toggle" id="mobileToggle" aria-label="Abrir Menú">
-          <i class="fa-solid fa-bars"></i>
+        <a href="#core-tecnologico" class="nav-anchor magnetic-target" data-hover-sound>
+          <span class="nav-anchor-num">02.</span>
+          <span class="nav-anchor-text">Sistemas &amp; Tiendas</span>
+        </a>
+        <a href="#proceso" class="nav-anchor magnetic-target" data-hover-sound>
+          <span class="nav-anchor-num">03.</span>
+          <span class="nav-anchor-text">Proceso</span>
+        </a>
+        <a href="#contacto" class="nav-anchor magnetic-target" data-hover-sound>
+          <span class="nav-anchor-num">04.</span>
+          <span class="nav-anchor-text">Contacto</span>
+        </a>
+      </nav>
+
+      <!-- Derecha (Botón CTA) -->
+      <div class="nav-cta-wrap">
+        <a href="#contacto" class="cyber-btn-outline magnetic-target">
+          <span class="btn-glow-border"></span>
+          <span class="btn-text">Cotizar Proyecto &lt;&gt;</span>
+        </a>
+        <button class="mobile-toggle-btn" id="mobileToggle" aria-label="Abrir Menú">
+          <span class="bar bar-1"></span>
+          <span class="bar bar-2"></span>
         </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Drawer Navigation -->
+    <div class="mobile-nav-drawer" id="mobileDrawer">
+      <div class="mobile-nav-backdrop"></div>
+      <div class="mobile-nav-inner">
+        <div class="mobile-drawer-header">
+          <span class="hud-mono">// MENÚ DE NAVEGACIÓN</span>
+          <button class="mobile-close-btn" id="mobileClose">&times;</button>
+        </div>
+        <div class="mobile-links">
+          <a href="#servicios" class="mobile-link"><span>01</span> Servicios</a>
+          <a href="#core-tecnologico" class="mobile-link"><span>02</span> Sistemas &amp; Tiendas</a>
+          <a href="#proceso" class="mobile-link"><span>03</span> Proceso</a>
+          <a href="#contacto" class="mobile-link"><span>04</span> Contacto</a>
+        </div>
+        <div class="mobile-drawer-footer">
+          <a href="#contacto" class="cyber-btn-primary mobile-cta-btn">
+            <span>{ COTIZAR PROYECTO &lt;&gt; }</span>
+          </a>
+        </div>
       </div>
     </div>
   </header>
 
-  <!-- ==========================================================================
-       Hero Section
-       ========================================================================== -->
-  <section class="hero-portal-container" id="heroPortal">
-    <!-- Sliding Curtain Gates Portal (Foreground) -->
-    <div class="hero-curtain-portal" id="heroPortalCurtains">
-      <div class="hero-gate hero-gate-left" id="curtainLeft">
-        <div class="gate-grid-overlay"></div>
-        <div class="gate-monogram-half">BYTE</div>
-      </div>
-      <div class="hero-gate hero-gate-right" id="curtainRight">
-        <div class="gate-grid-overlay"></div>
-        <div class="gate-monogram-half">FIX</div>
-      </div>
-      <div class="hero-gate-seal" id="gateSeal">
-        <img src="assets/logo.png" alt="Byte Fix" class="gate-seal-img">
-        <span class="gate-seal-tag">ZERO DELAY</span>
-      </div>
-      <div class="hero-entry-indicator" id="entryIndicator">
-        <span>Deslizá para entrar</span>
-        <div class="entry-indicator-chevron">
-          <i class="fa-solid fa-chevron-down"></i>
-        </div>
-      </div>
-    </div>
+  <!-- Main Scroll Container -->
+  <main class="cyber-main-wrap" id="smooth-wrapper">
+    <div id="smooth-content">
 
-    <!-- Giant Background Watermark Outline -->
-    <div class="hero-giant-watermark" id="gateWatermark">BYTE FIX</div>
-
-    <!-- Revealed Inner Hero Stage -->
-    <div class="hero" id="inicio">
-      <!-- Interactive Background Shader Canvas -->
-      <canvas id="heroCanvas" class="hero-canvas-bg"></canvas>
-      <div class="container hero-grid" id="heroRevealedContent">
-        <div class="hero-content">
-          <!-- Club Exclusive Pill -->
-          <div class="club-exclusive-pill">
-            <span class="pulse-dot"></span>
-            <span>Hardware & Software Gaming · Pro Performance Club</span>
-          </div>
-
-          <h1 class="hero-title">
-            Más que <em>más FPS</em>
-          </h1>
-
-          <p class="hero-slogan-lead">
-            Potenciamos tu rendimiento al nivel competitivo.
-          </p>
-
-          <p class="hero-desc">
-            En <strong>Byte Fix</strong> transformamos tu experiencia de juego en un entorno esports de alta fidelidad. Desarrollamos nuestro <strong>software propio de optimización</strong>, ensamblamos <strong>PCs personalizadas</strong> balanceadas al milímetro y ejecutamos <strong>optimizaciones 1 a 1 vía AnyDesk</strong> o presencial.
-          </p>
-
-          <!-- Dual Action + Social Proof Pill -->
-          <div class="hero-cta-club-row">
-            <a href="#software" class="btn btn-primary btn-lg">
-              <i class="fa-solid fa-laptop-code"></i>
-              <span>Ver Software Propio · $30 USD</span>
-            </a>
-            <a href="https://wa.me/5492914380467?text=Hola%20Byte%20Fix,%20quiero%20consultar%20por%20una%20optimizaci%C3%B3n" target="_blank" class="btn btn-outlined-yellow btn-lg">
-              <i class="fa-brands fa-whatsapp"></i>
-              <span>WhatsApp</span>
-            </a>
-            <div class="hero-social-proof-pill">
-              <div class="proof-stars">★★★★★</div>
-              <div class="proof-text"><strong>5.0</strong> · +150 PCs Optimizadas</div>
-            </div>
-          </div>
-
-          <div class="hero-features-strip">
-            <div class="hero-feature-item">
-              <i class="fa-solid fa-bolt"></i>
-              <span>+ FPS & - Latencia</span>
-            </div>
-            <div class="hero-feature-item">
-              <i class="fa-solid fa-shield-halved"></i>
-              <span>100% Seguro y Confiable</span>
-            </div>
-            <div class="hero-feature-item">
-              <i class="fa-solid fa-headset"></i>
-              <span>Soporte Remoto Inmediato</span>
-            </div>
-          </div>
+      <!-- ==========================================================================
+           ESCENA 1: HERO DIMENSIONAL (El Portal de Código)
+           ========================================================================== -->
+      <section class="scene-hero" id="hero">
+        
+        <!-- Dimensional Zoom Portal Container: Corchetes 3D que se abren con el scroll -->
+        <div class="portal-brackets-container" id="portalBrackets" aria-hidden="true">
+          <div class="giant-bracket bracket-left" id="bracketLeft">{</div>
+          <div class="giant-bracket bracket-right" id="bracketRight">}</div>
+          <div class="portal-grid-horizon"></div>
         </div>
 
-        <!-- Mascot Showcase Visual -->
-        <div class="hero-visual-wrapper">
-          <!-- Floating Badge FPS -->
-          <div class="floating-badge badge-fps">
-            <div class="badge-icon fps-icon">
-              <i class="fa-solid fa-gauge-high"></i>
-            </div>
-            <div>
-              <div class="badge-text-title">Rendimiento Gaming</div>
-              <div class="badge-text-value">+60 a 140 FPS Ganados</div>
-            </div>
-          </div>
-
-          <div class="hero-mascot-hologram-wrap">
-            <div class="hologram-ring"></div>
-            <div class="hologram-ring-outer"></div>
-            <div class="hero-mascot-card">
-              <div class="hero-mascot-img-box">
-                <div class="mascot-glow-ring"></div>
-                <img src="assets/logo.png" alt="Byte Fix Técnico Mascota" class="hero-mascot-img">
-              </div>
-            </div>
-          </div>
-
-          <!-- Flying Papers Benchmark Spec Ticket Card -->
-          <div class="benchmark-ticket-card">
-            <div class="ticket-header">
-              <span class="ticket-title">BYTE FIX // BENCHMARK TICKET #0849</span>
-              <span class="ticket-badge">VERIFIED</span>
-            </div>
-            <div class="ticket-body">
-              <div class="ticket-row"><span>INPUT DELAY</span><strong>16.4ms &rarr; 2.1ms</strong></div>
-              <div class="ticket-row"><span>1% LOW FPS</span><strong>68 &rarr; 144 FPS</strong></div>
-              <div class="ticket-row"><span>DPC LATENCY</span><strong>&lt; 40&mu;s ZERO DELAY</strong></div>
-              <div class="ticket-row"><span>KERNEL TIMER</span><strong>0.50ms LOCKED</strong></div>
-            </div>
-            <div class="ticket-footer">
-              <span>* STAMPED BY BYTE FIX LAB</span>
-              <span class="ticket-pill">100% SAFE</span>
-            </div>
-          </div>
-
-          <!-- Floating Badge Verified -->
-          <div class="floating-badge badge-verified">
-            <div class="badge-icon pc-icon">
-              <i class="fa-solid fa-microchip"></i>
-            </div>
-            <div>
-              <div class="badge-text-title">Técnico Certificado</div>
-              <div class="badge-text-value">Zero Delay DPC</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       Stats Bar
-       ========================================================================== -->
-  <section class="stats-bar-section">
-    <div class="container">
-      <div class="stats-grid">
-        <div class="stat-item">
-          <div class="stat-number" data-target="60" data-prefix="+" data-suffix=" FPS">+60 FPS</div>
-          <div class="stat-label">Ganancia Media en Juegos</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number" data-target="70" data-prefix="-" data-suffix="%">-70%</div>
-          <div class="stat-label">Reducción de Input Lag</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number" data-target="4" data-prefix="< " data-suffix=" ms">&lt; 4 ms</div>
-          <div class="stat-label">Latencia DPC de Sistema</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-number" data-target="0" data-prefix="" data-suffix="%">0%</div>
-          <div class="stat-label">Stuttering y Microtirones</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       Pillars of Services
-       ========================================================================== -->
-  <section class="section" id="servicios">
-    <div class="container">
-      <div class="editorial-header">
-        <img src="assets/logo.png" alt="Byte Fix" class="editorial-monogram">
-        <span class="editorial-kicker">HARDWARE &amp; SOFTWARE GAMING</span>
-        <h2 class="editorial-title">Soluciones &amp; <em>Especialidades</em></h2>
-        <p class="editorial-subtitle">
-          Ya sea que busques dominar en juegos competitivos, armar la computadora de tus sueños o exprimir hasta el último frame de tu equipo, Byte Fix tiene la solución exacta.
-        </p>
-        <div class="editorial-divider"><span></span><i></i><span></span></div>
-      </div>
-
-      <div class="services-main-grid">
-        <!-- Service 1: Software Propio Optimizer -->
-        <div class="glass-card service-pillar-card">
-          <div class="service-card-top">
-            <div class="service-icon-box" style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(37, 99, 235, 0.15)); color: var(--amber-400);">
-              <i class="fa-solid fa-laptop-code"></i>
-            </div>
-            <h3 class="service-pillar-title">Software Propio Optimizer</h3>
-            <p class="service-pillar-desc">
-              Nuestra aplicación de optimización automatizada. Diseñada exclusivamente por Byte Fix para maximizar FPS y reducir el lag al mínimo con 1 solo clic.
-            </p>
-            <ul class="service-pillar-features">
-              <li><i class="fa-solid fa-circle-check"></i> 1-Click Boost (Debloat de Windows 10/11)</li>
-              <li><i class="fa-solid fa-circle-check"></i> Modo Gaming & Game Booster integrado</li>
-              <li><i class="fa-solid fa-circle-check"></i> Reducción extrema de input delay de periféricos</li>
-              <li><i class="fa-solid fa-circle-check"></i> Licencia permanente + actualizaciones periódicas</li>
-            </ul>
-          </div>
-          <a href="#software" class="service-action-link" style="color: var(--amber-400);">
-            <span>Conocer Byte Fix Optimizer ($30 USD)</span>
-            <i class="fa-solid fa-arrow-right"></i>
-          </a>
-        </div>
-
-        <!-- Service 2: PC Builds -->
-        <div class="glass-card service-pillar-card">
-          <div class="service-card-top">
-            <div class="service-icon-box">
-              <i class="fa-solid fa-screwdriver-wrench"></i>
-            </div>
-            <h3 class="service-pillar-title">Armados de PC</h3>
-            <p class="service-pillar-desc">
-              Ensamblado profesional de computadoras gamer y workstation. Asesoramiento honesto según tu presupuesto para evitar cuellos de botella.
-            </p>
-            <ul class="service-pillar-features">
-              <li><i class="fa-solid fa-circle-check"></i> Selección de componentes por presupuesto</li>
-              <li><i class="fa-solid fa-circle-check"></i> Ensamble limpio con Cable Management impecable</li>
-              <li><i class="fa-solid fa-circle-check"></i> Test de estrés térmico y estabilidad 24h</li>
-              <li><i class="fa-solid fa-circle-check"></i> Instalación de BIOS actualizada y perfiles XMP</li>
-            </ul>
-          </div>
-          <a href="#armados" class="service-action-link">
-            <span>Ver configuraciones recomendadas</span>
-            <i class="fa-solid fa-arrow-right"></i>
-          </a>
-        </div>
-
-        <!-- Service 3: Optimizations -->
-        <div class="glass-card service-pillar-card">
-          <div class="service-card-top">
-            <div class="service-icon-box">
-              <i class="fa-solid fa-gauge-simple-high"></i>
-            </div>
-            <h3 class="service-pillar-title">Optimizaciones PC</h3>
-            <p class="service-pillar-desc">
-              Servicio remoto (vía AnyDesk) o presencial. Eliminamos tirones de FPS, retrasos de mouse/teclado y procesos basura de Windows.
-            </p>
-            <ul class="service-pillar-features">
-              <li><i class="fa-solid fa-circle-check"></i> Debloat de Windows (telemetría y apps inútiles)</li>
-              <li><i class="fa-solid fa-circle-check"></i> Reducción extrema de Input Lag y Latencia DPC</li>
-              <li><i class="fa-solid fa-circle-check"></i> Overclock & Undervolt seguro de CPU/GPU/RAM</li>
-              <li><i class="fa-solid fa-circle-check"></i> Limpieza física y pasta térmica (Presencial)</li>
-            </ul>
-          </div>
-          <a href="#optimizacion" class="service-action-link">
-            <span>Conocer detalles de optimización</span>
-            <i class="fa-solid fa-arrow-right"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-
-  <!-- ==========================================================================
-       Section: Optimizaciones (Remotas & Presenciales)
-       ========================================================================== -->
-  <section class="section" id="optimizacion">
-    <div class="container">
-      <div class="optimization-container">
-        <div class="opt-text-col">
-          <span class="section-tag">Máxima Fluidez</span>
-          <h2 class="section-title">Optimizaciones a Medida: <span class="highlight-blue">Remota o Presencial</span></h2>
-          <p class="section-subtitle">
-            ¿Tu PC tiene bajones de FPS en tus juegos favoritos? ¿Sientes el ratón pesado o con delay? Nuestro proceso de optimización profesional transforma tu máquina.
-          </p>
-
-          <div class="opt-details-list">
-            <div class="opt-detail-item">
-              <div class="opt-icon-circle">
-                <i class="fa-solid fa-desktop"></i>
-              </div>
-              <div class="opt-text-block">
-                <h4>Optimización Remota (AnyDesk / TeamViewer)</h4>
-                <p>Nos conectamos de forma 100% segura mientras ves todo en tu pantalla en tiempo real. Ajustes de Windows, registro, drivers y perfiles de juego en 45-60 minutos.</p>
-              </div>
-            </div>
-
-            <div class="opt-detail-item">
-              <div class="opt-icon-circle">
-                <i class="fa-solid fa-toolbox"></i>
-              </div>
-              <div class="opt-text-block">
-                <h4>Mantenimiento Físico Presencial</h4>
-                <p>Desarme completo, limpieza profunda con compresor, cambio de pasta térmica de alta conductividad (Arctic MX-4 / Thermal Grizzly) y lubricación de fans.</p>
-              </div>
-            </div>
-
-            <div class="opt-detail-item">
-              <div class="opt-icon-circle">
-                <i class="fa-solid fa-crosshairs"></i>
-              </div>
-              <div class="opt-text-block">
-                <h4>Minimización de Input Lag & Latencia DPC</h4>
-                <p>Configuración de polling rate, buffers de GPU y timers del sistema para que tus disparos y movimientos respondan al instante.</p>
-              </div>
-            </div>
-          </div>
-
-          <a href="#contacto" class="btn btn-whatsapp">
-            <i class="fa-brands fa-whatsapp"></i>
-            <span>Agendar mi Optimización</span>
-          </a>
-        </div>
-
-        <!-- Benchmark Comparative Interactive Simulator Card -->
-        <div class="benchmark-card">
-          <div class="benchmark-header">
-            <div>
-              <h3 style="font-size: 1.4rem;">Simulador Interactivo de Rendimiento</h3>
-              <p style="font-size: 0.85rem; color: var(--text-muted);">Calcula tu ganancia real de FPS y reducción de latencia según tu equipo</p>
-            </div>
-            <span class="benchmark-badge"><i class="fa-solid fa-check"></i> Verificado</span>
-          </div>
-
-          <!-- Selector Controls -->
-          <div class="sim-controls-grid">
-            <div class="sim-field-wrap">
-              <label for="simGameSelect"><i class="fa-solid fa-gamepad"></i> Elige tu Juego:</label>
-              <select id="simGameSelect" class="sim-select">
-                <option value="cs2" selected>Counter-Strike 2 (CS2)</option>
-                <option value="valorant">Valorant</option>
-                <option value="warzone">Call of Duty: Warzone</option>
-                <option value="fortnite">Fortnite (Modo Rendimiento)</option>
-                <option value="apex">Apex Legends</option>
-                <option value="rust">Rust</option>
-              </select>
-            </div>
-            <div class="sim-field-wrap">
-              <label for="simGpuSelect"><i class="fa-solid fa-microchip"></i> Tu Tarjeta Gráfica:</label>
-              <select id="simGpuSelect" class="sim-select">
-                <option value="mid" selected>Gama Media (RTX 3060 / 4060 / RX 6600)</option>
-                <option value="entry">Gama Entrada (GTX 1650 / 1660 / RX 580)</option>
-                <option value="high">Gama Alta (RTX 3080 / 4070 / 4080 / RX 7800 XT)</option>
-              </select>
-            </div>
-          </div>
-
-          <!-- Controls to toggle Before vs After -->
-          <div style="display: flex; gap: 0.8rem; margin-bottom: 1.5rem; justify-content: center;">
-            <button type="button" class="filter-btn toggle-opt-btn" data-mode="before">Sin Optimizar (Fábrica)</button>
-            <button type="button" class="filter-btn toggle-opt-btn active" data-mode="after">Con Byte Fix (Optimizado)</button>
-          </div>
-
-          <!-- Metric: FPS Promedio -->
-          <div class="metric-bar-group">
-            <div class="metric-label-row">
-              <span>FPS Promedio en Combate</span>
-              <span id="benchmarkFpsText"><span class="highlight-blue">+265 FPS</span> (Estable)</span>
-            </div>
-            <div class="metric-bar-bg">
-              <div class="metric-bar-fill after-fps" id="benchmarkFpsBar" style="width: 88%;"></div>
-            </div>
-          </div>
-
-          <!-- Metric: Latencia / Input Lag -->
-          <div class="metric-bar-group">
-            <div class="metric-label-row">
-              <span>Latencia de Respuesta (Delay de Mouse)</span>
-              <span id="benchmarkLatencyText"><span class="highlight-blue">4.1 ms</span> (Ultra Baja)</span>
-            </div>
-            <div class="metric-bar-bg">
-              <div class="metric-bar-fill after-latency" id="benchmarkLatencyBar" style="width: 82%;"></div>
-            </div>
-          </div>
-
-          <!-- Triple Mini Stats (1% Lows, Temp, Stuttering) -->
-          <div class="sim-stats-triple">
-            <div class="sim-stat-box">
-              <div class="sim-stat-title">1% Low FPS</div>
-              <div class="sim-stat-val" id="sim1PercentVal">165 FPS</div>
-              <div class="sim-stat-gain" id="sim1PercentGain">+82% Estabilidad</div>
-            </div>
-            <div class="sim-stat-box">
-              <div class="sim-stat-title">DPC Kernel</div>
-              <div class="sim-stat-val" id="simDpcVal">38 µs</div>
-              <div class="sim-stat-gain">Cero Spikes</div>
-            </div>
-            <div class="sim-stat-box">
-              <div class="sim-stat-title">Microtirones</div>
-              <div class="sim-stat-val" style="color: #34d399;">0%</div>
-              <div class="sim-stat-gain">Eliminados</div>
-            </div>
-          </div>
-
-          <!-- Live Frametime Graph Canvas -->
-          <div class="frametime-graph-card">
-            <div class="frametime-graph-header">
-              <span><i class="fa-solid fa-wave-square"></i> GRÁFICO DE TIEMPOS DE CUADRO (FRAMETIME JITTER)</span>
-              <span class="frametime-graph-status status-good" id="frametimeStatus">ZERO DELAY LOCKED</span>
-            </div>
-            <canvas id="frametimeCanvas" class="frametime-canvas"></canvas>
-            <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-dim); margin-top: 0.35rem;">
-              <span>0 ms (Ideal)</span>
-              <span id="frametimeVariance">Varianza: ±0.3 ms</span>
-              <span>33.3 ms (Piso 30 FPS)</span>
-            </div>
-          </div>
-
-          <!-- LatencyMon Diagnostic Proof Badge -->
-          <div class="latencymon-proof-box">
-            <i class="fa-solid fa-circle-check"></i>
-            <div>
-              <div class="latencymon-proof-title">Diagnóstico LatencyMon Certificado</div>
-              <div class="latencymon-proof-desc">«Tu sistema es 100% apto para gaming competitivo en tiempo real sin interrupciones de buffer ni delay de periféricos.»</div>
-            </div>
-          </div>
-
-          <!-- WhatsApp Action linked to simulator -->
-          <div style="margin-top: 1.5rem; text-align: center;">
-            <a href="https://wa.me/5492914380467?text=Hola%20Byte%20Fix,%20utilic%C3%A9%20el%20simulador%20para%20CS2%20y%20quiero%20optimizar%20mi%20PC" target="_blank" class="btn btn-whatsapp" id="simWpBtn" style="width: 100%;">
-              <i class="fa-brands fa-whatsapp"></i>
-              <span id="simWpBtnText">Solicitar esta Optimización por WhatsApp</span>
-            </a>
-          </div>
-
-          <!-- Modalidades -->
-          <div class="modes-toggle-box">
-            <div class="mode-badge-card">
-              <i class="fa-solid fa-wifi"></i>
-              <h5>Modalidad Remota</h5>
-              <p>Disponible para todo el mundo sin moverte de tu casa</p>
-            </div>
-            <div class="mode-badge-card">
-              <i class="fa-solid fa-hand-holding-hand"></i>
-              <h5>Modalidad Presencial</h5>
-              <p>Mantenimiento térmico y físico con repuestos de calidad</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       Section: Armados de PC (Custom PC Builder / Presupuestos)
-       ========================================================================== -->
-  <section class="section" id="armados">
-    <div class="container">
-      <div class="editorial-header">
-        <img src="assets/logo.png" alt="Byte Fix" class="editorial-monogram">
-        <span class="editorial-kicker">HARDWARE &amp; SOFTWARE</span>
-        <h2 class="editorial-title">Soluciones &amp; <em>Armados</em></h2>
-        <p class="editorial-subtitle">
-          Más que un armado estándar: selección milimétrica de componentes, ensamble limpio con airflow perfecto y test de estrés térmico 24h.
-        </p>
-        <div class="editorial-divider"><span></span><i></i><span></span></div>
-      </div>
-
-      <div class="pc-builds-podium-stage" id="pcBuildsPodium">
-        <div class="pc-builds-podium-grid">
-          <!-- Tier 1: Entrada Gamer (Left Card) -->
-          <div class="pc-tier-card card-podium-left" data-tilt-card>
-            <div class="card-specular-glare"></div>
-            <div class="card-pcb-overlay"></div>
+        <div class="hero-content-layer">
+          <div class="hero-container">
             
-            <div class="card-layer-header">
-              <h3 class="pc-tier-name">Setup Entrada Gamer</h3>
-              <p class="pc-tier-tagline">Ideal para CS2, Valorant, Warzone y títulos modernos en 1080p con excelente fluidez.</p>
+            <!-- Etiqueta Superior (Monospace) -->
+            <div class="hero-tag-wrap" data-reveal>
+              <div class="cyber-chip">
+                <span class="chip-status-pulse"></span>
+                <span class="chip-text">// DESARROLLO WEB &amp; SOFTWARE A MEDIDA</span>
+              </div>
             </div>
 
-            <ul class="pc-specs-list card-layer-specs">
-              <li class="pc-spec-item"><i class="fa-solid fa-microchip"></i> <span><strong>CPU:</strong> AMD Ryzen 5 5600 / Intel i5 12400F</span></li>
-              <li class="pc-spec-item"><i class="fa-solid fa-memory"></i> <span><strong>RAM:</strong> 16GB (2x8GB) 3200MHz DDR4</span></li>
-              <li class="pc-spec-item"><i class="fa-solid fa-tv"></i> <span><strong>GPU:</strong> Radeon RX 6600 8GB / RTX 3050</span></li>
-              <li class="pc-spec-item"><i class="fa-solid fa-hard-drive"></i> <span><strong>Almacenamiento:</strong> 1TB NVMe M.2 Gen4</span></li>
-              <li class="pc-spec-item"><i class="fa-solid fa-plug"></i> <span><strong>Fuente:</strong> 600W 80 Plus Bronce Certificada</span></li>
-            </ul>
+            <!-- Centro: Isotipo 3D Flotante con Iluminación Rojo Neón -->
+            <div class="hero-logo-centerpiece" id="heroLogoCenterpiece" data-reveal>
+              <div class="logo-ambient-glow"></div>
+              <div class="logo-hologram-rings">
+                <div class="holo-ring holo-ring-1"></div>
+                <div class="holo-ring holo-ring-2"></div>
+              </div>
+              <div class="logo-3d-floating-card" id="heroLogoCard">
+                <img src="logo-dv-devs.png" alt="D&amp;V Devs {DV}" class="hero-dv-logo-img">
+              </div>
+            </div>
 
-            <div class="pc-tier-footer card-layer-cta">
-              <a href="https://wa.me/5492914380467?text=Hola%20Byte%20Fix,%20quiero%20cotizar%20el%20Setup%20Entrada%20Gamer" target="_blank" class="btn btn-secondary" style="width: 100%;">
-                <i class="fa-brands fa-whatsapp"></i>
-                <span>Consultar Presupuesto</span>
+            <!-- Título Principal (Gigante) -->
+            <h1 class="hero-headline" data-reveal>
+              TRANSFORMAMOS TU NEGOCIO EN UNA <span class="text-neon-gradient">POTENCIA DIGITAL</span>
+            </h1>
+
+            <!-- Subtítulo -->
+            <p class="hero-subheadline" data-reveal>
+              Diseñamos landing pages de alto impacto, tiendas online integradas y sistemas con panel de administración propio para que controles tus ventas, stock y precios sin depender de nadie.
+            </p>
+
+            <!-- Botones de Acción -->
+            <div class="hero-cta-group" data-reveal>
+              <a href="#contacto" class="cyber-btn-primary magnetic-target" id="heroPrimaryBtn">
+                <span class="btn-shimmer"></span>
+                <span class="btn-label">{ INICIAR MI PROYECTO }</span>
+                <i class="fa-solid fa-arrow-right-long btn-icon"></i>
+              </a>
+
+              <a href="#servicios" class="cyber-btn-secondary magnetic-target" id="heroSecondaryBtn">
+                <span class="btn-label">Ver Soluciones -&gt;</span>
               </a>
             </div>
-          </div>
 
-          <!-- Tier 2: Competitivo Pro (Center Featured Card) -->
-          <div class="pc-tier-card featured card-podium-center" data-tilt-card>
-            <div class="card-specular-glare"></div>
-            <div class="card-pcb-overlay"></div>
-            
-            <div class="popular-ribbon card-layer-badge"><i class="fa-solid fa-star" style="color: #facc15;"></i> Más Elegido · Calidad / Precio</div>
-            
-            <div class="card-layer-header">
-              <h3 class="pc-tier-name">Setup Competitivo Pro</h3>
-              <p class="pc-tier-tagline">El equilibrio perfecto: Más de 144 FPS estables en Ultra, streaming sin caída de frames y cero stuttering.</p>
-            </div>
-
-            <ul class="pc-specs-list card-layer-specs">
-              <li class="pc-spec-item"><i class="fa-solid fa-microchip"></i> <span><strong>CPU:</strong> AMD Ryzen 7 5700X3D / Intel Core i5 13600K</span></li>
-              <li class="pc-spec-item"><i class="fa-solid fa-memory"></i> <span><strong>RAM:</strong> 32GB (2x16GB) 3600MHz Dual Channel Gamer</span></li>
-              <li class="pc-spec-item"><i class="fa-solid fa-tv"></i> <span><strong>GPU:</strong> Nvidia RTX 4060 Ti 8GB / RTX 4070 12GB</span></li>
-              <li class="pc-spec-item"><i class="fa-solid fa-hard-drive"></i> <span><strong>Almacenamiento:</strong> 1TB o 2TB SSD NVMe Gen4 (7.000 MB/s)</span></li>
-              <li class="pc-spec-item"><i class="fa-solid fa-fan"></i> <span><strong>Cooling:</strong> Enfriamiento Líquido 240mm ARGB Alto Desempeño</span></li>
-            </ul>
-
-            <div class="pc-tier-footer card-layer-cta">
-              <a href="https://wa.me/5492914380467?text=Hola%20Byte%20Fix,%20quiero%20cotizar%20el%20Setup%20Competitivo%20Pro" target="_blank" class="btn btn-primary" style="width: 100%;">
-                <i class="fa-brands fa-whatsapp"></i>
-                <span>Cotizar Este Setup por WhatsApp</span>
+            <!-- Indicador inferior de Scroll -->
+            <div class="hero-scroll-indicator" data-reveal>
+              <a href="#servicios" class="scroll-indicator-link" aria-label="Desplazarse hacia abajo">
+                <span class="scroll-tag">[ SCROLL PARA EXPLORAR EL ECOSISTEMA ]</span>
+                <div class="scroll-mouse-cyber">
+                  <span class="scroll-wheel-dot"></span>
+                </div>
+                <div class="scroll-chevron-down">
+                  <i class="fa-solid fa-chevron-down"></i>
+                </div>
               </a>
             </div>
-          </div>
 
-          <!-- Tier 3: Bestia 4K & Streamer (Right Card) -->
-          <div class="pc-tier-card card-podium-right" data-tilt-card>
-            <div class="card-specular-glare"></div>
-            <div class="card-pcb-overlay"></div>
-
-            <div class="card-layer-header">
-              <h3 class="pc-tier-name">Setup Bestia 4K & Streamer</h3>
-              <p class="pc-tier-tagline">Máxima potencia para jugar en 2K/4K, transmitir en Twitch sin perder un frame y edición pesada.</p>
-            </div>
-
-            <ul class="pc-specs-list card-layer-specs">
-              <li class="pc-spec-item"><i class="fa-solid fa-microchip"></i> <span><strong>CPU:</strong> AMD Ryzen 7 7800X3D / i7 14700K</span></li>
-              <li class="pc-spec-item"><i class="fa-solid fa-memory"></i> <span><strong>RAM:</strong> 32GB o 64GB DDR5 6000MHz CL30</span></li>
-              <li class="pc-spec-item"><i class="fa-solid fa-tv"></i> <span><strong>GPU:</strong> Nvidia RTX 4070 Ti Super / RTX 4080 Super</span></li>
-              <li class="pc-spec-item"><i class="fa-solid fa-hard-drive"></i> <span><strong>Almacenamiento:</strong> 2TB M.2 Gen4 NVMe Alta Velocidad</span></li>
-              <li class="pc-spec-item"><i class="fa-solid fa-plug"></i> <span><strong>Fuente:</strong> 850W 80 Plus Gold Modular</span></li>
-            </ul>
-
-            <div class="pc-tier-footer card-layer-cta">
-              <a href="https://wa.me/5492914380467?text=Hola%20Byte%20Fix,%20quiero%20cotizar%20el%20Setup%20Bestia%204K" target="_blank" class="btn btn-secondary" style="width: 100%;">
-                <i class="fa-brands fa-whatsapp"></i>
-                <span>Cotizar Setup High-End</span>
-              </a>
-            </div>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- ==========================================================================
-       Section: Software Propio Exclusivo
-       ========================================================================== -->
-  <section class="section" id="software" style="padding-bottom: 2rem;">
-    <div class="container">
-      <div class="software-showcase-box">
-        <div class="software-badge">
-          <i class="fa-solid fa-code"></i> DESARROLLO PROPIO EXCLUSIVO DE BYTE FIX
-        </div>
-        <h2 class="software-title">
-          BYTE FIX <span class="highlight-blue">OPTIMIZER</span>
-        </h2>
-        <p class="software-desc">
-          Creamos nuestra propia aplicación automatizada para que cualquier gamer pueda optimizar su computadora con <strong>1 solo clic</strong>. Sin configuraciones complicadas: ejecuta, aplica y disfruta de más FPS, cero delay de mouse y máxima estabilidad en todos tus juegos competitivos.
-        </p>
+      </section>
 
-        <div class="software-grid-content">
-          <!-- Left Col: Interactive Live App Mockup Window -->
-          <div>
-            <div class="software-app-window">
-              <div class="app-window-header">
-                <div class="app-window-dots">
-                  <span class="dot red"></span>
-                  <span class="dot yellow"></span>
-                  <span class="dot green"></span>
-                </div>
-                <div class="app-window-title">
-                  <i class="fa-solid fa-bolt"></i> Byte Fix Optimizer v2.4 PRO
-                </div>
-                <div class="app-window-status">
-                  <i class="fa-solid fa-shield-check"></i> Modo Gamer Activo
-                </div>
-              </div>
-
-              <div class="app-tabs-bar">
-                <button type="button" class="app-tab-btn active" data-tab="boost"><i class="fa-solid fa-rocket"></i> Game Boost</button>
-                <button type="button" class="app-tab-btn" data-tab="debloat"><i class="fa-solid fa-broom"></i> Windows Debloat</button>
-                <button type="button" class="app-tab-btn" data-tab="latency"><i class="fa-solid fa-crosshairs"></i> Zero Latency</button>
-              </div>
-
-              <div class="app-window-body">
-                <div class="app-toggles-grid" id="appTogglesList">
-                  <div class="app-toggle-row">
-                    <div class="app-toggle-info">
-                      <span class="app-toggle-title">Kernel Timer Resolution (0.500 ms)</span>
-                      <span class="app-toggle-desc">Reduce drásticamente el retardo de muestreo entre periféricos y pantalla.</span>
-                    </div>
-                    <label class="app-switch">
-                      <input type="checkbox" checked>
-                      <span class="app-slider"></span>
-                    </label>
-                  </div>
-
-                  <div class="app-toggle-row">
-                    <div class="app-toggle-info">
-                      <span class="app-toggle-title">Prioridad de Procesos Gaming & Core Affinity</span>
-                      <span class="app-toggle-desc">Asigna núcleos limpios de CPU a tu juego y desprioriza tareas secundarias.</span>
-                    </div>
-                    <label class="app-switch">
-                      <input type="checkbox" checked>
-                      <span class="app-slider"></span>
-                    </label>
-                  </div>
-
-                  <div class="app-toggle-row">
-                    <div class="app-toggle-info">
-                      <span class="app-toggle-title">Limpieza Automática de Standby RAM</span>
-                      <span class="app-toggle-desc">Libera memoria caché saturada en segundo plano para erradicar el stuttering.</span>
-                    </div>
-                    <label class="app-switch">
-                      <input type="checkbox" checked>
-                      <span class="app-slider"></span>
-                    </label>
-                  </div>
-
-                  <div class="app-toggle-row">
-                    <div class="app-toggle-info">
-                      <span class="app-toggle-title">Eliminación de Telemetría & Cortana Bloat</span>
-                      <span class="app-toggle-desc">Desactiva registros espías y servicios innecesarios de Windows 10 y 11.</span>
-                    </div>
-                    <label class="app-switch">
-                      <input type="checkbox" checked>
-                      <span class="app-slider"></span>
-                    </label>
-                  </div>
-                </div>
-
-                <div class="app-action-bar">
-                  <div class="app-dpc-pill">
-                    <i class="fa-solid fa-microchip"></i>
-                    <span>DPC Latency: <strong>38 µs (Excelente)</strong></span>
-                  </div>
-                  <button type="button" class="app-run-btn" id="btnSimulateScan">
-                    <i class="fa-solid fa-bolt"></i>
-                    <span>Optimizar Todo con 1 Clic</span>
-                  </button>
-                </div>
-
-                <div class="app-scan-bar-wrap" id="appScanWrap">
-                  <div class="app-scan-bar-fill" id="appScanFill"></div>
-                </div>
-                <div class="app-scan-msg" id="appScanMsg">
-                  <i class="fa-solid fa-circle-check"></i> ¡Sistema optimizado con éxito! 42 servicios innecesarios desactivados y latencia al mínimo.
-                </div>
-              </div>
+      <!-- ==========================================================================
+           ESCENA 2: SERVICIOS INTERACTIVOS (Horizontal Scroll Pinning)
+           ========================================================================== -->
+      <section class="scene-services-pin" id="servicios">
+        
+        <!-- Pinned Wrapper for GSAP -->
+        <div class="pin-master-viewport" id="pinViewport">
+          
+          <!-- Sticky Header Info Bar -->
+          <div class="services-header-sticky">
+            <div class="section-badge-mono">
+              <span class="badge-index">02 // ARSENAL TECNOLÓGICO</span>
+              <span class="badge-line"></span>
+              <span class="badge-coords">Z-AXIS PINNED VIEW</span>
+            </div>
+            <h2 class="services-main-heading">
+              SOLUCIONES DISEÑADAS PARA <span class="neon-text-glow">VENDER Y ESCALAR</span>
+            </h2>
+            <div class="services-scroll-cue">
+              <span class="cue-icon"><i class="fa-solid fa-arrows-left-right"></i></span>
+              <span class="cue-text">DESPLAZAMIENTO HORIZONTAL DINÁMICO</span>
             </div>
           </div>
 
-          <!-- Right Col: Pricing and Features -->
-          <div>
-            <div class="software-features-grid">
-              <div class="soft-feat-item">
-                <i class="fa-solid fa-bolt"></i>
-                <span><strong>1-Click Boost:</strong> Debloat de Windows 10/11 y desactivación de telemetría inútil.</span>
+          <!-- Horizontal Track Container -->
+          <div class="services-horizontal-track" id="servicesTrack">
+
+            <!-- Tarjeta 01: Web Design -->
+            <div class="service-bento-card tilt-card" data-tilt>
+              <div class="card-neon-border"></div>
+              <div class="card-inner-glass">
+                <div class="card-top-header">
+                  <span class="card-tag-mono">&lt;WEB_DESIGN/&gt;</span>
+                  <span class="card-serial">MOD_01</span>
+                </div>
+
+                <div class="card-preview-window">
+                  <div class="preview-browser-bar">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="preview-url">dvdevs.io/high-converting-site</span>
+                    <span class="badge-pagespeed"><i class="fa-solid fa-bolt"></i> 100/100 SPEED</span>
+                  </div>
+                  <div class="preview-visual-content web-preview">
+                    <div class="mock-hero-line"></div>
+                    <div class="mock-grid-cards">
+                      <div class="mock-card glow"></div>
+                      <div class="mock-card"></div>
+                      <div class="mock-card"></div>
+                    </div>
+                    <div class="mock-code-overlay">
+                      <code>const web = new HighConvertingPage({ speed: '120fps', responsive: true });</code>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card-body-content">
+                  <h3 class="card-title">Páginas Web que Convierten Visitantes en Clientes</h3>
+                  <p class="card-description">
+                    Olvídate de las plantillas lentas y genéricas. Creamos landing pages y sitios web ultra rápidos, con animaciones modernas y diseño adaptable a celulares, pensados estratégicamente para captar clientes y destacar tu marca.
+                  </p>
+
+                  <div class="card-bullets-list">
+                    <div class="bullet-item">
+                      <span class="bullet-dot"></span>
+                      <span class="bullet-text">Diseño 100% personalizado y único</span>
+                    </div>
+                    <div class="bullet-item">
+                      <span class="bullet-dot"></span>
+                      <span class="bullet-text">Optimización extrema de velocidad</span>
+                    </div>
+                    <div class="bullet-item">
+                      <span class="bullet-dot"></span>
+                      <span class="bullet-text">Integración directa a WhatsApp y redes</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card-footer-action">
+                  <a href="#contacto" class="card-cta-link magnetic-target">
+                    <span>SOLICITAR LANDING</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                  </a>
+                </div>
               </div>
-              <div class="soft-feat-item">
-                <i class="fa-solid fa-crosshairs"></i>
-                <span><strong>Zero Input Delay:</strong> Ajustes directos de latencia de mouse, teclado y timers del kernel.</span>
+            </div>
+
+            <!-- Tarjeta 02: Tienda Local -->
+            <div class="service-bento-card tilt-card" data-tilt>
+              <div class="card-neon-border"></div>
+              <div class="card-inner-glass">
+                <div class="card-top-header">
+                  <span class="card-tag-mono">{ TIENDA_LOCAL }</span>
+                  <span class="card-serial">MOD_02</span>
+                </div>
+
+                <div class="card-preview-window">
+                  <div class="preview-browser-bar">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="preview-url">mitienda.com.ar/catalogo</span>
+                    <span class="badge-fee"><i class="fa-solid fa-check"></i> 0% COMISIONES</span>
+                  </div>
+                  <div class="preview-visual-content store-preview">
+                    <div class="store-item-mock">
+                      <div class="store-img-mock"><i class="fa-solid fa-bag-shopping"></i></div>
+                      <div class="store-details-mock">
+                        <span class="store-name-mock">Producto Estrella</span>
+                        <span class="store-price-mock">$42.000 <small>EN STOCK</small></span>
+                      </div>
+                      <div class="store-btn-mock"><i class="fa-brands fa-whatsapp"></i> Pedir</div>
+                    </div>
+                    <div class="cart-pulse-badge">
+                      <i class="fa-solid fa-cart-shopping"></i> Pedido listo para despachar
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card-body-content">
+                  <h3 class="card-title">Tu Comercio Abierto 24/7 con Catálogo Inteligente</h3>
+                  <p class="card-description">
+                    Llevamos tu local físico a internet con una tienda online propia integrada en tu misma web. Tus clientes arman su carrito de forma intuitiva y recibes el pedido listo para preparar y entregar, sin pagar comisiones por venta.
+                  </p>
+
+                  <div class="card-bullets-list">
+                    <div class="bullet-item">
+                      <span class="bullet-dot"></span>
+                      <span class="bullet-text">Catálogo interactivo con filtros rápidos</span>
+                    </div>
+                    <div class="bullet-item">
+                      <span class="bullet-dot"></span>
+                      <span class="bullet-text">Pedidos directos a tu WhatsApp o sistema</span>
+                    </div>
+                    <div class="bullet-item">
+                      <span class="bullet-dot"></span>
+                      <span class="bullet-text">Cero comisiones por transacción</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card-footer-action">
+                  <a href="#contacto" class="card-cta-link magnetic-target">
+                    <span>DIGITALIZAR MI TIENDA</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                  </a>
+                </div>
               </div>
-              <div class="soft-feat-item">
-                <i class="fa-solid fa-gamepad"></i>
-                <span><strong>Ultra Game Booster:</strong> Prioridad de procesos gaming y limpieza de memoria RAM/caché.</span>
+            </div>
+
+            <!-- Tarjeta 03: Admin System -->
+            <div class="service-bento-card tilt-card" data-tilt>
+              <div class="card-neon-border"></div>
+              <div class="card-inner-glass">
+                <div class="card-top-header">
+                  <span class="card-tag-mono">[ ADMIN_SYSTEM ]</span>
+                  <span class="card-serial">MOD_03</span>
+                </div>
+
+                <div class="card-preview-window">
+                  <div class="preview-browser-bar">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="preview-url">admin.dvdevs.io/dashboard</span>
+                    <span class="badge-status-green"><i class="fa-solid fa-lock"></i> PRIVADO &amp; SEGURO</span>
+                  </div>
+                  <div class="preview-visual-content admin-preview">
+                    <div class="admin-metric-row">
+                      <div class="metric-mini">
+                        <span class="metric-label">Ventas Hoy</span>
+                        <span class="metric-val">$840.500</span>
+                      </div>
+                      <div class="metric-mini">
+                        <span class="metric-label">Stock Crítico</span>
+                        <span class="metric-val text-red">3 items</span>
+                      </div>
+                    </div>
+                    <div class="admin-price-controller">
+                      <span class="ctl-label">Actualizar Precios Masivo</span>
+                      <div class="ctl-bar">
+                        <span class="ctl-input">+15% Inflación</span>
+                        <span class="ctl-btn-save"><i class="fa-solid fa-sync"></i> Aplicar</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card-body-content">
+                  <h3 class="card-title">Control Total de tu Negocio en un Solo Lugar</h3>
+                  <p class="card-description">
+                    Desarrollamos sistemas privados con bases de datos a medida para tu comercio. Actualiza precios en segundos, controla tu inventario, gestiona productos y administra la información de tu local desde un panel seguro y fácil de usar.
+                  </p>
+
+                  <div class="card-bullets-list">
+                    <div class="bullet-item">
+                      <span class="bullet-dot"></span>
+                      <span class="bullet-text">Actualización masiva e instantánea de precios</span>
+                    </div>
+                    <div class="bullet-item">
+                      <span class="bullet-dot"></span>
+                      <span class="bullet-text">Control de stock y alertas de inventario</span>
+                    </div>
+                    <div class="bullet-item">
+                      <span class="bullet-dot"></span>
+                      <span class="bullet-text">Acceso seguro desde PC o celular</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card-footer-action">
+                  <a href="#contacto" class="card-cta-link magnetic-target">
+                    <span>CREAR MI PANEL</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                  </a>
+                </div>
               </div>
-              <div class="soft-feat-item">
+            </div>
+
+            <!-- Tarjeta 04: Custom Dev -->
+            <div class="service-bento-card tilt-card" data-tilt>
+              <div class="card-neon-border"></div>
+              <div class="card-inner-glass">
+                <div class="card-top-header">
+                  <span class="card-tag-mono">// CUSTOM_DEV</span>
+                  <span class="card-serial">MOD_04</span>
+                </div>
+
+                <div class="card-preview-window">
+                  <div class="preview-browser-bar">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="preview-url">dvdevs.io/custom-engine</span>
+                    <span class="badge-nodes"><i class="fa-solid fa-network-wired"></i> 100% ADAPTABLE</span>
+                  </div>
+                  <div class="preview-visual-content dev-preview">
+                    <div class="node-graph-mock">
+                      <div class="graph-node node-a">Input Usuario</div>
+                      <div class="graph-arrow">&rarr;</div>
+                      <div class="graph-node node-b neon">Algoritmo / DB</div>
+                      <div class="graph-arrow">&rarr;</div>
+                      <div class="graph-node node-c">Cotización / Acción</div>
+                    </div>
+                    <div class="dev-feature-chips">
+                      <span>API REST</span>
+                      <span>Realtime WebSockets</span>
+                      <span>PostgreSQL</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card-body-content">
+                  <h3 class="card-title">Programación de Sistemas y Herramientas Especiales</h3>
+                  <p class="card-description">
+                    ¿Necesitas una herramienta interactiva en tu web, un diseñador en vivo, un cotizador automático o un software interno para tu equipo? Si lo puedes imaginar, lo programamos desde cero adaptado al flujo de tu negocio.
+                  </p>
+
+                  <div class="card-bullets-list">
+                    <div class="bullet-item">
+                      <span class="bullet-dot"></span>
+                      <span class="bullet-text">Cotizadores y personalizadores interactivos</span>
+                    </div>
+                    <div class="bullet-item">
+                      <span class="bullet-dot"></span>
+                      <span class="bullet-text">Automatización de tareas repetitivas</span>
+                    </div>
+                    <div class="bullet-item">
+                      <span class="bullet-dot"></span>
+                      <span class="bullet-text">Bases de datos rápidas y blindadas</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card-footer-action">
+                  <a href="#contacto" class="card-cta-link magnetic-target">
+                    <span>CONSULTAR IDEA A MEDIDA</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /servicesTrack -->
+
+        </div><!-- /pinViewport -->
+
+      </section>
+
+      <!-- ==========================================================================
+           ESCENA 3: EL "CORE" TECNOLÓGICO (Scroll-Triggered UI & Admin Assembly)
+           ========================================================================== -->
+      <section class="scene-core-assembly" id="core-tecnologico">
+        <div class="container">
+          
+          <!-- Encabezado de la sección -->
+          <div class="core-header-center" data-reveal>
+            <div class="cyber-chip">
+              <span class="chip-status-pulse"></span>
+              <span class="chip-text">03 // ARQUITECTURA INTEGRADA</span>
+            </div>
+            <h2 class="core-title-monumental">
+              TU VIDRIERA PÚBLICA Y TU SISTEMA INTERNO, <span class="neon-text-glow">CONECTADOS EN TIEMPO REAL</span>
+            </h2>
+            <p class="core-subtitle">
+              Observa cómo interactúa tu infraestructura: modifica un valor en el panel de control y míralo reflejado al milisegundo en la experiencia de tus clientes.
+            </p>
+          </div>
+
+          <!-- Interactivo Visual Assembly: Dashboard Admin <---> Data Conduit <---> Tienda Pública -->
+          <div class="assembly-interactive-stage" id="assemblyStage" data-reveal>
+            
+            <!-- Panel Izquierdo: Panel Admin Simulado -->
+            <div class="assembly-module admin-module" id="adminSimulator">
+              <div class="module-window-bar">
+                <div class="window-dots">
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                </div>
+                <span class="window-title"><i class="fa-solid fa-sliders"></i> Panel de Administración (Dashboard)</span>
+                <span class="window-badge live">MODO EDICIÓN</span>
+              </div>
+              <div class="module-content">
+                <div class="sim-row">
+                  <span class="sim-label">Producto en Catálogo:</span>
+                  <span class="sim-val">Auriculares Pro Studio X</span>
+                </div>
+                <div class="sim-field">
+                  <label for="priceInputRange" class="sim-field-label">
+                    <span>Precio Actual:</span>
+                    <strong class="sim-price-display" id="adminPriceDisplay">$45.000</strong>
+                  </label>
+                  <input type="range" id="priceInputRange" min="30000" max="95000" step="5000" value="58000" class="cyber-range-slider">
+                </div>
+                <div class="sim-row">
+                  <span class="sim-label">Stock en Depósito:</span>
+                  <span class="sim-badge-stock" id="stockBadge">14 Unidades</span>
+                </div>
+                <button class="sim-action-btn magnetic-target" id="triggerSyncBtn">
+                  <i class="fa-solid fa-bolt"></i>
+                  <span>GUARDAR PRECIO &amp; SINCRONIZAR</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Conduit Central: Líneas de Energía Rojas y Pulso de Datos -->
+            <div class="assembly-conduit" id="conduitConduit">
+              <div class="conduit-cable">
+                <div class="conduit-spark-trail" id="conduitSpark"></div>
+                <div class="conduit-data-packet packet-1"></div>
+                <div class="conduit-data-packet packet-2"></div>
+              </div>
+              <div class="conduit-hud-center">
+                <div class="hud-latency-meter">
+                  <span class="meter-icon"><i class="fa-solid fa-wave-square"></i></span>
+                  <span class="meter-val" id="latencyDisplay">0.4ms</span>
+                  <span class="meter-unit">LATENCY</span>
+                </div>
+                <div class="hud-sync-tag" id="syncStatusTag">SINCRONIZACIÓN EN VIVO</div>
+              </div>
+            </div>
+
+            <!-- Panel Derecho: Tienda Web Pública Simulada -->
+            <div class="assembly-module store-module" id="storeSimulator">
+              <div class="module-window-bar">
+                <div class="window-dots">
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                  <span class="dot"></span>
+                </div>
+                <span class="window-title"><i class="fa-solid fa-globe"></i> Tienda Web Pública (Clientes)</span>
+                <span class="window-badge live-green">VISTA PÚBLICA</span>
+              </div>
+              <div class="module-content">
+                <div class="storefront-product-card">
+                  <div class="product-badge-live" id="productLiveFlash">
+                    <i class="fa-solid fa-arrows-rotate"></i> PRECIO ACTUALIZADO
+                  </div>
+                  <div class="product-mock-visual">
+                    <i class="fa-solid fa-headphones"></i>
+                  </div>
+                  <div class="product-mock-info">
+                    <h4 class="prod-title">Auriculares Pro Studio X</h4>
+                    <div class="prod-price-wrap">
+                      <span class="prod-curr">ARS</span>
+                      <span class="prod-price-val" id="storePriceDisplay">$58.000</span>
+                    </div>
+                    <div class="prod-cta-mock">
+                      <i class="fa-brands fa-whatsapp"></i> Comprar vía WhatsApp
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /assembly-interactive-stage -->
+
+          <!-- Bloques Flotantes (Staggered Bento Blocks al hacer scroll) -->
+          <div class="core-blocks-grid">
+            
+            <!-- Bloque 1 -->
+            <div class="core-feature-box" data-reveal>
+              <div class="box-icon-glow">
+                <i class="fa-solid fa-bolt-lightning"></i>
+              </div>
+              <div class="box-text">
+                <span class="box-tag">// INSTANT_SYNC</span>
+                <p class="box-desc">
+                  Cambias un precio o stock en tu Panel Admin -&gt; Se actualiza al instante en tu Página Web.
+                </p>
+              </div>
+            </div>
+
+            <!-- Bloque 2 -->
+            <div class="core-feature-box" data-reveal>
+              <div class="box-icon-glow">
                 <i class="fa-solid fa-shield-halved"></i>
-                <span><strong>100% Seguro:</strong> Punto de restauración automático antes de cualquier cambio.</span>
+              </div>
+              <div class="box-text">
+                <span class="box-tag">// 100% OWNERSHIP</span>
+                <p class="box-desc">
+                  Sin mensualidades abusivas de plataformas externas. El código, la base de datos y el sistema son tuyos.
+                </p>
               </div>
             </div>
 
-            <div class="software-pricing-card">
-              <div class="mono-tag-row" style="margin-bottom: 0.75rem;">
-                <span class="mono-receipt-tag tag-yellow"><i class="fa-solid fa-key"></i> LIFETIME LICENSE</span>
-                <span class="mono-receipt-tag tag-matcha"><i class="fa-solid fa-shield-check"></i> 100% SAFE</span>
+            <!-- Bloque 3 -->
+            <div class="core-feature-box" data-reveal>
+              <div class="box-icon-glow">
+                <i class="fa-solid fa-server"></i>
               </div>
-              <div style="font-size: 0.88rem; font-weight: 700; color: var(--color-hi-vis-yellow); text-transform: uppercase; margin-bottom: 0.35rem; font-family: var(--font-mono); letter-spacing: 0.05em;">
-                OFFICIAL BUILD V2.4 PRO
-              </div>
-              <div class="soft-price-tag">
-                <span>$</span>30 <span style="font-size: 1.1rem; color: var(--text-muted);">USD</span>
-              </div>
-              <div class="soft-ars-tag">
-                o $36.000 ARS
-              </div>
-              <div class="soft-license-type">
-                Acceso ilimitado + Soporte y Actualizaciones
-              </div>
-
-              <button type="button" class="btn btn-outlined-yellow" style="width: 100%; font-size: 1.05rem;" onclick="contactWhatsAppPlan('Software Propio Byte Fix Optimizer', '$30 USD', '$36.000 ARS')">
-                <i class="fa-brands fa-whatsapp"></i>
-                <span>Comprar Software ($30 USD)</span>
-              </button>
-              <p style="font-size: 0.78rem; color: var(--text-dim); margin-top: 0.8rem; font-family: var(--font-mono);">
-                * Entrega inmediata con clave de activación y soporte personalizado.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       Immersive Intermediate Banner Section (Zero Delay Lab)
-       ========================================================================== -->
-  <section class="immersive-banner-section">
-    <div class="banner-bg-grid"></div>
-    <div class="banner-ambient-glow"></div>
-    <div class="container banner-inner">
-      <span class="banner-tag">BYTE FIX · ZERO DELAY LAB</span>
-      <h2 class="banner-title">Tu máximo rendimiento<br><em>empieza acá</em></h2>
-      <p class="banner-desc">
-        Descargá <strong>Byte Fix Optimizer ($30 USD / $36.000 ARS)</strong> o agendá tu optimización 1 a 1 vía AnyDesk para erradicar el lag de raíz.
-      </p>
-      <a href="https://wa.me/5492914380467?text=Hola%20Byte%20Fix,%20quiero%20optimizar%20mi%20PC%20y%20eliminar%20el%20input%20lag" target="_blank" class="btn btn-primary btn-lg banner-btn-glow">
-        <i class="fa-brands fa-whatsapp"></i>
-        <span>Optimizar mi PC por WhatsApp</span>
-      </a>
-      <div class="banner-rating-pill">
-        <span class="stars">★★★★★</span>
-        <span class="rating-num">5.0</span>
-        <span>· Cero Input Lag Garantizado</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       Section: Galería Dual Infinite Marquee (Opposite Tracks)
-       ========================================================================== -->
-  <section class="section section-gallery" id="galeria">
-    <div class="container">
-      <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 2rem;">
-        <div>
-          <span class="editorial-kicker">PRO PERFORMANCE · RESULTADOS COMPROBADOS</span>
-          <h2 class="editorial-title" style="margin-bottom: 0;">Galería de <em>Laboratorio</em></h2>
-        </div>
-        <a href="https://wa.me/5492914380467?text=Hola%20Byte%20Fix,%20quiero%20consultar%20por%20los%20resultados%20de%20optimizaci%C3%B3n" target="_blank" class="gallery-side-link">
-          <span>Consultanos por WhatsApp</span>
-          <i class="fa-solid fa-arrow-right"></i>
-        </a>
-      </div>
-    </div>
-
-    <!-- Dual Marquee Container -->
-    <div class="dual-marquee-container">
-      <!-- Upper Track: Moving Left -->
-      <div class="marquee-track-wrap marquee-left">
-        <div class="marquee-content">
-          <!-- Card 1 -->
-          <div class="marquee-card">
-            <span class="marquee-card-badge green"><i class="fa-solid fa-bolt"></i> CS2 BENCHMARK</span>
-            <h4>+140 FPS en Competitivo</h4>
-            <div class="marquee-metric-val">+140 <span>FPS GANADOS</span></div>
-            <p>1% low estabilizado en humos de 72 a 198 FPS en Ryzen 5 5600 + RTX 3060.</p>
-          </div>
-          <!-- Card 2 -->
-          <div class="marquee-card">
-            <span class="marquee-card-badge blue"><i class="fa-solid fa-microchip"></i> LATENCYMON</span>
-            <h4>Zero DPC Latency</h4>
-            <div class="marquee-metric-val">&lt; 38 <span>µs KERNEL</span></div>
-            <p>Drivers y timers de Windows optimizados sin cuellos de botella de interrupción.</p>
-          </div>
-          <!-- Card 3 -->
-          <div class="marquee-card">
-            <span class="marquee-card-badge amber"><i class="fa-solid fa-gauge-high"></i> WARZONE 3</span>
-            <h4>Cero Stuttering en Urzikstan</h4>
-            <div class="marquee-metric-val">0% <span>MICROTIRONES</span></div>
-            <p>Standby RAM cleaner automatizado eliminando pérdidas de frames al apuntar.</p>
-          </div>
-          <!-- Card 4 -->
-          <div class="marquee-card">
-            <span class="marquee-card-badge green"><i class="fa-solid fa-laptop-code"></i> BYTE FIX OPTIMIZER</span>
-            <h4>Debloat Windows 11</h4>
-            <div class="marquee-metric-val">-58 <span>PROCESOS</span></div>
-            <p>De 145 procesos en segundo plano a 87 limpios, liberando 2.4 GB de RAM.</p>
-          </div>
-          <!-- Card 5 -->
-          <div class="marquee-card">
-            <span class="marquee-card-badge blue"><i class="fa-solid fa-stopwatch"></i> INPUT DELAY</span>
-            <h4>Timer Resolution Lock</h4>
-            <div class="marquee-metric-val">0.50 <span>ms TIMER</span></div>
-            <p>Frecuencia de muestreo locked para respuesta instantánea de mouse y teclado.</p>
-          </div>
-        </div>
-        <!-- Duplicated content for infinite seamless CSS scroll -->
-        <div class="marquee-content" aria-hidden="true">
-          <!-- Card 1 -->
-          <div class="marquee-card">
-            <span class="marquee-card-badge green"><i class="fa-solid fa-bolt"></i> CS2 BENCHMARK</span>
-            <h4>+140 FPS en Competitivo</h4>
-            <div class="marquee-metric-val">+140 <span>FPS GANADOS</span></div>
-            <p>1% low estabilizado en humos de 72 a 198 FPS en Ryzen 5 5600 + RTX 3060.</p>
-          </div>
-          <!-- Card 2 -->
-          <div class="marquee-card">
-            <span class="marquee-card-badge blue"><i class="fa-solid fa-microchip"></i> LATENCYMON</span>
-            <h4>Zero DPC Latency</h4>
-            <div class="marquee-metric-val">&lt; 38 <span>µs KERNEL</span></div>
-            <p>Drivers y timers de Windows optimizados sin cuellos de botella de interrupción.</p>
-          </div>
-          <!-- Card 3 -->
-          <div class="marquee-card">
-            <span class="marquee-card-badge amber"><i class="fa-solid fa-gauge-high"></i> WARZONE 3</span>
-            <h4>Cero Stuttering en Urzikstan</h4>
-            <div class="marquee-metric-val">0% <span>MICROTIRONES</span></div>
-            <p>Standby RAM cleaner automatizado eliminando pérdidas de frames al apuntar.</p>
-          </div>
-          <!-- Card 4 -->
-          <div class="marquee-card">
-            <span class="marquee-card-badge green"><i class="fa-solid fa-laptop-code"></i> BYTE FIX OPTIMIZER</span>
-            <h4>Debloat Windows 11</h4>
-            <div class="marquee-metric-val">-58 <span>PROCESOS</span></div>
-            <p>De 145 procesos en segundo plano a 87 limpios, liberando 2.4 GB de RAM.</p>
-          </div>
-          <!-- Card 5 -->
-          <div class="marquee-card">
-            <span class="marquee-card-badge blue"><i class="fa-solid fa-stopwatch"></i> INPUT DELAY</span>
-            <h4>Timer Resolution Lock</h4>
-            <div class="marquee-metric-val">0.50 <span>ms TIMER</span></div>
-            <p>Frecuencia de muestreo locked para respuesta instantánea de mouse y teclado.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Lower Track: Moving Right -->
-      <div class="marquee-track-wrap marquee-right">
-        <div class="marquee-content">
-          <!-- Card 6 -->
-          <div class="marquee-card">
-            <span class="marquee-card-badge amber"><i class="fa-solid fa-screwdriver-wrench"></i> CABLE MANAGEMENT</span>
-            <h4>Ensamble Pro Clean</h4>
-            <div class="marquee-metric-val">100% <span>AIRFLOW PURO</span></div>
-            <p>Enrutamiento invisible de cables traseros para optimizar la ventilación interna.</p>
-          </div>
-          <!-- Card 7 -->
-          <div class="marquee-card">
-            <span class="marquee-card-badge blue"><i class="fa-solid fa-temperature-arrow-down"></i> TEST TÉRMICO</span>
-            <h4>Estrés Térmico 24 Horas</h4>
-            <div class="marquee-metric-val">-14°C <span>EN CARGA</span></div>
-            <p>Pasta térmica premium de alta conductividad y curvas de ventilación personalizadas.</p>
-          </div>
-          <!-- Card 8 -->
-          <div class="marquee-card">
-            <span class="marquee-card-badge green"><i class="fa-solid fa-crosshairs"></i> VALORANT</span>
-            <h4>Latencia de Periféricos</h4>
-            <div class="marquee-metric-val">2.1 <span>ms DELAY</span></div>
-            <p>Respuesta instantánea del click en monitores 144Hz, 240Hz y 360Hz.</p>
-          </div>
-          <!-- Card 9 -->
-          <div class="marquee-card">
-            <span class="marquee-card-badge blue"><i class="fa-solid fa-microchip"></i> BIOS & XMP</span>
-            <h4>Sub-Timings de RAM</h4>
-            <div class="marquee-metric-val">+22% <span>ANCHO DE BANDA</span></div>
-            <p>Perfiles XMP/DOCP calibrados con sub-timings ajustados para mínimas latencias nanosegundo.</p>
-          </div>
-          <!-- Card 10 -->
-          <div class="marquee-card">
-            <span class="marquee-card-badge amber"><i class="fa-solid fa-shield-check"></i> ESTABILIDAD</span>
-            <h4>Test AIDA64 & OCCT</h4>
-            <div class="marquee-metric-val">0 <span>ERRORES WHEA</span></div>
-            <p>Overclock / Undervolt validado 100% estable sin pantallazos azules ni crashes.</p>
-          </div>
-        </div>
-        <!-- Duplicated content for infinite seamless CSS scroll -->
-        <div class="marquee-content" aria-hidden="true">
-          <!-- Card 6 -->
-          <div class="marquee-card">
-            <span class="marquee-card-badge amber"><i class="fa-solid fa-screwdriver-wrench"></i> CABLE MANAGEMENT</span>
-            <h4>Ensamble Pro Clean</h4>
-            <div class="marquee-metric-val">100% <span>AIRFLOW PURO</span></div>
-            <p>Enrutamiento invisible de cables traseros para optimizar la ventilación interna.</p>
-          </div>
-          <!-- Card 7 -->
-          <div class="marquee-card">
-            <span class="marquee-card-badge blue"><i class="fa-solid fa-temperature-arrow-down"></i> TEST TÉRMICO</span>
-            <h4>Estrés Térmico 24 Horas</h4>
-            <div class="marquee-metric-val">-14°C <span>EN CARGA</span></div>
-            <p>Pasta térmica premium de alta conductividad y curvas de ventilación personalizadas.</p>
-          </div>
-          <!-- Card 8 -->
-          <div class="marquee-card">
-            <span class="marquee-card-badge green"><i class="fa-solid fa-crosshairs"></i> VALORANT</span>
-            <h4>Latencia de Periféricos</h4>
-            <div class="marquee-metric-val">2.1 <span>ms DELAY</span></div>
-            <p>Respuesta instantánea del click en monitores 144Hz, 240Hz y 360Hz.</p>
-          </div>
-          <!-- Card 9 -->
-          <div class="marquee-card">
-            <span class="marquee-card-badge blue"><i class="fa-solid fa-microchip"></i> BIOS & XMP</span>
-            <h4>Sub-Timings de RAM</h4>
-            <div class="marquee-metric-val">+22% <span>ANCHO DE BANDA</span></div>
-            <p>Perfiles XMP/DOCP calibrados con sub-timings ajustados para mínimas latencias nanosegundo.</p>
-          </div>
-          <!-- Card 10 -->
-          <div class="marquee-card">
-            <span class="marquee-card-badge amber"><i class="fa-solid fa-shield-check"></i> ESTABILIDAD</span>
-            <h4>Test AIDA64 & OCCT</h4>
-            <div class="marquee-metric-val">0 <span>ERRORES WHEA</span></div>
-            <p>Overclock / Undervolt validado 100% estable sin pantallazos azules ni crashes.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       Section: Planes de Optimización y Recursos (Precios Claros)
-       ========================================================================== -->
-  <section class="section" id="precios">
-    <div class="container">
-      <div class="editorial-header">
-        <img src="assets/logo.png" alt="Byte Fix" class="editorial-monogram">
-        <span class="editorial-kicker">PRECIOS CLAROS Y ACCESIBLES</span>
-        <h2 class="editorial-title">Planes de <em>Optimización</em></h2>
-        <p class="editorial-subtitle">
-          Recursos y servicios profesionales adaptados a cada necesidad. Elige si prefieres optimizar por tu cuenta con nuestros archivos, usar nuestro software o que lo hagamos nosotros vía AnyDesk.
-        </p>
-        <div class="editorial-divider"><span></span><i></i><span></span></div>
-      </div>
-
-      <!-- Currency Switcher Toggle -->
-      <div class="currency-switcher-wrap">
-        <span class="currency-label"><i class="fa-solid fa-coins"></i> Mostrar precios en:</span>
-        <div class="currency-toggle-box">
-          <button type="button" class="curr-btn active" data-curr="usd">Dólares (USD)</button>
-          <button type="button" class="curr-btn" data-curr="ars">Pesos Argentinos (ARS)</button>
-        </div>
-      </div>
-
-      <div class="pricing-grid">
-        <!-- Tier 1: Standar Reshades ($10 USD) -->
-        <div class="pricing-card">
-          <div class="pricing-header">
-            <div style="margin-bottom: 0.65rem;">
-              <span class="mono-receipt-tag tag-matcha"><i class="fa-solid fa-palette"></i> GRAPHIC PRESETS</span>
-            </div>
-            <h3 class="pricing-plan-title">Standar ReShades Gaming</h3>
-            <p class="pricing-plan-desc">Presets gráficos livianos sin pérdida de FPS ni sobrecarga de GPU.</p>
-          </div>
-          <div class="pricing-price-wrap">
-            <span class="pricing-currency">$</span>
-            <span class="pricing-amount price-amount-val" data-usd="10" data-ars="12.000">10</span>
-            <span class="pricing-period price-period-val" data-usd="USD / único" data-ars="ARS / único">USD / único</span>
-          </div>
-          <div class="price-ars-sub" data-usd="Aprox: $12.000 ARS" data-ars="Aprox: $10 USD">Aprox: $12.000 ARS</div>
-
-          <ul class="pricing-checklist" style="margin-top: 1.2rem;">
-            <li><i class="fa-solid fa-check"></i> Presets de ReShade calibrados para máxima nitidez</li>
-            <li><i class="fa-solid fa-check"></i> Mayor claridad, contraste y visibilidad de enemigos</li>
-            <li><i class="fa-solid fa-check"></i> Cero caída de FPS (configuración competitiva)</li>
-            <li><i class="fa-solid fa-check"></i> Archivos listos con guía paso a paso</li>
-            <li class="disabled"><i class="fa-solid fa-xmark"></i> Servicio de instalación remota</li>
-          </ul>
-
-          <button type="button" class="btn btn-secondary" onclick="contactWhatsAppPlan('Standar ReShades Gaming', '$10 USD', '$12.000 ARS')">
-            <i class="fa-brands fa-whatsapp"></i>
-            <span>Pedir ReShades</span>
-          </button>
-        </div>
-
-        <!-- Tier 2: Pack Archivos Tweaks ($15 USD) -->
-        <div class="pricing-card">
-          <div class="pricing-header">
-            <div style="margin-bottom: 0.65rem;">
-              <span class="mono-receipt-tag tag-bone"><i class="fa-solid fa-code"></i> REGISTRY & SCRIPTS</span>
-            </div>
-            <h3 class="pricing-plan-title">Pack Archivos Tweaks</h3>
-            <p class="pricing-plan-desc">Todos los archivos y scripts que usamos para optimizar PCs.</p>
-          </div>
-          <div class="pricing-price-wrap">
-            <span class="pricing-currency">$</span>
-            <span class="pricing-amount price-amount-val" data-usd="15" data-ars="18.000">15</span>
-            <span class="pricing-period price-period-val" data-usd="USD / único" data-ars="ARS / único">USD / único</span>
-          </div>
-          <div class="price-ars-sub" data-usd="Aprox: $18.000 ARS" data-ars="Aprox: $15 USD">Aprox: $18.000 ARS</div>
-
-          <ul class="pricing-checklist" style="margin-top: 1.2rem;">
-            <li><i class="fa-solid fa-check"></i> Acceso completo a nuestra biblioteca de scripts</li>
-            <li><i class="fa-solid fa-check"></i> Tweaks de registro (.reg) seguros y testeados</li>
-            <li><i class="fa-solid fa-check"></i> Comandos de limpieza de temporales y caché</li>
-            <li><i class="fa-solid fa-check"></i> Perfiles de energía gamer para CPU</li>
-            <li class="disabled"><i class="fa-solid fa-xmark"></i> Servicio personalizado AnyDesk</li>
-          </ul>
-
-          <button type="button" class="btn btn-secondary" onclick="contactWhatsAppPlan('Pack Archivos de Optimización', '$15 USD', '$18.000 ARS')">
-            <i class="fa-brands fa-whatsapp"></i>
-            <span>Pedir Pack Archivos</span>
-          </button>
-        </div>
-
-        <!-- Tier 3: Photography PACK ($20 USD) -->
-        <div class="pricing-card">
-          <div class="pricing-header">
-            <div style="margin-bottom: 0.65rem;">
-              <span class="mono-receipt-tag tag-pink"><i class="fa-solid fa-camera"></i> PHOTO FIDELITY</span>
-            </div>
-            <h3 class="pricing-plan-title">Photography PACK</h3>
-            <p class="pricing-plan-desc">Pack fotográfico cinematográfico con instalación asistida.</p>
-          </div>
-          <div class="pricing-price-wrap">
-            <span class="pricing-currency">$</span>
-            <span class="pricing-amount price-amount-val" data-usd="20" data-ars="24.000">20</span>
-            <span class="pricing-period price-period-val" data-usd="USD / único" data-ars="ARS / único">USD / único</span>
-          </div>
-          <div class="price-ars-sub" data-usd="Aprox: $24.000 ARS" data-ars="Aprox: $20 USD">Aprox: $24.000 ARS</div>
-
-          <ul class="pricing-checklist" style="margin-top: 1.2rem;">
-            <li><i class="fa-solid fa-check"></i> Presets gráficos de alta fidelidad visual</li>
-            <li><i class="fa-solid fa-check"></i> Presets de post-procesado y ReShade fotográficos</li>
-            <li><i class="fa-solid fa-check"></i> Instalación personalizada asistida por nosotros</li>
-            <li><i class="fa-solid fa-check"></i> Calibración según tu monitor y tarjeta gráfica</li>
-            <li><i class="fa-solid fa-check"></i> Ideal para streamers y creadores de contenido</li>
-          </ul>
-
-          <button type="button" class="btn btn-secondary" onclick="contactWhatsAppPlan('Photography PACK Gaming', '$20 USD', '$24.000 ARS')">
-            <i class="fa-brands fa-whatsapp"></i>
-            <span>Adquirir Photo Pack</span>
-          </button>
-        </div>
-
-        <!-- Tier 4: Optimización Personalizada AnyDesk ($40 USD / $48.000 ARS) -->
-        <div class="pricing-card highlight">
-          <span class="pricing-badge">MÁS ELEGIDO 1 A 1</span>
-          <div class="pricing-header">
-            <div style="margin-bottom: 0.65rem;">
-              <span class="mono-receipt-tag tag-magenta"><i class="fa-solid fa-user-gear"></i> 1-ON-1 ANYDESK VIP</span>
-            </div>
-            <h3 class="pricing-plan-title">Optimización Personalizada</h3>
-            <p class="pricing-plan-desc">Servicio técnico en vivo realizado por nosotros vía AnyDesk.</p>
-          </div>
-          <div class="pricing-price-wrap">
-            <span class="pricing-currency">$</span>
-            <span class="pricing-amount price-amount-val" data-usd="40" data-ars="48.000">40</span>
-            <span class="pricing-period price-period-val" data-usd="USD / sesión" data-ars="ARS / sesión">USD / sesión</span>
-          </div>
-          <div class="price-ars-sub" data-usd="Aprox: $48.000 ARS" data-ars="Aprox: $40 USD">Aprox: $48.000 ARS</div>
-
-          <ul class="pricing-checklist" style="margin-top: 1.2rem;">
-            <li><i class="fa-solid fa-check"></i> Conexión en vivo y segura por AnyDesk</li>
-            <li><i class="fa-solid fa-check"></i> Diagnóstico de temperaturas y cuellos de botella</li>
-            <li><i class="fa-solid fa-check"></i> Reducción drástica de Input Lag y DPC latency</li>
-            <li><i class="fa-solid fa-check"></i> Calibración de Windows y drivers para juegos</li>
-            <li><i class="fa-solid fa-check"></i> Explicación paso a paso durante el proceso</li>
-          </ul>
-
-          <button type="button" class="btn btn-primary" onclick="contactWhatsAppPlan('Optimización Personalizada AnyDesk', '$40 USD', '$48.000 ARS')">
-            <i class="fa-brands fa-whatsapp"></i>
-            <span>Agendar por AnyDesk</span>
-          </button>
-        </div>
-
-        <!-- Tier 5: Software Propio Card ($30 USD / $36.000 ARS) -->
-        <div class="pricing-card highlight" style="border-color: var(--color-hi-vis-yellow);">
-          <span class="pricing-badge" style="background: var(--color-hi-vis-yellow); color: var(--color-pure-black); font-weight: 800;">★ SOFTWARE PROPIO</span>
-          <div class="pricing-header">
-            <div style="margin-bottom: 0.65rem;">
-              <span class="mono-receipt-tag tag-yellow"><i class="fa-solid fa-bolt"></i> PROPRIETARY V2.4</span>
-            </div>
-            <h3 class="pricing-plan-title">Byte Fix Optimizer</h3>
-            <p class="pricing-plan-desc">Nuestra herramienta de software exclusiva y automatizada.</p>
-          </div>
-          <div class="pricing-price-wrap">
-            <span class="pricing-currency">$</span>
-            <span class="pricing-amount price-amount-val" data-usd="30" data-ars="36.000">30</span>
-            <span class="pricing-period price-period-val" data-usd="USD / licencia" data-ars="ARS / licencia">USD / licencia</span>
-          </div>
-          <div class="price-ars-sub" data-usd="Aprox: $36.000 ARS" data-ars="Aprox: $30 USD">Aprox: $36.000 ARS</div>
-
-          <ul class="pricing-checklist" style="margin-top: 1.2rem;">
-            <li><i class="fa-solid fa-check"></i> Optimización total con 1 solo clic</li>
-            <li><i class="fa-solid fa-check"></i> Licencia permanente para tu computadora</li>
-            <li><i class="fa-solid fa-check"></i> Módulos de Debloat, Game Boost e Input Lag</li>
-            <li><i class="fa-solid fa-check"></i> Punto de restauración automático seguro</li>
-            <li><i class="fa-solid fa-check"></i> Actualizaciones y soporte continuo incluidos</li>
-          </ul>
-
-          <button type="button" class="btn btn-outlined-yellow" onclick="contactWhatsAppPlan('Software Propio Byte Fix Optimizer', '$30 USD', '$36.000 ARS')">
-            <i class="fa-brands fa-whatsapp"></i>
-            <span>Comprar Software ($30 USD)</span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       Section: Testimonios / Feedbacks de Jugadores (RR Estudio Infinite Carousel)
-       ========================================================================== -->
-  <section class="section" id="testimonios">
-    <div class="container">
-      <div class="editorial-header">
-        <img src="assets/logo.png" alt="Byte Fix" class="editorial-monogram">
-        <span class="editorial-kicker">COMUNIDAD &amp; SOCIAL PROOF</span>
-        <h2 class="editorial-title">Opiniones de <em>Jugadores</em></h2>
-        <p class="editorial-subtitle">
-          Descubre lo que dicen gamers competitivos, streamers y creadores de contenido que ya probaron el software y las optimizaciones de Byte Fix.
-        </p>
-        <div class="editorial-divider"><span></span><i></i><span></span></div>
-      </div>
-
-      <!-- Giant 5.0 Rating Summary Block -->
-      <div class="reviews-summary-block">
-        <div class="summary-score-col">
-          <div class="giant-score">5.0</div>
-          <div class="summary-stars-box">
-            <div class="stars-gold">★★★★★</div>
-            <div class="score-sub">100% OPINIONES POSITIVAS</div>
-          </div>
-        </div>
-        <p class="summary-caption">
-          Más de <strong>+150 computadoras gamer optimizadas</strong> en Argentina y Latinoamérica. Reducción real de latencia DPC y cero stuttering comprobado.
-        </p>
-      </div>
-
-      <!-- Infinite Reviews Marquee Carousel -->
-      <div class="reviews-marquee-wrap">
-        <div class="reviews-marquee-track">
-          <!-- Review 1 -->
-          <div class="review-card">
-            <div>
-              <div class="review-stars">★★★★★</div>
-              <p class="review-text">
-                «Tenía caídas horribles en CS2 en los humos, me bajaba a 90 FPS. Después del AnyDesk me quedó clavado en +240 FPS estables y el mouse se siente en el aire, cero delay.»
-              </p>
-            </div>
-            <div class="review-author-row">
-              <div class="author-avatar">AR</div>
-              <div>
-                <h5 class="author-name">Agustín R.</h5>
-                <span class="review-service-tag">CS2 COMPETITIVO · FACEIT LV 9</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Review 2 -->
-          <div class="review-card">
-            <div>
-              <div class="review-stars">★★★★★</div>
-              <p class="review-text">
-                «Compré el Optimizer para mi notebook gamer con GTX 1650. Literalmente me revivió la máquina, Warzone ahora es súper jugable sin microtirones y con temperaturas más frescas.»
-              </p>
-            </div>
-            <div class="review-author-row">
-              <div class="author-avatar green">FM</div>
-              <div>
-                <h5 class="author-name">Facundo M.</h5>
-                <span class="review-service-tag">STREAMER AFILIADO TWITCH</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Review 3 -->
-          <div class="review-card">
-            <div>
-              <div class="review-stars">★★★★★</div>
-              <p class="review-text">
-                «Pensé que el mouse delay era problema de mi sensor, pero era pura latencia DPC de Windows. Me dejaron el sistema en 38µs. La respuesta del disparo en Valorant es inmediata.»
-              </p>
-            </div>
-            <div class="review-author-row">
-              <div class="author-avatar amber">GB</div>
-              <div>
-                <h5 class="author-name">Gonzalo B.</h5>
-                <span class="review-service-tag">VALORANT INMORTAL</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Review 4 -->
-          <div class="review-card">
-            <div>
-              <div class="review-stars">★★★★★</div>
-              <p class="review-text">
-                «Me armaron la PC gamer desde cero respetando mi presupuesto al centavo. Cable management de otro planeta, cero ruido y rinde como una bestia en 1440p.»
-              </p>
-            </div>
-            <div class="review-author-row">
-              <div class="author-avatar blue">LD</div>
-              <div>
-                <h5 class="author-name">Lucas D.</h5>
-                <span class="review-service-tag">SETUP GAMER COMPETITIVO</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Review 5 -->
-          <div class="review-card">
-            <div>
-              <div class="review-stars">★★★★★</div>
-              <p class="review-text">
-                «Excelente atención por WhatsApp. Me pasaron el link del software con la clave en menos de 5 minutos y me guiaron en cada paso. 100% recomendados.»
-              </p>
-            </div>
-            <div class="review-author-row">
-              <div class="author-avatar">MS</div>
-              <div>
-                <h5 class="author-name">Martín S.</h5>
-                <span class="review-service-tag">BYTE FIX OPTIMIZER V2.4</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Review 6 -->
-          <div class="review-card">
-            <div>
-              <div class="review-stars">★★★★★</div>
-              <p class="review-text">
-                «Probé los presets de ReShade y el pack de tweaks. La claridad visual para ver enemigos a distancia en Warzone cambió por completo sin perder ni 1 solo frame.»
-              </p>
-            </div>
-            <div class="review-author-row">
-              <div class="author-avatar green">VT</div>
-              <div>
-                <h5 class="author-name">Valentín T.</h5>
-                <span class="review-service-tag">WARZONE 3 COMPETITIVO</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Duplicated for seamless infinite CSS scroll -->
-          <div class="review-card" aria-hidden="true">
-            <div>
-              <div class="review-stars">★★★★★</div>
-              <p class="review-text">
-                «Tenía caídas horribles en CS2 en los humos, me bajaba a 90 FPS. Después del AnyDesk me quedó clavado en +240 FPS estables y el mouse se siente en el aire, cero delay.»
-              </p>
-            </div>
-            <div class="review-author-row">
-              <div class="author-avatar">AR</div>
-              <div>
-                <h5 class="author-name">Agustín R.</h5>
-                <span class="review-service-tag">CS2 COMPETITIVO · FACEIT LV 9</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="review-card" aria-hidden="true">
-            <div>
-              <div class="review-stars">★★★★★</div>
-              <p class="review-text">
-                «Compré el Optimizer para mi notebook gamer con GTX 1650. Literalmente me revivió la máquina, Warzone ahora es súper jugable sin microtirones y con temperaturas más frescas.»
-              </p>
-            </div>
-            <div class="review-author-row">
-              <div class="author-avatar green">FM</div>
-              <div>
-                <h5 class="author-name">Facundo M.</h5>
-                <span class="review-service-tag">STREAMER AFILIADO TWITCH</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="review-card" aria-hidden="true">
-            <div>
-              <div class="review-stars">★★★★★</div>
-              <p class="review-text">
-                «Pensé que el mouse delay era problema de mi sensor, pero era pura latencia DPC de Windows. Me dejaron el sistema en 38µs. La respuesta del disparo en Valorant es inmediata.»
-              </p>
-            </div>
-            <div class="review-author-row">
-              <div class="author-avatar amber">GB</div>
-              <div>
-                <h5 class="author-name">Gonzalo B.</h5>
-                <span class="review-service-tag">VALORANT INMORTAL</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="review-card" aria-hidden="true">
-            <div>
-              <div class="review-stars">★★★★★</div>
-              <p class="review-text">
-                «Me armaron la PC gamer desde cero respetando mi presupuesto al centavo. Cable management de otro planeta, cero ruido y rinde como una bestia en 1440p.»
-              </p>
-            </div>
-            <div class="review-author-row">
-              <div class="author-avatar blue">LD</div>
-              <div>
-                <h5 class="author-name">Lucas D.</h5>
-                <span class="review-service-tag">SETUP GAMER COMPETITIVO</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="review-card" aria-hidden="true">
-            <div>
-              <div class="review-stars">★★★★★</div>
-              <p class="review-text">
-                «Excelente atención por WhatsApp. Me pasaron el link del software con la clave en menos de 5 minutos y me guiaron en cada paso. 100% recomendados.»
-              </p>
-            </div>
-            <div class="review-author-row">
-              <div class="author-avatar">MS</div>
-              <div>
-                <h5 class="author-name">Martín S.</h5>
-                <span class="review-service-tag">BYTE FIX OPTIMIZER V2.4</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="review-card" aria-hidden="true">
-            <div>
-              <div class="review-stars">★★★★★</div>
-              <p class="review-text">
-                «Probé los presets de ReShade y el pack de tweaks. La claridad visual para ver enemigos a distancia en Warzone cambió por completo sin perder ni 1 solo frame.»
-              </p>
-            </div>
-            <div class="review-author-row">
-              <div class="author-avatar green">VT</div>
-              <div>
-                <h5 class="author-name">Valentín T.</h5>
-                <span class="review-service-tag">WARZONE 3 COMPETITIVO</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       FAQ Section
-       ========================================================================== -->
-  <section class="section" id="faq">
-    <div class="container">
-      <div class="editorial-header">
-        <img src="assets/logo.png" alt="Byte Fix" class="editorial-monogram">
-        <span class="editorial-kicker">RESPUESTAS INMEDIATAS</span>
-        <h2 class="editorial-title">Preguntas <em>Frecuentes</em></h2>
-        <p class="editorial-subtitle">Todo lo que necesitas saber antes de contratar nuestros servicios.</p>
-        <div class="editorial-divider"><span></span><i></i><span></span></div>
-      </div>
-
-      <div class="faq-grid">
-        <!-- FAQ 1 -->
-        <div class="faq-card active">
-          <div class="faq-header">
-            <span class="faq-question">¿Cómo se realiza la optimización remota y es seguro?</span>
-            <i class="fa-solid fa-chevron-down faq-chevron"></i>
-          </div>
-          <div class="faq-body" style="max-height: 200px;">
-            <div class="faq-content">
-              Es 100% seguro. Utilizamos programas oficiales como <strong>AnyDesk</strong> o <strong>TeamViewer</strong>. Tú tienes el control total: ves todo lo que hacemos en tu pantalla en tiempo real y puedes cancelar la conexión en cualquier segundo con un solo clic. No instalamos programas raros ni tocamos archivos personales.
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ 2 -->
-        <div class="faq-card">
-          <div class="faq-header">
-            <span class="faq-question">¿Cuántos FPS voy a ganar en mis juegos?</span>
-            <i class="fa-solid fa-chevron-down faq-chevron"></i>
-          </div>
-          <div class="faq-body">
-            <div class="faq-content">
-              La ganancia promedio suele rondar entre <strong>+30 a +90 FPS</strong> dependiendo de tus componentes actuales. Pero la mejora más notoria no es solo el número de FPS máximos, sino la <strong>estabilidad</strong>: eliminamos los tirones bruscos (stuttering) y el 1% low FPS sube drásticamente, haciendo que el juego se sienta como seda.
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ 3 -->
-        <div class="faq-card">
-          <div class="faq-header">
-            <span class="faq-question">¿Cómo recibo el Software, los Presets de ReShade o el Pack de Archivos?</span>
-            <i class="fa-solid fa-chevron-down faq-chevron"></i>
-          </div>
-          <div class="faq-body">
-            <div class="faq-content">
-              Una vez confirmado el pedido por WhatsApp, te enviamos el enlace de descarga oficial junto a tu clave de activación y las instrucciones de uso paso a paso. Además, cuentas con nuestro soporte directo para guiarte en cualquier consulta.
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ 4 -->
-        <div class="faq-card">
-          <div class="faq-header">
-            <span class="faq-question">¿Cómo funciona el servicio de Armados de PC?</span>
-            <i class="fa-solid fa-chevron-down faq-chevron"></i>
-          </div>
-          <div class="faq-body">
-            <div class="faq-content">
-              Nos cuentas cuánto dinero quieres invertir y qué juegos o tareas quieres realizar. Te armamos un presupuesto detallado con las mejores tiendas de confianza al mejor precio. Luego ensamblamos tu computadora con cable management impecable, configuramos la BIOS, instalamos Windows optimizado y realizamos pruebas de estrés antes de la entrega.
-            </div>
-          </div>
-        </div>
-
-        <!-- FAQ 5 -->
-        <div class="faq-card">
-          <div class="faq-header">
-            <span class="faq-question">¿Qué medios de pago aceptan?</span>
-            <i class="fa-solid fa-chevron-down faq-chevron"></i>
-          </div>
-          <div class="faq-body">
-            <div class="faq-content">
-              Aceptamos transferencias bancarias, Mercado Pago, PayPal, Binance / USDT / Criptomonedas y efectivo en caso de servicios presenciales.
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       Contact & WhatsApp Generator Section
-       ========================================================================== -->
-  <section class="section" id="contacto">
-    <div class="container">
-      <div class="contact-section-grid">
-        <div class="contact-info-col">
-          <span class="section-tag amber">Atención Personalizada</span>
-          <h2 class="section-title">Hablemos de tu <span class="highlight-gold">Setup</span></h2>
-          <p>
-            Completa el formulario interactivo para enviarnos un mensaje directo a WhatsApp con todos los datos de tu computadora, o contáctanos por nuestros canales oficiales.
-          </p>
-
-          <div class="contact-channels">
-            <a href="https://wa.me/5492914380467?text=Hola%20Byte%20Fix,%20quiero%20consultar%20por%20un%20servicio" target="_blank" class="channel-item">
-              <div class="channel-icon wp">
-                <i class="fa-brands fa-whatsapp"></i>
-              </div>
-              <div>
-                <div class="channel-title">WhatsApp Oficial</div>
-                <div class="channel-desc">Respuesta rápida y asesoramiento inmediato</div>
-              </div>
-            </a>
-
-            <div class="channel-item" style="cursor: pointer;" onclick="copyDiscord('ByteFix#0001')">
-              <div class="channel-icon dc">
-                <i class="fa-brands fa-discord"></i>
-              </div>
-              <div>
-                <div class="channel-title">Comunidad en Discord</div>
-                <div class="channel-desc">Tickets de soporte, feedback y anuncios</div>
-              </div>
-            </div>
-          </div>
-
-          <div style="background: rgba(37, 99, 235, 0.08); border: 1px solid rgba(59, 130, 246, 0.25); border-radius: var(--radius-md); padding: 1.2rem; display: flex; align-items: center; gap: 1rem;">
-            <img src="assets/logo.png" alt="Byte Fix" style="width: 68px; height: 68px; object-fit: contain; filter: drop-shadow(0 0 16px rgba(0, 240, 255, 0.6));">
-            <div style="font-size: 0.88rem; color: var(--text-muted);">
-              <strong>Garantía Byte Fix:</strong> Si no notas una mejora real en la fluidez de tu PC en la optimización, no pagas.
-            </div>
-          </div>
-        </div>
-
-        <!-- Form Box -->
-        <div class="quote-builder-box">
-          <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Generador Rápido de Consulta</h3>
-          <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;">
-            Selecciona lo que necesitas y te armaremos un mensaje directo para WhatsApp.
-          </p>
-
-          <form id="quoteForm">
-            <div class="form-group">
-              <label class="form-label" for="formService">Servicio o Producto que te Interesa</label>
-              <select class="form-control" id="formService" required>
-                <option value="Software Propio: Byte Fix Optimizer ($30 USD / $36.000 ARS)">⭐ Software Propio: Byte Fix Optimizer ($30 USD / $36.000 ARS)</option>
-                <option value="Optimización Personalizada 1 a 1 AnyDesk ($40 USD / $48.000 ARS)">⚡ Optimización Personalizada 1 a 1 AnyDesk ($40 USD / $48.000 ARS)</option>
-                <option value="Photography PACK Gaming ($20 USD / $24.000 ARS)">📸 Photography PACK Gaming ($20 USD / $24.000 ARS)</option>
-                <option value="Pack Archivos de Optimización Tweaks ($15 USD / $18.000 ARS)">📁 Pack Archivos de Optimización Tweaks ($15 USD / $18.000 ARS)</option>
-                <option value="Standar ReShades Gaming ($10 USD / $12.000 ARS)">🎨 Standar ReShades Gaming ($10 USD / $12.000 ARS)</option>
-                <option value="Mantenimiento Presencial (Limpieza + Pasta Térmica)">🛠️ Mantenimiento Presencial (Limpieza + Pasta Térmica)</option>
-                <option value="Asesoría y Armado de PC Gamer">🖥️ Asesoría y Armado de PC Gamer a Medida</option>
-              </select>
-            </div>
-
-            <div class="form-row">
-              <div class="form-group">
-                <label class="form-label" for="formName">Tu Nombre o Nick</label>
-                <input type="text" class="form-control" id="formName" placeholder="Ej: Lucas o TuNick" required>
-              </div>
-
-              <div class="form-group">
-                <label class="form-label" for="formSpecs">Tus Componentes (CPU / GPU)</label>
-                <input type="text" class="form-control" id="formSpecs" placeholder="Ej: i5 10400 + GTX 1660 Super">
+              <div class="box-text">
+                <span class="box-tag">// ENTERPRISE_GRADE</span>
+                <p class="box-desc">
+                  Seguridad de nivel empresarial, carga instantánea y soporte técnico directo.
+                </p>
               </div>
             </div>
 
-            <div class="form-group">
-              <label class="form-label" for="formDetails">¿Qué problema tienes o qué optimización buscas?</label>
-              <textarea class="form-control" id="formDetails" rows="3" placeholder="Ej: Me interesa el software propio o la optimización remota para jugar a +144 FPS estables sin delay."></textarea>
-            </div>
-
-            <button type="submit" class="btn btn-whatsapp" style="width: 100%; font-size: 1.05rem;">
-              <i class="fa-brands fa-whatsapp"></i>
-              <span>Enviar Consulta a WhatsApp</span>
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================================================
-       Footer
-       ========================================================================== -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div>
-          <div class="brand-logo-wrap" style="margin-bottom: 0.5rem;">
-            <img src="assets/logo.png" alt="Byte Fix Logo" class="brand-logo-img" style="width: 64px; height: 64px; object-fit: contain; filter: drop-shadow(0 0 16px rgba(0, 240, 255, 0.6));">
-            <div class="brand-text">
-              <div class="brand-name" style="font-size: 1.65rem;">BYTE <span>FIX</span></div>
-            </div>
           </div>
-          <p class="footer-brand-desc">
-            Especialistas en rendimiento informático, optimizaciones gaming, armado de computadoras de alto desempeño y creadores de nuestro software exclusivo Byte Fix Optimizer.
-          </p>
+
+        </div>
+      </section>
+
+      <!-- ==========================================================================
+           ESCENA 4: PROCESO DE TRABAJO (Línea de Tiempo Vertical Iluminada)
+           ========================================================================== -->
+      <section class="scene-process-timeline" id="proceso">
+        <div class="container">
+          
+          <div class="timeline-header-center" data-reveal>
+            <div class="cyber-chip">
+              <span class="chip-status-pulse"></span>
+              <span class="chip-text">04 // METODOLOGÍA ÁGIL</span>
+            </div>
+            <h2 class="timeline-title-monumental">
+              DE LA IDEA AL LANZAMIENTO <span class="neon-text-glow">SIN VUELTAS</span>
+            </h2>
+            <p class="timeline-subtitle">
+              Un flujo de trabajo claro, medible y sin sorpresas. Desde el primer análisis hasta la capacitación final.
+            </p>
+          </div>
+
+          <!-- Vertical Laser Timeline Container -->
+          <div class="vertical-timeline-assembly" id="timelineAssembly">
+            
+            <!-- Central Laser Track -->
+            <div class="timeline-laser-track" id="laserTrack">
+              <div class="laser-beam-progress" id="laserBeamProgress"></div>
+              <div class="laser-spark-head" id="laserSparkHead"></div>
+            </div>
+
+            <!-- Steps List -->
+            <div class="timeline-steps-wrap">
+
+              <!-- Paso 01 -->
+              <div class="timeline-step-node" data-step="1">
+                <div class="step-marker">
+                  <div class="step-marker-core">01</div>
+                  <div class="step-marker-pulse"></div>
+                </div>
+                <div class="step-card-content tilt-card" data-tilt>
+                  <div class="step-card-header">
+                    <span class="step-mono-tag">01 // DIAGNÓSTICO</span>
+                    <span class="step-status-chip">FASE INICIAL</span>
+                  </div>
+                  <h3 class="step-title">Análisis Estratégico &amp; Relevamiento</h3>
+                  <p class="step-desc">
+                    Analizamos tu negocio, tus productos y qué procesos necesitas automatizar o vender.
+                  </p>
+                  <div class="step-meta-chips">
+                    <span>Auditoría de necesidades</span>
+                    <span>Definición de flujo</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Paso 02 -->
+              <div class="timeline-step-node" data-step="2">
+                <div class="step-marker">
+                  <div class="step-marker-core">02</div>
+                  <div class="step-marker-pulse"></div>
+                </div>
+                <div class="step-card-content tilt-card" data-tilt>
+                  <div class="step-card-header">
+                    <span class="step-mono-tag">02 // DISEÑO &amp; PROTOTIPO</span>
+                    <span class="step-status-chip">ARQUITECTURA UX/UI</span>
+                  </div>
+                  <h3 class="step-title">Identidad Visual &amp; Prototipado Interactivo</h3>
+                  <p class="step-desc">
+                    Creamos la identidad visual y la estructura interactiva de tu página o sistema.
+                  </p>
+                  <div class="step-meta-chips">
+                    <span>Diseño Bento Box</span>
+                    <span>Prototipo navegable</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Paso 03 -->
+              <div class="timeline-step-node" data-step="3">
+                <div class="step-marker">
+                  <div class="step-marker-core">03</div>
+                  <div class="step-marker-pulse"></div>
+                </div>
+                <div class="step-card-content tilt-card" data-tilt>
+                  <div class="step-card-header">
+                    <span class="step-mono-tag">03 // DESARROLLO &amp; BASE DE DATOS</span>
+                    <span class="step-status-chip">PROGRAMACIÓN PURA</span>
+                  </div>
+                  <h3 class="step-title">Desarrollo Frontend, Backend &amp; DB</h3>
+                  <p class="step-desc">
+                    Programamos tu plataforma completa con código limpio, rápido y seguro.
+                  </p>
+                  <div class="step-meta-chips">
+                    <span>Arquitectura a Medida</span>
+                    <span>Cero dependencias innecesarias</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Paso 04 -->
+              <div class="timeline-step-node" data-step="4">
+                <div class="step-marker">
+                  <div class="step-marker-core">04</div>
+                  <div class="step-marker-pulse"></div>
+                </div>
+                <div class="step-card-content tilt-card" data-tilt>
+                  <div class="step-card-header">
+                    <span class="step-mono-tag">04 // ENTREGA &amp; CAPACITACIÓN</span>
+                    <span class="step-status-chip">DESPLIEGUE FINAL</span>
+                  </div>
+                  <h3 class="step-title">Puesta en Marcha &amp; Control Absoluto</h3>
+                  <p class="step-desc">
+                    Publicamos tu web lista para vender y te enseñamos a manejar tu panel de administración en minutos.
+                  </p>
+                  <div class="step-meta-chips">
+                    <span>Dominio + SSL</span>
+                    <span>Video-tutoriales 1 a 1</span>
+                  </div>
+                </div>
+              </div>
+
+            </div><!-- /timeline-steps-wrap -->
+
+          </div><!-- /vertical-timeline-assembly -->
+
+        </div>
+      </section>
+
+      <!-- ==========================================================================
+           ESCENA 5: CTA FINAL (El Compilador)
+           ========================================================================== -->
+      <section class="scene-final-compiler" id="contacto">
+        
+        <!-- Canvas vortex particle effect container -->
+        <div class="compiler-particle-canvas-wrap" id="compilerCanvasWrap" aria-hidden="true">
+          <canvas id="vortexCanvas"></canvas>
+          <div class="compiler-glow-backdrop"></div>
         </div>
 
-        <div>
-          <h4 class="footer-col-title">Servicios</h4>
-          <ul class="footer-links">
-            <li><a href="#software">Software Propio Optimizer</a></li>
-            <li><a href="#optimizacion">Optimización Remota AnyDesk</a></li>
-            <li><a href="#optimizacion">Mantenimiento Presencial</a></li>
-            <li><a href="#armados">Armado de PC Gamer</a></li>
-            <li><a href="#precios">ReShades & Photography Pack</a></li>
-          </ul>
+        <div class="container compiler-content-layer">
+          
+          <div class="compiler-card-frame" data-reveal>
+            
+            <!-- Etiqueta (Monospace) -->
+            <div class="compiler-status-wrap">
+              <span class="compiler-terminal-prompt">&gt;_</span>
+              <span class="compiler-status-mono">STATUS: LISTOS PARA CODIFICAR TU PRÓXIMO NIVEL</span>
+            </div>
+
+            <!-- Título Masivo -->
+            <h2 class="compiler-headline">
+              ¿LISTO PARA <span class="neon-text-glow">MODERNIZAR TU NEGOCIO?</span>
+            </h2>
+
+            <!-- Subtítulo -->
+            <p class="compiler-subheadline">
+              Contanos qué tenés en mente: desde una landing page profesional hasta el sistema completo de ventas y administración para tu local.
+            </p>
+
+            <!-- Botón Magnético Principal -->
+            <div class="compiler-magnetic-btn-wrap">
+              <a href="https://wa.me/5491136000000?text=Hola%20D%26V%20Devs!%20Quiero%20cotizar%20un%20proyecto%20web%20o%20sistema%20a%20medida." 
+                 target="_blank" 
+                 rel="noopener noreferrer" 
+                 class="magnetic-huge-cta magnetic-target" 
+                 id="finalMagneticBtn">
+                <span class="btn-outer-aurora"></span>
+                <span class="btn-cyber-surface"></span>
+                <span class="btn-content-inner">
+                  <i class="fa-brands fa-whatsapp whatsapp-icon-pulse"></i>
+                  <span class="btn-title-huge">HABLAR CON D&amp;V DEVS POR WHATSAPP { -&gt; }</span>
+                </span>
+              </a>
+            </div>
+
+            <!-- Micro-garantías de la Agencia -->
+            <div class="compiler-guarantees-grid">
+              <div class="guarantee-item">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+                <span>Respuesta en menos de 2 horas</span>
+              </div>
+              <div class="guarantee-item">
+                <i class="fa-solid fa-file-invoice-dollar"></i>
+                <span>Presupuesto claro y sin costo</span>
+              </div>
+              <div class="guarantee-item">
+                <i class="fa-solid fa-code-branch"></i>
+                <span>Código 100% de tu propiedad</span>
+              </div>
+            </div>
+
+          </div><!-- /compiler-card-frame -->
+
+          <!-- Footer Inferior -->
+          <footer class="cyber-footer">
+            <div class="footer-bottom-grid">
+              <div class="footer-brand-side">
+                <div class="footer-logo-row">
+                  <img src="logo-dv-devs.png" alt="D&amp;V Devs" class="footer-logo-img">
+                  <span class="footer-brand-name">D&amp;V DEVS</span>
+                </div>
+                <p class="footer-copyright-text">
+                  &copy; 2026 D&amp;V Devs — Desarrollo Web &amp; Software a Medida. Todos los derechos reservados.
+                </p>
+              </div>
+
+              <div class="footer-quick-nav">
+                <a href="#hero" class="footer-link">Inicio</a>
+                <a href="#servicios" class="footer-link">Servicios</a>
+                <a href="#core-tecnologico" class="footer-link">Sistemas</a>
+                <a href="#proceso" class="footer-link">Proceso</a>
+                <a href="#contacto" class="footer-link">Contacto</a>
+              </div>
+
+              <div class="footer-status-indicator">
+                <span class="status-indicator-dot"></span>
+                <span class="status-indicator-text">SISTEMAS OPERATIVOS // BUENOS AIRES, AR</span>
+              </div>
+            </div>
+          </footer>
+
         </div>
+      </section>
 
-        <div>
-          <h4 class="footer-col-title">Navegación</h4>
-          <ul class="footer-links">
-            <li><a href="#inicio">Inicio</a></li>
-            <li><a href="#servicios">Servicios</a></li>
-            <li><a href="#software">Software Propio</a></li>
-            <li><a href="#optimizacion">Optimizaciones</a></li>
-            <li><a href="#armados">Armados PC</a></li>
-            <li><a href="#precios">Planes y Precios</a></li>
-            <li><a href="#testimonios">Opiniones de Jugadores</a></li>
-            <li><a href="#faq">Preguntas Frecuentes</a></li>
-          </ul>
-        </div>
+    </div><!-- /smooth-content -->
+  </main><!-- /smooth-wrapper -->
 
-        <div>
-          <h4 class="footer-col-title">Contacto</h4>
-          <ul class="footer-links">
-            <li><a href="https://wa.me/5492914380467?text=Hola%20Byte%20Fix,%20quiero%20consultar%20por%20sus%20servicios" target="_blank"><i class="fa-brands fa-whatsapp"></i> WhatsApp Oficial</a></li>
-            <li><a href="javascript:void(0)" onclick="copyDiscord('ByteFix#0001')"><i class="fa-brands fa-discord"></i> Discord: ByteFix</a></li>
-            <li><a href="#contacto"><i class="fa-solid fa-clock"></i> Horario: Lun - Sáb</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <div>
-          &copy; 2026 <strong>Byte Fix</strong>. Todos los derechos reservados.
-        </div>
-        <div>
-          Diseñado con alto rendimiento para gamers exigentes.
-        </div>
-      </div>
-    </div>
-  </footer>
-
-
-  <!-- Floating Toast Notification -->
-  <a href="#software" class="toast-floating-badge" title="Ver última versión del software">
-    <span class="toast-pulse-dot"></span>
-    <span class="toast-text">Optimizer v2.4 <strong>PRO Activo</strong> | +144 FPS</span>
-  </a>
-
-  <!-- Floating WhatsApp Quick Button -->
-  <a href="https://wa.me/5492914380467?text=Hola%20Byte%20Fix,%20quiero%20consultar%20por%20sus%20servicios%20y%20el%20software%20de%20optimizaci%C3%B3n" target="_blank" class="floating-wp-btn" aria-label="Abrir WhatsApp">
-    <i class="fa-brands fa-whatsapp"></i>
-  </a>
-
-  <!-- Main JavaScript File -->
+  <!-- Main JavaScript Logic -->
   <script src="js/main.js"></script>
 </body>
 </html>
