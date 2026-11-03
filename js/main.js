@@ -122,14 +122,89 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(renderCursorRing);
 
     // Hover detection for interactive items
-    const hoverTargets = document.querySelectorAll('a, button, .magnetic-target, .service-bento-card, input[type="range"], .step-card-content');
+    const hoverTargets = document.querySelectorAll('a, button, .magnetic-target, .service-bento-card, input[type="range"], .step-card-content, .qty-btn, .ctl-chip-btn, .feature-chip-toggle, .nudge-btn');
     hoverTargets.forEach(el => {
-      el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+      el.addEventListener('mouseenter', () => {
+        document.body.classList.add('cursor-hover');
+        if (typeof SoundFX !== 'undefined') SoundFX.hover();
+      });
       el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+      el.addEventListener('click', () => {
+        if (typeof SoundFX !== 'undefined') SoundFX.click();
+      });
     });
 
     window.addEventListener('mousedown', () => document.body.classList.add('cursor-active'));
     window.addEventListener('mouseup', () => document.body.classList.remove('cursor-active'));
+  }
+
+  // ==========================================================================
+  // CYBER AUDIO SYNTHESIZER (Native Web Audio API - Polite & Synthetic)
+  // ==========================================================================
+  let audioCtx = null;
+  let isAudioEnabled = false;
+  const hudAudioToggle = document.getElementById('hudAudioToggle');
+  const audioIcon = document.getElementById('audioIcon');
+  const audioStatusText = document.getElementById('audioStatusText');
+
+  function initAudioContext() {
+    if (!audioCtx) {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (AudioContextClass) {
+        audioCtx = new AudioContextClass();
+      }
+    }
+    if (audioCtx && audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+  }
+
+  function playTone(freqStart, freqEnd, duration, type = 'sine', volume = 0.05) {
+    if (!isAudioEnabled || !audioCtx) return;
+    try {
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = type;
+      osc.frequency.setValueAtTime(freqStart, audioCtx.currentTime);
+      if (freqEnd && freqEnd !== freqStart) {
+        osc.frequency.exponentialRampToValueAtTime(Math.max(1, freqEnd), audioCtx.currentTime + duration);
+      }
+      gain.gain.setValueAtTime(volume, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + duration);
+    } catch (e) {
+      // Ignore audio errors silently
+    }
+  }
+
+  const SoundFX = {
+    hover: () => playTone(800, 1200, 0.035, 'sine', 0.025),
+    click: () => playTone(1200, 500, 0.04, 'triangle', 0.05),
+    zap: () => playTone(300, 1600, 0.08, 'sawtooth', 0.035),
+    success: () => {
+      playTone(523, 659, 0.07, 'sine', 0.04);
+      setTimeout(() => playTone(659, 1046, 0.1, 'sine', 0.04), 60);
+    }
+  };
+
+  if (hudAudioToggle) {
+    hudAudioToggle.addEventListener('click', () => {
+      initAudioContext();
+      isAudioEnabled = !isAudioEnabled;
+      if (isAudioEnabled) {
+        hudAudioToggle.classList.add('active');
+        if (audioIcon) audioIcon.className = 'fa-solid fa-volume-high';
+        if (audioStatusText) audioStatusText.textContent = 'SFX: ON';
+        SoundFX.success();
+      } else {
+        hudAudioToggle.classList.remove('active');
+        if (audioIcon) audioIcon.className = 'fa-solid fa-volume-xmark';
+        if (audioStatusText) audioStatusText.textContent = 'SFX: OFF';
+      }
+    });
   }
 
 
@@ -410,6 +485,160 @@ document.addEventListener('DOMContentLoaded', () => {
         card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
       });
     });
+
+    // --------------------------------------------------------------------------
+    // Micro-Simulators in Bento Cards
+    // --------------------------------------------------------------------------
+    // Card 1: PageSpeed Audit runner
+    const runSpeedTestBtn = document.getElementById('runSpeedTestBtn');
+    const speedScoreText = document.getElementById('speedScoreText');
+    if (runSpeedTestBtn && speedScoreText) {
+      runSpeedTestBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (typeof SoundFX !== 'undefined') SoundFX.click();
+        speedScoreText.textContent = 'PROBANDO...';
+        runSpeedTestBtn.style.opacity = '0.7';
+
+        let count = 20;
+        const interval = setInterval(() => {
+          count += 16;
+          if (count >= 100) {
+            count = 100;
+            clearInterval(interval);
+            speedScoreText.textContent = '100/100 SPEED';
+            runSpeedTestBtn.style.opacity = '1';
+            if (typeof SoundFX !== 'undefined') SoundFX.success();
+          } else {
+            speedScoreText.textContent = `${count}/100`;
+          }
+        }, 60);
+      });
+    }
+
+    // Card 2: Interactive Store Counter & WhatsApp Order
+    const qtyMinusBtn = document.getElementById('qtyMinusBtn');
+    const qtyPlusBtn = document.getElementById('qtyPlusBtn');
+    const qtyNumDisplay = document.getElementById('qtyNumDisplay');
+    const cardStorePriceDisplay = document.getElementById('cardStorePriceDisplay');
+    const waOrderBtnText = document.getElementById('waOrderBtnText');
+    const mockOrderBtn = document.getElementById('mockOrderBtn');
+    const cardCartFeedback = document.getElementById('cardCartFeedback');
+
+    let storeItemQty = 1;
+    const basePrice = 42000;
+
+    function updateCardStoreItem() {
+      if (qtyNumDisplay) qtyNumDisplay.textContent = storeItemQty;
+      const currentTotal = storeItemQty * basePrice;
+      const formatted = `$${currentTotal.toLocaleString('es-AR')}`;
+      if (cardStorePriceDisplay) {
+        cardStorePriceDisplay.innerHTML = `${formatted} <small>EN STOCK</small>`;
+      }
+      if (waOrderBtnText) {
+        waOrderBtnText.textContent = `Pedir por WhatsApp (${storeItemQty} u. - ${formatted})`;
+      }
+    }
+
+    if (qtyMinusBtn && qtyPlusBtn) {
+      qtyMinusBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (storeItemQty > 1) {
+          storeItemQty--;
+          updateCardStoreItem();
+          if (typeof SoundFX !== 'undefined') SoundFX.click();
+        }
+      });
+      qtyPlusBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (storeItemQty < 20) {
+          storeItemQty++;
+          updateCardStoreItem();
+          if (typeof SoundFX !== 'undefined') SoundFX.click();
+        }
+      });
+    }
+
+    if (mockOrderBtn && cardCartFeedback) {
+      mockOrderBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (typeof SoundFX !== 'undefined') SoundFX.success();
+        cardCartFeedback.innerHTML = `<i class="fa-solid fa-check-double text-green"></i> <span>¡Listo! ${storeItemQty} producto(s) añadidos al WhatsApp</span>`;
+        cardCartFeedback.style.color = '#10B981';
+        setTimeout(() => {
+          cardCartFeedback.innerHTML = `<i class="fa-solid fa-circle-check"></i> <span>Pedido directo sin comisiones</span>`;
+          cardCartFeedback.style.color = '';
+        }, 3000);
+      });
+    }
+
+    // Card 3: Admin Controller Quick Percents & Stock Toggle
+    const adminCardStockToggle = document.getElementById('adminCardStockToggle');
+    const adminCardStockText = document.getElementById('adminCardStockText');
+    let adminStockState = 0; // 0: Normal, 1: Alerta, 2: Agotado
+
+    if (adminCardStockToggle && adminCardStockText) {
+      adminCardStockToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        adminStockState = (adminStockState + 1) % 3;
+        if (adminStockState === 0) {
+          adminCardStockToggle.className = 'stock-toggle-btn';
+          adminCardStockText.textContent = '14 u. (Normal)';
+        } else if (adminStockState === 1) {
+          adminCardStockToggle.className = 'stock-toggle-btn alert';
+          adminCardStockText.textContent = '3 u. (Crítico)';
+        } else {
+          adminCardStockToggle.className = 'stock-toggle-btn empty';
+          adminCardStockText.textContent = '0 u. (Agotado)';
+        }
+        if (typeof SoundFX !== 'undefined') SoundFX.click();
+      });
+    }
+
+    const ctlChipBtns = document.querySelectorAll('.ctl-chip-btn');
+    const adminCardInflationDisplay = document.getElementById('adminCardInflationDisplay');
+    const adminCardApplyBtn = document.getElementById('adminCardApplyBtn');
+
+    ctlChipBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        ctlChipBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const pct = btn.getAttribute('data-percent');
+        if (adminCardInflationDisplay) {
+          adminCardInflationDisplay.textContent = `+${pct}% Seleccionado`;
+        }
+        if (typeof SoundFX !== 'undefined') SoundFX.click();
+      });
+    });
+
+    if (adminCardApplyBtn) {
+      adminCardApplyBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (typeof SoundFX !== 'undefined') SoundFX.zap();
+        const activePct = document.querySelector('.ctl-chip-btn.active')?.getAttribute('data-percent') || '15';
+        if (adminCardInflationDisplay) {
+          adminCardInflationDisplay.textContent = `¡+${activePct}% Aplicado!`;
+          setTimeout(() => {
+            adminCardInflationDisplay.textContent = `+${activePct}% Inflación`;
+          }, 2000);
+        }
+      });
+    }
+
+    // Card 4: Dev Feature Chips
+    const featureChipToggles = document.querySelectorAll('.feature-chip-toggle');
+    const graphCentralNode = document.getElementById('graphCentralNode');
+    featureChipToggles.forEach(chip => {
+      chip.addEventListener('click', (e) => {
+        e.stopPropagation();
+        chip.classList.toggle('active');
+        if (typeof SoundFX !== 'undefined') SoundFX.click();
+        if (graphCentralNode) {
+          graphCentralNode.classList.add('neon');
+          setTimeout(() => graphCentralNode.classList.remove('neon'), 400);
+        }
+      });
+    });
   }
 
 
@@ -425,8 +654,48 @@ document.addEventListener('DOMContentLoaded', () => {
   const productLiveFlash = document.getElementById('productLiveFlash');
   const latencyDisplay = document.getElementById('latencyDisplay');
   const conduitSpark = document.getElementById('conduitSpark');
+  const stockBadge = document.getElementById('stockBadge');
+  const stockBadgeText = document.getElementById('stockBadgeText');
+  const storeStockStateBadge = document.getElementById('storeStockStateBadge');
+  const storeSyncToast = document.getElementById('storeSyncToast');
+  const syncToastMsg = document.getElementById('syncToastMsg');
 
-  function executeDataSync(newPrice) {
+  let currentStockLevel = 0; // 0: Normal, 1: Crítico, 2: Agotado
+
+  function updateStockDisplays() {
+    if (currentStockLevel === 0) {
+      if (stockBadge) stockBadge.className = 'sim-badge-stock-interactive magnetic-target';
+      if (stockBadgeText) stockBadgeText.textContent = '14 Unidades (Normal)';
+      if (storeStockStateBadge) {
+        storeStockStateBadge.className = 'product-stock-banner';
+        storeStockStateBadge.innerHTML = '<i class="fa-solid fa-check"></i> DISPONIBLE PARA ENTREGA INMEDIATA';
+      }
+    } else if (currentStockLevel === 1) {
+      if (stockBadge) stockBadge.className = 'sim-badge-stock-interactive magnetic-target alert';
+      if (stockBadgeText) stockBadgeText.textContent = '3 Unidades (Crítico)';
+      if (storeStockStateBadge) {
+        storeStockStateBadge.className = 'product-stock-banner alert';
+        storeStockStateBadge.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> ¡ÚLTIMAS 3 UNIDADES!';
+      }
+    } else {
+      if (stockBadge) stockBadge.className = 'sim-badge-stock-interactive magnetic-target empty';
+      if (stockBadgeText) stockBadgeText.textContent = '0 Unidades (Agotado)';
+      if (storeStockStateBadge) {
+        storeStockStateBadge.className = 'product-stock-banner empty';
+        storeStockStateBadge.innerHTML = '<i class="fa-solid fa-ban"></i> PRODUCTO AGOTADO (POR ENCARGO)';
+      }
+    }
+  }
+
+  if (stockBadge) {
+    stockBadge.addEventListener('click', () => {
+      currentStockLevel = (currentStockLevel + 1) % 3;
+      updateStockDisplays();
+      executeDataSync(priceInputRange ? priceInputRange.value : 58000, true);
+    });
+  }
+
+  function executeDataSync(newPrice, isStockOnly = false) {
     const formattedPrice = `$${Number(newPrice).toLocaleString('es-AR')}`;
     
     if (adminPriceDisplay) adminPriceDisplay.textContent = formattedPrice;
@@ -435,8 +704,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (conduitSpark) {
       conduitSpark.style.animation = 'none';
       void conduitSpark.offsetWidth; // trigger reflow
-      conduitSpark.style.animation = 'sparkStream 0.6s 2 linear';
+      conduitSpark.style.animation = 'sparkStream 0.5s 2 linear';
     }
+
+    if (typeof SoundFX !== 'undefined') SoundFX.zap();
 
     // Flash and update storefront
     setTimeout(() => {
@@ -453,18 +724,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (productLiveFlash) {
         productLiveFlash.classList.add('flash');
-        productLiveFlash.innerHTML = '<i class="fa-solid fa-check"></i> PRECIO ACTUALIZADO EN TIEMPO REAL';
+        productLiveFlash.innerHTML = isStockOnly 
+          ? '<i class="fa-solid fa-check"></i> INVENTARIO ACTUALIZADO EN VIVO'
+          : '<i class="fa-solid fa-check"></i> PRECIO ACTUALIZADO EN TIEMPO REAL';
         setTimeout(() => {
           productLiveFlash.classList.remove('flash');
           productLiveFlash.innerHTML = '<i class="fa-solid fa-arrows-rotate"></i> PRECIO ACTUALIZADO';
-        }, 2000);
+        }, 2200);
       }
 
       if (latencyDisplay) {
-        const randomLatency = (Math.random() * 0.4 + 0.2).toFixed(1);
+        const randomLatency = (Math.random() * 0.3 + 0.2).toFixed(1);
         latencyDisplay.textContent = `${randomLatency}ms`;
+        if (syncToastMsg) {
+          syncToastMsg.textContent = `Base de datos sincronizada en ${randomLatency}ms`;
+        }
       }
-    }, 280);
+
+      if (typeof SoundFX !== 'undefined') SoundFX.success();
+    }, 260);
   }
 
   if (priceInputRange) {
@@ -472,6 +750,19 @@ document.addEventListener('DOMContentLoaded', () => {
       executeDataSync(e.target.value);
     });
   }
+
+  const nudgeBtns = document.querySelectorAll('.nudge-btn');
+  nudgeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const delta = parseInt(btn.getAttribute('data-nudge'), 10) || 0;
+      if (priceInputRange) {
+        let current = parseInt(priceInputRange.value, 10);
+        let updated = Math.min(95000, Math.max(30000, current + delta));
+        priceInputRange.value = updated;
+        executeDataSync(updated);
+      }
+    });
+  });
 
   if (triggerSyncBtn) {
     triggerSyncBtn.addEventListener('click', () => {

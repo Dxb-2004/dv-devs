@@ -79,6 +79,10 @@
     <span class="hud-metric-dot"></span>
   </div>
   <div class="hud-frame top-right" aria-hidden="true">
+    <button class="hud-audio-toggle magnetic-target" id="hudAudioToggle" aria-label="Alternar Efectos de Sonido Cyber">
+      <i class="fa-solid fa-volume-xmark" id="audioIcon"></i>
+      <span id="audioStatusText">SFX: OFF</span>
+    </button>
     <span class="hud-metric" id="hudCoords">LAT: -34.6037° | FPS: 120</span>
     <span class="hud-bracket">]</span>
   </div>
@@ -288,7 +292,9 @@
                     <span class="dot yellow"></span>
                     <span class="dot green"></span>
                     <span class="preview-url">dvdevs.io/high-converting-site</span>
-                    <span class="badge-pagespeed"><i class="fa-solid fa-bolt"></i> 100/100 SPEED</span>
+                    <button class="badge-pagespeed-btn magnetic-target" id="runSpeedTestBtn" title="Testear velocidad">
+                      <i class="fa-solid fa-bolt"></i> <span id="speedScoreText">100/100 SPEED</span>
+                    </button>
                   </div>
                   <div class="preview-visual-content web-preview">
                     <div class="mock-hero-line"></div>
@@ -297,8 +303,11 @@
                       <div class="mock-card"></div>
                       <div class="mock-card"></div>
                     </div>
-                    <div class="mock-code-overlay">
-                      <code>const web = new HighConvertingPage({ speed: '120fps', responsive: true });</code>
+                    <div class="speed-metrics-row" id="speedMetricsRow">
+                      <span class="metric-pill">FCP: <strong>0.3s</strong></span>
+                      <span class="metric-pill">LCP: <strong>0.5s</strong></span>
+                      <span class="metric-pill">CLS: <strong>0.00</strong></span>
+                      <span class="metric-pill text-green">120 FPS</span>
                     </div>
                   </div>
                 </div>
@@ -356,12 +365,21 @@
                       <div class="store-img-mock"><i class="fa-solid fa-bag-shopping"></i></div>
                       <div class="store-details-mock">
                         <span class="store-name-mock">Producto Estrella</span>
-                        <span class="store-price-mock">$42.000 <small>EN STOCK</small></span>
+                        <span class="store-price-mock" id="cardStorePriceDisplay">$42.000 <small>EN STOCK</small></span>
                       </div>
-                      <div class="store-btn-mock"><i class="fa-brands fa-whatsapp"></i> Pedir</div>
+                      <div class="store-qty-ctrl">
+                        <button class="qty-btn" id="qtyMinusBtn" aria-label="Menos cantidad">-</button>
+                        <span class="qty-num" id="qtyNumDisplay">1</span>
+                        <button class="qty-btn" id="qtyPlusBtn" aria-label="Más cantidad">+</button>
+                      </div>
                     </div>
-                    <div class="cart-pulse-badge">
-                      <i class="fa-solid fa-cart-shopping"></i> Pedido listo para despachar
+                    <div class="store-interactive-bottom">
+                      <button class="store-order-wa-btn magnetic-target" id="mockOrderBtn">
+                        <i class="fa-brands fa-whatsapp"></i> <span id="waOrderBtnText">Pedir por WhatsApp (1 u.)</span>
+                      </button>
+                      <div class="cart-pulse-badge" id="cardCartFeedback">
+                        <i class="fa-solid fa-circle-check"></i> <span id="cartFeedbackText">Pedido directo sin comisiones</span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -418,18 +436,24 @@
                     <div class="admin-metric-row">
                       <div class="metric-mini">
                         <span class="metric-label">Ventas Hoy</span>
-                        <span class="metric-val">$840.500</span>
+                        <span class="metric-val" id="adminCardVentas">$840.500</span>
                       </div>
                       <div class="metric-mini">
-                        <span class="metric-label">Stock Crítico</span>
-                        <span class="metric-val text-red">3 items</span>
+                        <span class="metric-label">Stock Actual</span>
+                        <button class="stock-toggle-btn" id="adminCardStockToggle" title="Click para alternar alerta">
+                          <span class="stock-dot"></span> <span id="adminCardStockText">14 u. (Normal)</span>
+                        </button>
                       </div>
                     </div>
                     <div class="admin-price-controller">
-                      <span class="ctl-label">Actualizar Precios Masivo</span>
+                      <div class="ctl-quick-actions">
+                        <button class="ctl-chip-btn" data-percent="5">+5%</button>
+                        <button class="ctl-chip-btn active" data-percent="15">+15%</button>
+                        <button class="ctl-chip-btn" data-percent="25">+25%</button>
+                      </div>
                       <div class="ctl-bar">
-                        <span class="ctl-input">+15% Inflación</span>
-                        <span class="ctl-btn-save"><i class="fa-solid fa-sync"></i> Aplicar</span>
+                        <span class="ctl-input" id="adminCardInflationDisplay">+15% Inflación</span>
+                        <button class="ctl-btn-save magnetic-target" id="adminCardApplyBtn"><i class="fa-solid fa-sync"></i> Aplicar</button>
                       </div>
                     </div>
                   </div>
@@ -487,14 +511,14 @@
                     <div class="node-graph-mock">
                       <div class="graph-node node-a">Input Usuario</div>
                       <div class="graph-arrow">&rarr;</div>
-                      <div class="graph-node node-b neon">Algoritmo / DB</div>
+                      <div class="graph-node node-b neon" id="graphCentralNode">Algoritmo / DB</div>
                       <div class="graph-arrow">&rarr;</div>
-                      <div class="graph-node node-c">Cotización / Acción</div>
+                      <div class="graph-node node-c" id="graphOutputNode">Cotización</div>
                     </div>
-                    <div class="dev-feature-chips">
-                      <span>API REST</span>
-                      <span>Realtime WebSockets</span>
-                      <span>PostgreSQL</span>
+                    <div class="dev-feature-chips" id="devFeatureChips">
+                      <button class="feature-chip-toggle active" data-mod="api">API REST</button>
+                      <button class="feature-chip-toggle active" data-mod="socket">WebSockets</button>
+                      <button class="feature-chip-toggle active" data-mod="db">PostgreSQL</button>
                     </div>
                   </div>
                 </div>
@@ -581,10 +605,17 @@
                     <strong class="sim-price-display" id="adminPriceDisplay">$45.000</strong>
                   </label>
                   <input type="range" id="priceInputRange" min="30000" max="95000" step="5000" value="58000" class="cyber-range-slider">
+                  <div class="sim-quick-nudges">
+                    <button class="nudge-btn" data-nudge="-5000">-$5.000</button>
+                    <button class="nudge-btn" data-nudge="5000">+$5.000</button>
+                    <button class="nudge-btn" data-nudge="10000">+$10.000</button>
+                  </div>
                 </div>
                 <div class="sim-row">
                   <span class="sim-label">Stock en Depósito:</span>
-                  <span class="sim-badge-stock" id="stockBadge">14 Unidades</span>
+                  <button class="sim-badge-stock-interactive magnetic-target" id="stockBadge" title="Click para alternar estado">
+                    <i class="fa-solid fa-box"></i> <span id="stockBadgeText">14 Unidades (Normal)</span>
+                  </button>
                 </div>
                 <button class="sim-action-btn magnetic-target" id="triggerSyncBtn">
                   <i class="fa-solid fa-bolt"></i>
@@ -626,6 +657,9 @@
                   <div class="product-badge-live" id="productLiveFlash">
                     <i class="fa-solid fa-arrows-rotate"></i> PRECIO ACTUALIZADO
                   </div>
+                  <div class="product-stock-banner" id="storeStockStateBadge">
+                    <i class="fa-solid fa-check"></i> DISPONIBLE PARA ENTREGA INMEDIATA
+                  </div>
                   <div class="product-mock-visual">
                     <i class="fa-solid fa-headphones"></i>
                   </div>
@@ -637,6 +671,9 @@
                     </div>
                     <div class="prod-cta-mock">
                       <i class="fa-brands fa-whatsapp"></i> Comprar vía WhatsApp
+                    </div>
+                    <div class="store-sync-toast" id="storeSyncToast">
+                      <i class="fa-solid fa-cloud-arrow-down"></i> <span id="syncToastMsg">Base de datos sincronizada</span>
                     </div>
                   </div>
                 </div>
@@ -815,6 +852,78 @@
 
           </div><!-- /vertical-timeline-assembly -->
 
+        </div>
+      </section>
+
+      <!-- ==========================================================================
+           SECCIÓN COMPLEMENTARIA: TECH ARSENAL & MÉTRICAS DE IMPACTO
+           ========================================================================== -->
+      <section class="scene-tech-arsenal">
+        <div class="tech-marquee-ribbon" aria-hidden="true">
+          <div class="marquee-track">
+            <span>JAVASCRIPT ES2026</span>
+            <span class="m-dot"></span>
+            <span>TYPESCRIPT</span>
+            <span class="m-dot"></span>
+            <span>THREE.JS &amp; WEBGL</span>
+            <span class="m-dot"></span>
+            <span>NODE.JS ARCHITECTURE</span>
+            <span class="m-dot"></span>
+            <span>POSTGRESQL &amp; REDIS</span>
+            <span class="m-dot"></span>
+            <span>WHATSAPP CLOUD API</span>
+            <span class="m-dot"></span>
+            <span>MERCADOPAGO &amp; STRIPE</span>
+            <span class="m-dot"></span>
+            <span>GSAP SCROLLTRIGGER</span>
+            <span class="m-dot"></span>
+            <span>DOCKER &amp; VERCEL</span>
+            <span class="m-dot"></span>
+            <!-- Duplicate for infinite smooth loop -->
+            <span>JAVASCRIPT ES2026</span>
+            <span class="m-dot"></span>
+            <span>TYPESCRIPT</span>
+            <span class="m-dot"></span>
+            <span>THREE.JS &amp; WEBGL</span>
+            <span class="m-dot"></span>
+            <span>NODE.JS ARCHITECTURE</span>
+            <span class="m-dot"></span>
+            <span>POSTGRESQL &amp; REDIS</span>
+            <span class="m-dot"></span>
+            <span>WHATSAPP CLOUD API</span>
+            <span class="m-dot"></span>
+            <span>MERCADOPAGO &amp; STRIPE</span>
+            <span class="m-dot"></span>
+            <span>GSAP SCROLLTRIGGER</span>
+            <span class="m-dot"></span>
+            <span>DOCKER &amp; VERCEL</span>
+            <span class="m-dot"></span>
+          </div>
+        </div>
+
+        <div class="container tech-stats-container">
+          <div class="tech-metrics-bento">
+            <div class="metric-card" data-reveal>
+              <div class="metric-num"><span class="counter-num">100</span>%</div>
+              <div class="metric-label">Código Propio</div>
+              <div class="metric-sub">Cero plantillas lentas o dependencias externas forzadas.</div>
+            </div>
+            <div class="metric-card" data-reveal>
+              <div class="metric-num"><span class="counter-num">0</span>%</div>
+              <div class="metric-label">Comisiones de Venta</div>
+              <div class="metric-sub">Tus ganancias son 100% tuyas, sin porcentajes retenidos.</div>
+            </div>
+            <div class="metric-card" data-reveal>
+              <div class="metric-num">&lt; <span class="counter-num">0.6</span>s</div>
+              <div class="metric-label">Carga Ultra-Rápida</div>
+              <div class="metric-sub">Optimización 100/100 para máxima retención de clientes.</div>
+            </div>
+            <div class="metric-card" data-reveal>
+              <div class="metric-num"><span class="counter-num">24</span>/7</div>
+              <div class="metric-label">Disponibilidad Activa</div>
+              <div class="metric-sub">Tu negocio y catálogo facturando todos los días del año.</div>
+            </div>
+          </div>
         </div>
       </section>
 
