@@ -121,9 +121,9 @@ export default function Hero3D() {
             {/* The 3D Canvas */}
             <CanvasHardware3D />
 
-            {/* Floating Telemetry Badge 1: Top-Left FPS Gain */}
-            <div className="absolute top-4 left-2 sm:-left-4 bg-bytefix-surface/90 backdrop-blur-md border border-bytefix-cyan/40 rounded-xl p-3 shadow-panel-3d flex items-center gap-3 animate-pulse-subtle z-20">
-              <div className="w-9 h-9 rounded-lg bg-bytefix-cyan/15 flex items-center justify-center text-bytefix-cyan">
+            {/* Floating Telemetry Badge 1: Top-Left FPS Gain (Desktop / Tablet) */}
+            <div className="hidden sm:flex absolute top-2 sm:-top-2 left-0 sm:-left-4 bg-bytefix-surface/90 backdrop-blur-md border border-bytefix-cyan/40 rounded-xl p-3 shadow-panel-3d items-center gap-3 animate-pulse-subtle z-20 pointer-events-none">
+              <div className="w-9 h-9 rounded-lg bg-bytefix-cyan/15 flex items-center justify-center text-bytefix-cyan shrink-0">
                 <Gauge className="w-5 h-5" />
               </div>
               <div>
@@ -136,9 +136,9 @@ export default function Hero3D() {
               </div>
             </div>
 
-            {/* Floating Telemetry Badge 2: Bottom-Right DPC Latency */}
-            <div className="absolute bottom-4 right-2 sm:-right-4 bg-bytefix-surface/90 backdrop-blur-md border border-bytefix-emerald/40 rounded-xl p-3 shadow-panel-3d flex items-center gap-3 z-20">
-              <div className="w-9 h-9 rounded-lg bg-bytefix-emerald/15 flex items-center justify-center text-bytefix-emerald">
+            {/* Floating Telemetry Badge 2: Bottom-Right DPC Latency (Desktop / Tablet) */}
+            <div className="hidden sm:flex absolute bottom-2 sm:-bottom-2 right-0 sm:-right-4 bg-bytefix-surface/90 backdrop-blur-md border border-bytefix-emerald/40 rounded-xl p-3 shadow-panel-3d items-center gap-3 z-20 pointer-events-none">
+              <div className="w-9 h-9 rounded-lg bg-bytefix-emerald/15 flex items-center justify-center text-bytefix-emerald shrink-0">
                 <Activity className="w-5 h-5" />
               </div>
               <div>

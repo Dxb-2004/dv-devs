@@ -27,35 +27,37 @@ export default function CanvasHardware3D() {
     <div className="w-full h-full relative select-none">
       <Suspense fallback={<CanvasFallback />}>
         <Canvas
-          camera={{ position: [0, 0, 5.2], fov: 45 }}
+          camera={{ position: [0, 0, isMobile ? 5.6 : 5.0], fov: 45 }}
           dpr={isMobile ? [1, 1.5] : [1, 2]}
           gl={{
-            antialias: !isMobile,
+            antialias: true,
             alpha: true,
             powerPreference: 'high-performance',
           }}
           className="w-full h-full"
         >
-          {/* Ambient & Rim Key Lights */}
-          <ambientLight intensity={0.8} />
-          <directionalLight position={[5, 6, 4]} intensity={2.2} color="#ffffff" />
-          <directionalLight position={[-5, -4, -3]} intensity={1.5} color="#00f0ff" />
-          <directionalLight position={[0, -5, 3]} intensity={1.2} color="#00ff88" />
+          {/* Key and Fill Lights */}
+          <ambientLight intensity={1.1} />
+          <directionalLight position={[6, 7, 5]} intensity={2.8} color="#ffffff" />
+          <directionalLight position={[-6, -3, -4]} intensity={2.0} color="#00f0ff" />
+          <directionalLight position={[0, -5, 4]} intensity={1.5} color="#00ff88" />
+          <pointLight position={[2, 3, 2]} intensity={2.2} color="#00f0ff" distance={7} />
+          <pointLight position={[-3, -2, -1]} intensity={1.8} color="#f59e0b" distance={6} />
 
-          {/* Interactive Tilt and Float */}
+          {/* Interactive Tilt, Drag, and Inertial Float */}
           <PresentationControls
             global
             snap
-            speed={1.5}
+            speed={1.6}
             zoom={1}
-            rotation={[0, -0.2, 0]}
-            polar={[-Math.PI / 8, Math.PI / 8]}
-            azimuth={[-Math.PI / 4, Math.PI / 4]}
+            rotation={[0.12, -0.34, 0.03]}
+            polar={[-Math.PI / 5, Math.PI / 5]}
+            azimuth={[-Math.PI / 3, Math.PI / 3]}
           >
             <Float
-              speed={1.8}
-              rotationIntensity={isMobile ? 0.2 : 0.5}
-              floatIntensity={isMobile ? 0.3 : 0.7}
+              speed={1.6}
+              rotationIntensity={isMobile ? 0.15 : 0.35}
+              floatIntensity={isMobile ? 0.25 : 0.55}
             >
               <HardwareModel isMobile={isMobile} />
             </Float>
@@ -63,11 +65,11 @@ export default function CanvasHardware3D() {
 
           {/* Subtle Ground Ambient Shadow */}
           <ContactShadows
-            position={[0, -1.8, 0]}
-            opacity={0.65}
-            scale={6}
-            blur={2.4}
-            far={4}
+            position={[0, -1.85, 0]}
+            opacity={0.75}
+            scale={7.5}
+            blur={2.2}
+            far={4.5}
             color="#00f0ff"
           />
         </Canvas>
@@ -84,7 +86,7 @@ function CanvasFallback() {
         Iniciando Hardware 3D WebGL...
       </span>
       <span className="text-[11px] text-bytefix-slate mt-1 font-mono">
-        Optimizando buffers GPU
+        Cargando texturas de alto rendimiento
       </span>
     </div>
   );
