@@ -46,38 +46,62 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop Nav Links */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden lg:flex items-center gap-5 xl:gap-7">
           <Link
             href="/#servicios"
-            className="text-sm font-medium text-bytefix-slate hover:text-bytefix-cyan transition-colors"
+            className="text-xs xl:text-sm font-medium text-bytefix-slate hover:text-bytefix-cyan transition-colors"
           >
             Servicios
           </Link>
           <Link
+            href="/#benchmarks"
+            className="text-xs xl:text-sm font-medium text-bytefix-slate hover:text-bytefix-cyan transition-colors"
+          >
+            Benchmarks
+          </Link>
+          <Link
             href="/#armados"
-            className="text-sm font-medium text-bytefix-slate hover:text-bytefix-cyan transition-colors"
+            className="text-xs xl:text-sm font-medium text-bytefix-slate hover:text-bytefix-cyan transition-colors"
           >
             Armados PC
           </Link>
           <Link
             href="/#software"
-            className="text-sm font-medium text-bytefix-amber hover:text-yellow-300 transition-colors flex items-center gap-1.5"
+            className="text-xs xl:text-sm font-medium text-bytefix-amber hover:text-yellow-300 transition-colors flex items-center gap-1.5"
           >
-            <span className="text-xs bg-bytefix-amber/20 text-bytefix-amber px-2 py-0.5 rounded-full font-mono border border-bytefix-amber/40">
+            <span className="text-[10px] bg-bytefix-amber/20 text-bytefix-amber px-1.5 py-0.5 rounded font-mono border border-bytefix-amber/40">
               $30 USD
             </span>
-            Software Propio
+            Software
+          </Link>
+          <Link
+            href="/#precios"
+            className="text-xs xl:text-sm font-medium text-bytefix-slate hover:text-bytefix-cyan transition-colors"
+          >
+            Precios
+          </Link>
+          <Link
+            href="/#testimonios"
+            className="text-xs xl:text-sm font-medium text-bytefix-slate hover:text-bytefix-cyan transition-colors"
+          >
+            Opiniones
+          </Link>
+          <Link
+            href="/#faq"
+            className="text-xs xl:text-sm font-medium text-bytefix-slate hover:text-bytefix-cyan transition-colors"
+          >
+            FAQ
           </Link>
           <Link
             href="/#contacto"
-            className="text-sm font-medium text-bytefix-slate hover:text-bytefix-cyan transition-colors"
+            className="text-xs xl:text-sm font-medium text-bytefix-slate hover:text-bytefix-cyan transition-colors"
           >
             Contacto
           </Link>
         </nav>
 
         {/* Auth State & Actions */}
-        <div className="hidden md:flex items-center gap-4">
+        <div className="hidden lg:flex items-center gap-3">
           {isLoading ? (
             <div className="w-8 h-8 rounded-full border-2 border-bytefix-cyan/30 border-t-bytefix-cyan animate-spin" />
           ) : user ? (
@@ -85,7 +109,7 @@ export default function Navbar() {
             <div className="flex items-center gap-3">
               <Link
                 href="/dashboard"
-                className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-bytefix-surface border border-bytefix-border hover:border-bytefix-cyan text-xs font-mono text-white transition-all shadow-panel-3d group"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-bytefix-surface border border-bytefix-border hover:border-bytefix-cyan text-xs font-mono text-white transition-all shadow-panel-3d group"
               >
                 <LayoutDashboard className="w-4 h-4 text-bytefix-cyan group-hover:scale-110 transition-transform" />
                 <span>Panel PC</span>
@@ -118,19 +142,19 @@ export default function Navbar() {
           ) : (
             /* Guest / Logged-Out State */
             <div className="flex items-center gap-3">
-              <a
-                href="/auth/login?returnTo=/dashboard"
-                className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-mono text-bytefix-slate hover:text-white border border-transparent hover:border-white/10 transition-all"
+              <Link
+                href="/dashboard"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono text-bytefix-slate hover:text-white border border-transparent hover:border-white/10 transition-all"
               >
                 <LogIn className="w-3.5 h-3.5 text-bytefix-cyan" />
                 <span>Portal Clientes</span>
-              </a>
+              </Link>
 
               <a
                 href="https://wa.me/5492914380467?text=Hola%20Byte%20Fix,%20quiero%20consultar%20por%20un%20servicio"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-bytefix-emerald/15 hover:bg-bytefix-emerald/25 text-bytefix-emerald border border-bytefix-emerald/30 text-xs font-bold transition-all shadow-[0_0_15px_rgba(0,255,136,0.15)]"
+                className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-bytefix-emerald/15 hover:bg-bytefix-emerald/25 text-bytefix-emerald border border-bytefix-emerald/30 text-xs font-bold transition-all shadow-[0_0_15px_rgba(0,255,136,0.15)]"
               >
                 <MessageCircle className="w-3.5 h-3.5" />
                 <span>WhatsApp</span>
@@ -140,7 +164,7 @@ export default function Navbar() {
         </div>
 
         {/* Mobile menu button */}
-        <div className="flex md:hidden items-center gap-2">
+        <div className="flex lg:hidden items-center gap-2">
           {user && (
             <Link
               href="/dashboard"
@@ -161,13 +185,20 @@ export default function Navbar() {
 
       {/* Mobile Menu Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-bytefix-surface border-b border-bytefix-border px-6 py-6 space-y-4">
+        <div className="lg:hidden bg-bytefix-surface border-b border-bytefix-border px-6 py-6 space-y-3.5">
           <Link
             href="/#servicios"
             onClick={() => setMobileMenuOpen(false)}
             className="block text-base font-medium text-bytefix-slate hover:text-bytefix-cyan"
           >
             Servicios
+          </Link>
+          <Link
+            href="/#benchmarks"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block text-base font-medium text-bytefix-slate hover:text-bytefix-cyan"
+          >
+            Simulador de Benchmarks
           </Link>
           <Link
             href="/#armados"
@@ -179,16 +210,40 @@ export default function Navbar() {
           <Link
             href="/#software"
             onClick={() => setMobileMenuOpen(false)}
-            className="block text-base font-medium text-bytefix-amber"
+            className="block text-base font-medium text-bytefix-amber flex items-center justify-between"
           >
-            Software Propio ($30 USD)
+            <span>Software Propio Optimizer</span>
+            <span className="text-xs bg-bytefix-amber/20 text-bytefix-amber px-2 py-0.5 rounded font-mono border border-bytefix-amber/40">
+              $30 USD
+            </span>
+          </Link>
+          <Link
+            href="/#precios"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block text-base font-medium text-bytefix-slate hover:text-bytefix-cyan"
+          >
+            Precios &amp; Planes (USD / ARS)
+          </Link>
+          <Link
+            href="/#testimonios"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block text-base font-medium text-bytefix-slate hover:text-bytefix-cyan"
+          >
+            Opiniones de Clientes (5.0 ★)
+          </Link>
+          <Link
+            href="/#faq"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block text-base font-medium text-bytefix-slate hover:text-bytefix-cyan"
+          >
+            Preguntas Frecuentes
           </Link>
           <Link
             href="/#contacto"
             onClick={() => setMobileMenuOpen(false)}
             className="block text-base font-medium text-bytefix-slate hover:text-bytefix-cyan"
           >
-            Contacto
+            Contacto &amp; Cotizador
           </Link>
 
           <div className="pt-4 border-t border-white/10 space-y-3">
@@ -212,13 +267,14 @@ export default function Navbar() {
               </>
             ) : (
               <>
-                <a
-                  href="/auth/login?returnTo=/dashboard"
+                <Link
+                  href="/dashboard"
+                  onClick={() => setMobileMenuOpen(false)}
                   className="flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-lg bg-bytefix-elevated text-white border border-bytefix-border text-sm font-mono"
                 >
                   <LogIn className="w-4 h-4 text-bytefix-cyan" />
                   <span>Ingresar a Mi Panel</span>
-                </a>
+                </Link>
                 <a
                   href="https://wa.me/5492914380467?text=Hola%20Byte%20Fix,%20quiero%20consultar%20por%20un%20servicio"
                   target="_blank"

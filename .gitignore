@@ -1,5 +1,7 @@
 # dependencies
+node_modules
 /node_modules
+reels_bytefix/node_modules/
 /.pnp
 .pnp.js
 

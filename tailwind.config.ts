@@ -47,6 +47,7 @@ const config: Config = {
         'pulse-subtle': 'pulseSubtle 3s ease-in-out infinite',
         'spin-slow': 'spin 18s linear infinite',
         'spin-reverse': 'spinReverse 24s linear infinite',
+        marquee: 'marquee 30s linear infinite',
       },
       keyframes: {
         pulseSubtle: {
@@ -56,6 +57,10 @@ const config: Config = {
         spinReverse: {
           from: { transform: 'rotate(360deg)' },
           to: { transform: 'rotate(0deg)' },
+        },
+        marquee: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-50%)' },
         },
       },
     },

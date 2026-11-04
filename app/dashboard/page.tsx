@@ -2,7 +2,7 @@ import React from 'react';
 import { redirect } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { auth0 } from '@/lib/auth0';
+import { auth0, isAuth0Configured } from '@/lib/auth0';
 import {
   CheckCircle2,
   Clock,
@@ -17,6 +17,7 @@ import {
   Wrench,
   Sparkles,
   ChevronRight,
+  Info,
 } from 'lucide-react';
 import { ClientServiceTicket, ServiceStep } from '@/types/client-pc';
 
@@ -28,11 +29,15 @@ export const metadata = {
 export default async function DashboardPage() {
   const session = await auth0.getSession();
 
-  if (!session) {
+  if (!session && isAuth0Configured) {
     redirect('/auth/login?returnTo=/dashboard');
   }
 
-  const { user } = session;
+  const user = session?.user || {
+    name: 'Cliente Demo · Byte Fix',
+    email: 'cliente.demo@bytefix.com',
+    picture: '/assets/logo.png',
+  };
 
   // Mocked telemetry ticket linked to the authenticated user's account
   const ticketData: ClientServiceTicket = {
@@ -157,6 +162,17 @@ export default async function DashboardPage() {
   return (
     <div className="min-h-screen bg-bytefix-obsidian text-white pt-24 pb-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {!isAuth0Configured && (
+          <div className="mb-6 p-4 rounded-xl bg-bytefix-surface border border-bytefix-cyan/40 flex items-start gap-3 shadow-panel-3d">
+            <Info className="w-5 h-5 text-bytefix-cyan shrink-0 mt-0.5" />
+            <div className="text-xs font-mono">
+              <strong className="text-white">Portal de Clientes en Modo Demostración Activo.</strong>
+              <p className="text-bytefix-slate mt-0.5">
+                Estás visualizando la Ficha Técnica y Seguimiento en vivo simulado. Para conectar inicio de sesión con Google o Auth0, añade tus variables de entorno en Vercel (<code className="text-bytefix-cyan">AUTH0_DOMAIN</code>, <code className="text-bytefix-cyan">AUTH0_CLIENT_ID</code>, etc.).
+              </p>
+            </div>
+          </div>
+        )}
         
         {/* Top Breadcrumb & User Profile Banner */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-8 border-b border-bytefix-border">

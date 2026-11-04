@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Byte Fix Studio | Generador & Exportador de Reels</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Montserrat:wght@800;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --bg: #090a0f;
+      --card: #12141c;
+      --border: #1e2230;
+      --primary: #00f0ff;
+      --primary-glow: rgba(0, 240, 255, 0.35);
+      --accent: #ff0055;
+      --accent-glow: rgba(255, 0, 85, 0.35);
+      --success: #00ff88;
+      --warning: #ffb700;
+      --text: #f0f3fa;
+      --text-muted: #8a93a8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: rgba(18, 20, 28, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 900;
+      color: #000;
+      font-family: 'Montserrat', sans-serif;
+      box-shadow: 0 0 16px var(--primary-glow);
+    }
+
+    .brand-title {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-tag {
+      font-size: 11px;
+      color: var(--primary);
+      font-family: 'JetBrains Mono', monospace;
+      background: rgba(0, 240, 255, 0.1);
+      padding: 2px 8px;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 240, 255, 0.25);
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: 380px 420px 1fr;
+      gap: 24px;
+      padding: 24px;
+      max-width: 1680px;
+      margin: 0 auto;
+      flex: 1;
+      width: 100%;
+    }
+
+    @media (max-width: 1280px) {
+      .container {
+        grid-template-columns: 360px 1fr;
+      }
+      .col-preview {
+        grid-column: span 2;
+        display: flex;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+      .col-preview {
+        grid-column: span 1;
+      }
+    }
+
+    /* Paneles */
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .panel-title {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .panel-title i {
+      color: var(--primary);
+    }
+
+    /* Lista de Reels */
+    .reels-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      overflow-y: auto;
+      max-height: calc(100vh - 180px);
+      padding-right: 4px;
+    }
+
+    .reel-item {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .reel-item:hover {
+      background: rgba(0, 240, 255, 0.04);
+      border-color: rgba(0, 240, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .reel-item.active {
+      background: rgba(0, 240, 255, 0.08);
+      border-color: var(--primary);
+      box-shadow: 0 0 16px rgba(0, 240, 255, 0.15);
+    }
+
+    .reel-item.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: var(--primary);
+    }
+
+    .reel-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--primary);
+      text-transform: uppercase;
+    }
+
+    .reel-name {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .reel-meta {
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Phone Mockup Canvas Preview */
+    .phone-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .phone-frame {
+      width: 360px;
+      height: 640px;
+      background: #000;
+      border-radius: 36px;
+      border: 4px solid #2a2e3d;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 240, 255, 0.15);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .phone-notch {
+      position: absolute;
+      top: 10px;
+      width: 100px;
+      height: 22px;
+      background: #111;
+      border-radius: 12px;
+      z-index: 40;
+    }
+
+    #reelCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      background: #06070a;
+    }
+
+    /* Controles de reproducción */
+    .controls-bar {
+      width: 360px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .progress-wrap {
+      width: 100%;
+      background: #1a1d29;
+      height: 6px;
+      border-radius: 3px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 3px;
+      transition: width 0.05s linear;
+    }
+
+    .time-display {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-muted);
+    }
+
+    .buttons-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      font-family: 'Space Grotesk', sans-serif;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      border: none;
+      outline: none;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #000;
+      box-shadow: 0 4px 16px var(--primary-glow);
+    }
+
+    .btn-primary:hover {
+      background: #33f3ff;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: #1c202d;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background: #252b3d;
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-record {
+      background: linear-gradient(135deg, #ff0055, #ff5500);
+      color: #fff;
+      box-shadow: 0 4px 16px var(--accent-glow);
+    }
+
+    .btn-record:hover {
+      filter: brightness(1.1);
+      transform: translateY(-1px);
+    }
+
+    .btn-record.recording {
+      animation: pulseRecord 1.2s infinite;
+    }
+
+    @keyframes pulseRecord {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(0.98); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    /* Columna de detalles */
+    .tabs-nav {
+      display: flex;
+      gap: 8px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+    }
+
+    .tab-btn {
+      padding: 8px 16px;
+      background: transparent;
+      border: none;
+      border-radius: 8px;
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tab-btn.active {
+      background: rgba(0, 240, 255, 0.1);
+      color: var(--primary);
+    }
+
+    .tab-content {
+      display: none;
+      flex-direction: column;
+      gap: 16px;
+      overflow-y: auto;
+      max-height: calc(100vh - 220px);
+    }
+
+    .tab-content.active {
+      display: flex;
+    }
+
+    .script-box, .copy-box, .broll-box {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .copy-box {
+      white-space: pre-wrap;
+      font-size: 13px;
+      font-family: inherit;
+    }
+
+    .tag-chip {
+      display: inline-block;
+      background: #181d2a;
+      color: var(--primary);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin: 3px;
+    }
+
+    .copy-action {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .broll-step {
+      display: flex;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .broll-time {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--warning);
+      font-weight: 700;
+      min-width: 70px;
+    }
+
+    .broll-desc {
+      font-size: 13px;
+      color: var(--text);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <div class="brand-logo">BF</div>
+      <div>
+        <div class="brand-title">Byte Fix Reel Studio</div>
+        <div style="font-size: 11px; color: var(--text-muted);">Generador &amp; Exportador de Contenido Técnico con Voz IA</div>
+      </div>
+      <span class="brand-tag">@bytefix_arg</span>
+    </div>
+    <div>
+      <span style="font-size: 12px; color: var(--success); font-family: 'JetBrains Mono';">
+        <i class="fa-solid fa-circle-check"></i> 6 Audios IA Neuronales (es-AR) Generados
+      </span>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Columna 1: Selector de Reels -->
+    <div class="panel">
+      <div class="panel-title"><i class="fa-solid fa-film"></i> Reels Planificados (6 Videos)</div>
+      <div class="reels-list" id="reelsList"></div>
+    </div>
+
+    <!-- Columna 2: Preview Vertical 9:16 y Controles -->
+    <div class="panel col-preview">
+      <div class="phone-container">
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          <canvas id="reelCanvas" width="1080" height="1920"></canvas>
+        </div>
+
+        <div class="controls-bar">
+          <div class="progress-wrap" id="progressWrap">
+            <div class="progress-bar" id="progressBar"></div>
+          </div>
+          <div class="time-display">
+            <span id="currentTime">00:00</span>
+            <span id="totalTime">00:00</span>
+          </div>
+
+          <div class="buttons-row">
+            <button class="btn btn-primary" id="playBtn">
+              <i class="fa-solid fa-play"></i> Reproducir
+            </button>
+            <button class="btn btn-secondary" id="downloadAudioBtn">
+              <i class="fa-solid fa-download"></i> Audio MP3
+            </button>
+          </div>
+
+          <button class="btn btn-record" id="recordBtn">
+            <i class="fa-solid fa-video"></i> Exportar Video Grabado (MP4/WebM)
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Columna 3: Información, Copy listo y Guía de B-Roll -->
+    <div class="panel">
+      <div class="tabs-nav">
+        <button class="tab-btn active" data-tab="tab-copy">Copy &amp; Hashtags</button>
+        <button class="tab-btn" data-tab="tab-broll">Guía de Filmación (B-Roll)</button>
+        <button class="tab-btn" data-tab="tab-script">Guion Completo</button>
+      </div>
+
+      <!-- Tab Copy -->
+      <div class="tab-content active" id="tab-copy">
+        <div class="copy-action">
+          <button class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px;" id="copyBtn">
+            <i class="fa-regular fa-copy"></i> Copiar Caption Listo
+          </button>
+        </div>
+        <div class="copy-box" id="copyText"></div>
+        <div>
+          <div class="panel-title" style="margin-bottom: 8px;"><i class="fa-solid fa-hashtag"></i> Hashtags Estratégicos</div>
+          <div id="hashtagList"></div>
+        </div>
+      </div>
+
+      <!-- Tab B-Roll -->
+      <div class="tab-content" id="tab-broll">
+        <div style="font-size: 13px; color: var(--text-muted); line-height: 1.5;">
+          Tomas reales que podés filmar en 5 minutos con tu teléfono para combinar con esta voz en off en CapCut:
+        </div>
+        <div class="broll-box" id="brollSteps"></div>
+      </div>
+
+      <!-- Tab Script -->
+      <div class="tab-content" id="tab-script">
+        <div class="script-box" id="scriptText"></div>
+      </div>
+    </div>
+  </div>
+
+  <audio id="audioPlayer"></audio>
+
+  <script>
+    const reelsData = [
+      {
+        id: 'reel_01_pasta_termica',
+        tag: 'Pilar 1: Prueba Social',
+        title: 'De 86°C a 61°C: La pasta térmica parecía cemento',
+        audioSrc: './audios/reel_01_pasta_termica.mp3',
+        hook: '¿Tu placa llega a 86°C y pensás que es normal?',
+        color: '#ff3366',
+        theme: 'thermal',
+        metrics: { before: '86°C', after: '61°C', delta: '-25°C', status: 'THERMAL THROTTLING DETECTED' },
+        script: '¿Tu placa llega a 86 grados y pensás que es normal? Si tu PC suena como turbina de avión y calienta como estufa, esto es lo que tiene adentro. Tres años sin mantenimiento. La pasta térmica original perdió toda conductividad y se convirtió en cemento seco. Limpiamos a fondo con alcohol isopropílico, renovamos pads desgastados y colocamos compuesto térmico premium. Menos veinticinco grados y el chip trabajando sin recortar frecuencias. Menos ruido, más vida útil. Mandanos un mensaje al DM con tus componentes y agendá tu service en Byte Fix.',
+        caption: `No, no es normal que tu placa de video trabaje rozando los 85°C ni que los ventiladores parezcan una turbina.
+
+Esta máquina llegó al taller con caídas bruscas de rendimiento en juegos pesados (thermal throttling) y apagones esporádicos. ¿La causa? Tres años sin service y una pasta térmica de fábrica que se convirtió en cemento.
+
+El resultado del mantenimiento integral:
+• De 86°C a 61°C bajo carga máxima.
+• Curva de ventilación silenciosa y estable.
+• Recuperación total de las frecuencias boost.
+
+La temperatura no solo te saca FPS: desgasta componentes caros antes de tiempo.
+
+📩 ¿Hace cuánto no abrís tu gabinete? Mandanos un mensaje al DM con el modelo de tus componentes y te pasamos presupuesto sin cargo.`,
+        hashtags: ['#MantenimientoPC', '#HardwareArgentina', '#GamingArg', '#TemperaturasPC', '#ByteFix'],
+        broll: [
+          { time: '0:00 - 0:04', desc: 'Plano corto a la pantalla mostrando MSI Afterburner con 86°C en rojo y ventilador al 100%.' },
+          { time: '0:04 - 0:12', desc: 'Desarme de la placa o disipador con destornillador y espátula intentando despegar la pasta petrificada.' },
+          { time: '0:12 - 0:20', desc: 'Limpieza con alcohol isopropílico y aplicación del nuevo compuesto térmico brillante.' },
+          { time: '0:20 - 0:35', desc: 'Monitor mostrando la misma prueba en 61°C estables, con el gabinete cerrado y ventiladores en silencio.' }
+        ]
+      },
+      {
+        id: 'reel_02_optimizacion_sistema',
+        tag: 'Pilar 4: Venta Directa',
+        title: 'Qué incluye exactamente nuestra Optimización de Sistema',
+        audioSrc: './audios/reel_02_optimizacion_sistema.mp3',
+        hook: 'Tener muchos FPS no sirve de nada si se siente así.',
+        color: '#00f0ff',
+        theme: 'frametime',
+        metrics: { before: '240 FPS (Avg)', after: '1% LOW: 145 FPS', delta: '+101% STABILITY', status: 'DPC LATENCY REDUCED' },
+        script: 'Tener muchos FPS no sirve de nada si se siente así. Podés tener 240 FPS de promedio, pero si tu frametime tiene picos, cada tiroteo se siente como si jugaras a 40. Nuestro servicio de optimización no usa limpiadores mágicos. Desinstalamos drivers limpios con DDU, depuramos telemetría innecesaria de Windows, calibramos opciones de energía y bajamos la latencia de entrada a niveles competitivos. Cero stuttering, máxima respuesta del mouse y estabilidad total. Escribinos por privado y coordinamos tu turno remoto o en taller.',
+        caption: `Los FPS promedio son solo la mitad de la historia. Lo que realmente sentís en cada partida es la consistencia del frametime.
+
+Nuestro servicio de Optimización de Sistema se enfoca en lo que verdaderamente importa para competir:
+✔️ Eliminación de bloatware y telemetría inútil que satura el procesador.
+✔️ Instalación limpia de drivers sin residuos inestables.
+✔️ Reducción drástica de DPC Latency (respuesta del mouse y teclado inmediata).
+✔️ Ajuste fino de opciones de energía y parámetros de Windows.
+
+No prometemos duplicar tus FPS por arte de magia; te aseguramos que tus componentes entreguen el 100% de su rendimiento real con estabilidad total.
+
+📥 El servicio se realiza de forma remota o presencial en nuestro taller. Escribinos un mensaje privado con las especificaciones de tu máquina y coordinamos tu turno.`,
+        hashtags: ['#OptimizacionWindows', '#BajoInputLag', '#GamingArg', '#CS2Argentina', '#ValorantArg'],
+        broll: [
+          { time: '0:00 - 0:04', desc: 'Gameplay con gráfico de frametime lleno de picos rojos mostrando micro-tirones al apuntar.' },
+          { time: '0:04 - 0:12', desc: 'Técnico ejecutando DDU en modo seguro y depurando tareas en segundo plano en Windows.' },
+          { time: '0:12 - 0:22', desc: 'Herramienta LatencyMon mostrando barras verdes perfectas y perfiles de energía ajustados.' },
+          { time: '0:22 - 0:34', desc: 'Mismo gameplay fluido con gráfico de frametime en línea recta horizontal verde.' }
+        ]
+      },
+      {
+        id: 'reel_03_dual_channel',
+        tag: 'Pilar 2: Educación Técnica',
+        title: '¿Tu juego pega tirones teniendo buena gráfica? (Dual Channel / XMP)',
+        audioSrc: './audios/reel_03_dual_channel.mp3',
+        hook: 'Tenés una gran gráfica pero cometieron este error básico.',
+        color: '#ffb700',
+        theme: 'memory',
+        metrics: { before: 'Single: 2133 MHz', after: 'Dual: 3600 MHz XMP', delta: '+35% 1% LOWS', status: 'MEMORY CHANNEL EXPANDED' },
+        script: 'Te gastaste una fortuna en placa de video, pero el que te armó la PC cometió este error básico. Poner las dos memorias RAM juntas hace que funcionen en Single Channel, cortando a la mitad el ancho de banda con el procesador. Y si nunca entraste a la BIOS a activar el perfil XMP o EXPO, tus memorias de alta frecuencia están corriendo a velocidad de oficina. Pasalas a las ranuras dos y cuatro, activá el perfil en la BIOS y recuperá los FPS por los que pagaste. Si no sabés configurarlo, dejanos un DM y te ayudamos en Byte Fix.',
+        caption: `Uno de los cuellos de botella más comunes que encontramos en el taller: hardware de gama alta trabajando a la mitad de su capacidad por una mala configuración de memoria.
+
+Si tenés dos módulos de RAM puestos uno al lado del otro en una placa de 4 slots, probablemente no estés aprovechando el Dual Channel. Y si nunca activaste el perfil XMP/EXPO en la BIOS, tus memorias rápidas están funcionando a la velocidad base más lenta.
+
+¿El síntoma principal? Bajones súbitos de FPS en zonas con muchos jugadores y texturas cargadas.
+
+💡 Revisá cómo están tus memorias hoy. Y si querés una revisión completa de tu máquina para exprimir su verdadero rendimiento, mandanos un mensaje directo y lo vemos juntos.`,
+        hashtags: ['#DualChannel', '#PCGamerArg', '#Stuttering', '#OptimizacionGaming', '#ByteFixArg'],
+        broll: [
+          { time: '0:00 - 0:04', desc: 'Plano corto de dos sticks de RAM pegados en los slots 1 y 2 de la placa madre.' },
+          { time: '0:04 - 0:12', desc: 'Mano sacando un stick y colocándolo con un "clack" satisfactorio en el slot 4.' },
+          { time: '0:12 - 0:20', desc: 'Pantalla de BIOS cambiando XMP de "Disabled" a "Profile 1 - 3600MHz".' },
+          { time: '0:20 - 0:31', desc: 'Comparativa de FPS mostrando la desaparición de los bajones repentinos.' }
+        ]
+      },
+      {
+        id: 'reel_04_plastico_disipador',
+        tag: 'Pilar 1: Caso Real Insólito',
+        title: 'La compró armada en un local conocido y se apagaba a los 10 min',
+        audioSrc: './audios/reel_04_plastico_disipador.mp3',
+        hook: 'Máquina de más de mil dólares que se apagaba al abrir juegos.',
+        color: '#ff0055',
+        theme: 'fail',
+        metrics: { before: '100°C SHUTDOWN', after: '68°C CINEBENCH', delta: '-32°C NORMALIZED', status: 'PROTECTIVE FILM REMOVED' },
+        script: 'No te estoy jodiendo: esta máquina costó más de mil dólares y la entregaron así. El cliente la compró armada en un local conocido. Llegaba a su casa, abría cualquier juego y la PC se apagaba por protección térmica rozando los 100 grados. Cuando desarmamos el disipador en nuestro taller, el plástico protector de fábrica seguía pegado a la base de cobre con la pasta térmica encima. El cobre nunca llegó a tocar el procesador. Armar una PC requiere atención al detalle y pruebas de estrés reales. Cuidá tu inversión con Byte Fix.',
+        caption: `El error más clásico (y peligroso) del armado descuidado: olvidarse de retirar el film protector del disipador.
+
+El cliente pagó por una máquina armada lista para usar, pero cada vez que iniciaba un juego, el procesador llegaba a los 100°C en segundos y la máquina se apagaba para no quemarse.
+
+Cuando retiramos el bloque en nuestro taller, el plástico transparente de fábrica seguía ahí, con la pasta térmica aplicada encima. El cobre nunca hizo contacto con el procesador.
+
+En Byte Fix cada armado pasa por:
+• Verificación punto por punto de montaje.
+• Prueba de estrés térmico continua de 60 minutos.
+• Monitoreo de voltajes y curvas de ventilación antes de la entrega.
+
+🛠️ No dejes tu inversión en manos de cualquiera. Si querés armar tu PC de cero o revisar una que compraste armada, mandanos un mensaje directo.`,
+        hashtags: ['#TallerDeHardware', '#ArmadoPC', '#ServicePC', '#GamerArgentina', '#ByteFix'],
+        broll: [
+          { time: '0:00 - 0:05', desc: 'Primer plano a la base del disipador con el sticker transparente y pasta térmica derretida encima.' },
+          { time: '0:05 - 0:13', desc: 'Técnico despegando el film plástico con unas pinzas.' },
+          { time: '0:13 - 0:22', desc: 'Limpieza de la base de cobre espejada con alcohol y reaplicación perfecta.' },
+          { time: '0:22 - 0:33', desc: 'Prueba de Cinebench corriendo estable a 68°C en el banco de trabajo.' }
+        ]
+      },
+      {
+        id: 'reel_05_pc_generica_vs_custom',
+        tag: 'Pilar 3: Armados a Medida',
+        title: 'PC armada genérica vs Armado personalizado Byte Fix',
+        audioSrc: './audios/reel_05_pc_generica_vs_custom.mp3',
+        hook: 'Mismo precio en pesos, dos mundos completamente distintos.',
+        color: '#00ff88',
+        theme: 'comparison',
+        metrics: { before: 'Genérica: Horno cerrado', after: 'ByteFix: Airflow Mesh', delta: '+25% FPS SOSTENIDOS', status: 'CERTIFIED PSU 80+ BRONZE' },
+        script: 'Mismo precio en pesos, dos mundos completamente distintos. Esto es lo que te venden en una publicación genérica de PC Gamer lista para usar: ahorran en lo que no se ve, fuente genérica sin protecciones, un solo módulo de memoria y un gabinete cerrado que ahoga los componentes. Y esto es lo que armamos en Byte Fix por el mismo presupuesto: fuente certificada con protecciones reales, memorias en Dual Channel, flujo de aire con frente mallado y componentes balanceados. Rendimiento real sin sorpresas. Mandanos tu presupuesto al DM y te asesoramos.',
+        caption: `Comprar una PC prearmada estándar parece la opción fácil, pero casi siempre es la más cara a largo plazo.
+
+Para mantener precios llamativos con luces de colores, muchas publicaciones genéricas recortan en los componentes más críticos:
+❌ Fuentes de alimentación de dudosa procedencia sin protecciones reales.
+❌ Un solo módulo de RAM (adiós Dual Channel y 20% de tus FPS).
+❌ Gabinetes cerrados con vidrio frontal que convierten tu PC en un horno.
+
+En Byte Fix armamos tu equipo desde cero según tu presupuesto real, eligiendo cada parte con criterio técnico y entregándola testeada bajo estrés.
+
+📩 ¿Estás pensando en comprar o actualizar tu PC? Escribinos por mensaje directo con tu presupuesto y te asesoramos sin costo ni compromiso.`,
+        hashtags: ['#PCGamerArgentina', '#PresupuestoPC', '#ArmadoPersonalizado', '#HardwareGamer', '#ByteFix'],
+        broll: [
+          { time: '0:00 - 0:04', desc: 'Gabinete genérico con cables enredados y fuente gris genérica sin certificación.' },
+          { time: '0:04 - 0:13', desc: 'Zoom al frente de vidrio sin entradas de aire y stick único de RAM.' },
+          { time: '0:13 - 0:23', desc: 'Gabinete Byte Fix con gestión de cables impecable, frente mallado y fuente certificada.' },
+          { time: '0:23 - 0:33', desc: 'Ambos benchmarks frente a frente mostrando 18°C menos y más FPS estables.' }
+        ]
+      },
+      {
+        id: 'reel_06_protocolo_taller',
+        tag: 'Pilar 4: Transparencia & Proceso',
+        title: 'Así ingresa y sale una PC de nuestro taller (Protocolo)',
+        audioSrc: './audios/reel_06_protocolo_taller.mp3',
+        hook: '¿Qué pasa realmente cuando dejás tu máquina en nuestro taller?',
+        color: '#00f0ff',
+        theme: 'protocol',
+        metrics: { step1: 'Diagnóstico & Estrés', step2: 'Limpieza & Pastas', step3: 'Validación 45 Min', status: 'INSPECTION PASSED' },
+        script: '¿Qué pasa realmente cuando dejás tu máquina en nuestro taller? Te mostramos nuestro protocolo. Paso 1: Medición de ingreso. Comprobamos temperaturas de fábrica, voltajes y salud de discos. Paso 2: Limpieza profunda con insumos de grado electrónico, renovación de pastas térmicas premium y gestión de cables para optimizar el flujo de aire. Paso 3: Testeo continuo de estrés de 45 minutos. Ninguna PC sale de acá sin demostrar que trabaja fría, silenciosa y al 100%. Escribinos al DM y reservá tu lugar.',
+        caption: `Para nosotros una PC no es solo una caja con cables; es tu herramienta de trabajo, tu espacio para desconectar y una inversión que cuidás mucho.
+
+Por eso en Byte Fix no hacemos "limpiezas por arriba". Aplicamos un protocolo riguroso en cada servicio:
+📋 Diagnóstico y medición de temperaturas de ingreso.
+🧹 Desarme seguro y desinfección con insumos de grado electrónico.
+🧪 Aplicación de compuestos térmicos de alto rendimiento.
+⚡ Prueba de estrés continuado de estabilidad y temperaturas.
+📊 Informe técnico con resultados comparativos antes y después.
+
+Máxima transparencia y cuidado en cada detalle.
+
+📩 ¿Tu máquina necesita mantenimiento o querés coordinar una optimización completa? Escribinos por mensaje directo o al WhatsApp del link de la bio y reservá tu lugar para esta semana.`,
+        hashtags: ['#TallerHardware', '#ServiceDePC', '#GamingArgentina', '#ByteFix', '#HardwareTech'],
+        broll: [
+          { time: '0:00 - 0:05', desc: 'Recepción del equipo sobre pad antiestático con registro en planilla técnica.' },
+          { time: '0:05 - 0:12', desc: 'Prueba de diagnóstico inicial con sensores de HWMonitor en pantalla.' },
+          { time: '0:12 - 0:21', desc: 'Sopleteado de filtros, cepillado y colocación de pasta térmica de alta conductividad.' },
+          { time: '0:21 - 0:34', desc: 'PC armada reluciente corriendo prueba de estrés final con reporte impreso de entrega.' }
+        ]
+      }
+    ];
+
+    let currentReelIndex = 0;
+    const audio = document.getElementById('audioPlayer');
+    const canvas = document.getElementById('reelCanvas');
+    const ctx = canvas.getContext('2d');
+    const playBtn = document.getElementById('playBtn');
+    const progressBar = document.getElementById('progressBar');
+    const progressWrap = document.getElementById('progressWrap');
+    const currentTimeEl = document.getElementById('currentTime');
+    const totalTimeEl = document.getElementById('totalTime');
+    const recordBtn = document.getElementById('recordBtn');
+
+    let isPlaying = false;
+    let isRecording = false;
+    let mediaRecorder = null;
+    let recordedChunks = [];
+    let animId = null;
+
+    // Inicializar lista de reels
+    const reelsListEl = document.getElementById('reelsList');
+    reelsData.forEach((r, idx) => {
+      const div = document.createElement('div');
+      div.className = `reel-item ${idx === 0 ? 'active' : ''}`;
+      div.innerHTML = `
+        <div class="reel-badge"><i class="fa-solid fa-play-circle"></i> Reel #${idx + 1} • ${r.tag}</div>
+        <div class="reel-name">${r.title}</div>
+        <div class="reel-meta">
+          <span><i class="fa-solid fa-microphone-lines"></i> Voz IA Argentina</span>
+          <span><i class="fa-solid fa-clock"></i> ~32s</span>
+        </div>
+      `;
+      div.onclick = () => selectReel(idx);
+      reelsListEl.appendChild(div);
+    });
+
+    function selectReel(idx) {
+      currentReelIndex = idx;
+      document.querySelectorAll('.reel-item').forEach((el, i) => {
+        el.classList.toggle('active', i === idx);
+      });
+      loadReel(reelsData[idx]);
+    }
+
+    function loadReel(r) {
+      audio.src = r.audioSrc;
+      audio.load();
+      isPlaying = false;
+      playBtn.innerHTML = '<i class="fa-solid fa-play"></i> Reproducir';
+
+      document.getElementById('copyText').innerText = r.caption;
+      document.getElementById('scriptText').innerText = r.script;
+
+      const hashWrap = document.getElementById('hashtagList');
+      hashWrap.innerHTML = '';
+      r.hashtags.forEach(h => {
+        const span = document.createElement('span');
+        span.className = 'tag-chip';
+        span.innerText = h;
+        hashWrap.appendChild(span);
+      });
+
+      const brollWrap = document.getElementById('brollSteps');
+      brollWrap.innerHTML = '';
+      r.broll.forEach(b => {
+        const row = document.createElement('div');
+        row.className = 'broll-step';
+        row.innerHTML = `<div class="broll-time">${b.time}</div><div class="broll-desc">${b.desc}</div>`;
+        brollWrap.appendChild(row);
+      });
+
+      document.getElementById('downloadAudioBtn').onclick = () => {
+        const a = document.createElement('a');
+        a.href = r.audioSrc;
+        a.download = `${r.id}.mp3`;
+        a.click();
+      };
+
+      drawFrame(0);
+    }
+
+    // Renderizado en Canvas 9:16 (1080 x 1920)
+    function drawFrame(timeSec) {
+      const r = reelsData[currentReelIndex];
+      const duration = audio.duration || 32;
+      const progress = Math.min(timeSec / duration, 1);
+
+      // Fondo oscuro con degradado dinámico
+      ctx.fillStyle = '#07090e';
+      ctx.fillRect(0, 0, 1080, 1920);
+
+      // Grid tecnológico sutil
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
+      ctx.lineWidth = 2;
+      const gridSize = 80;
+      for (let x = 0; x < 1080; x += gridSize) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, 1920); ctx.stroke();
+      }
+      for (let y = 0; y < 1920; y += gridSize) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(1080, y); ctx.stroke();
+      }
+
+      // Resplandor ambiental de acento
+      const radGrad = ctx.createRadialGradient(540, 600, 50, 540, 600, 700);
+      radGrad.addColorStop(0, r.color + '22');
+      radGrad.addColorStop(1, 'transparent');
+      ctx.fillStyle = radGrad;
+      ctx.fillRect(0, 0, 1080, 1920);
+
+      // Top Bar / Branding
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '800 42px Montserrat';
+      ctx.fillText('BYTE FIX', 100, 180);
+
+      ctx.fillStyle = r.color;
+      ctx.font = '600 28px "JetBrains Mono"';
+      ctx.fillText('@bytefix_arg', 100, 225);
+
+      // Badge de categoría
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
+      roundRect(ctx, 680, 145, 300, 65, 12, true, false);
+      ctx.fillStyle = '#fff';
+      ctx.font = '700 24px "Space Grotesk"';
+      ctx.textAlign = 'center';
+      ctx.fillText('HARDWARE TECH', 830, 186);
+      ctx.textAlign = 'left';
+
+      // Línea divisoria superior
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+      ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(100, 270); ctx.lineTo(980, 270); ctx.stroke();
+
+      // Hook Principal Destacado (Arriba)
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '900 64px Montserrat';
+      wrapText(ctx, r.hook.toUpperCase(), 100, 380, 880, 78);
+
+      // ÁREA CENTRAL DINÁMICA SEGÚN TEMA DEL REEL
+      drawThemeGraphics(r, timeSec, progress);
+
+      // SUBTÍTULOS DINÁMICOS ESTILO GAMER / TIKTOK (Abajo)
+      drawSubtitles(r, timeSec);
+
+      // Barra de progreso inferior tipo Instagram Reel
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
+      ctx.fillRect(60, 1850, 960, 8);
+      ctx.fillStyle = r.color;
+      ctx.fillRect(60, 1850, 960 * progress, 8);
+
+      // CTA Inferior fijo
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+      roundRect(ctx, 220, 1740, 640, 75, 38, true, false);
+      ctx.strokeStyle = r.color;
+      ctx.lineWidth = 3;
+      roundRect(ctx, 220, 1740, 640, 75, 38, false, true);
+
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '800 28px Montserrat';
+      ctx.textAlign = 'center';
+      ctx.fillText('ENVIÁ UN MENSAJE AL DM', 540, 1788);
+      ctx.textAlign = 'left';
+    }
+
+    function drawThemeGraphics(r, timeSec, progress) {
+      const centerX = 540;
+      const centerY = 960;
+
+      // Caja contenedora de gráficos
+      ctx.fillStyle = 'rgba(18, 20, 28, 0.7)';
+      roundRect(ctx, 90, 640, 900, 640, 24, true, false);
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+      ctx.lineWidth = 2;
+      roundRect(ctx, 90, 640, 900, 640, 24, false, true);
+
+      // Gráficos por temática
+      if (r.theme === 'thermal') {
+        // Medidor de temperatura
+        const temp = progress < 0.65 ? 86 : Math.max(61, Math.round(86 - (86 - 61) * ((progress - 0.65) / 0.25)));
+        const isHot = temp > 70;
+
+        ctx.fillStyle = isHot ? '#ff3366' : '#00ff88';
+        ctx.font = '900 130px Montserrat';
+        ctx.textAlign = 'center';
+        ctx.fillText(`${temp}°C`, centerX, centerY - 20);
+
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '700 32px "Space Grotesk"';
+        ctx.fillText(isHot ? '🔥 TEMPERATURA CRÍTICA' : '❄️ TEMPERATURA ÓPTIMA (BYTE FIX)', centerX, centerY + 60);
+
+        // Barra térmica
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+        roundRect(ctx, 200, centerY + 120, 680, 24, 12, true, false);
+        ctx.fillStyle = isHot ? '#ff3366' : '#00ff88';
+        const barWidth = ((temp - 40) / 60) * 680;
+        roundRect(ctx, 200, centerY + 120, Math.max(20, barWidth), 24, 12, true, false);
+
+        ctx.fillStyle = '#8a93a8';
+        ctx.font = '600 24px "JetBrains Mono"';
+        ctx.fillText(isHot ? 'PASTA TÉRMICA SECA / DUST' : 'COMPOSTO PREMIUM + PADS NUEVOS', centerX, centerY + 200);
+      }
+      else if (r.theme === 'frametime') {
+        // Gráfica de Frametime
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '800 32px Montserrat';
+        ctx.textAlign = 'center';
+        ctx.fillText(progress < 0.6 ? 'FRAMETIME INESTABLE (STUTTERING)' : 'FRAMETIME OPTIMIZADO (FLUIDEZ PURA)', centerX, centerY - 180);
+
+        // Dibujar línea de frametime animada
+        ctx.beginPath();
+        const startX = 140;
+        const graphW = 800;
+        const baseY = centerY + 40;
+        for (let i = 0; i <= 40; i++) {
+          const gx = startX + (i / 40) * graphW;
+          let gy;
+          if (progress < 0.6) {
+            // Picos irregulares caóticos
+            const spike = (i % 4 === 0 || i % 7 === 0) ? Math.sin(i * 10 + timeSec * 15) * 80 : Math.sin(i + timeSec * 5) * 20;
+            gy = baseY + spike;
+          } else {
+            // Línea recta suave
+            gy = baseY + Math.sin(i * 0.5 + timeSec * 3) * 6;
+          }
+          if (i === 0) ctx.moveTo(gx, gy);
+          else ctx.lineTo(gx, gy);
+        }
+        ctx.strokeStyle = progress < 0.6 ? '#ff0055' : '#00ff88';
+        ctx.lineWidth = 6;
+        ctx.stroke();
+
+        ctx.fillStyle = progress < 0.6 ? '#ff0055' : '#00ff88';
+        ctx.font = '900 68px "JetBrains Mono"';
+        ctx.fillText(progress < 0.6 ? '1% LOWS: 55 FPS' : '1% LOWS: 145 FPS (+101%)', centerX, centerY + 160);
+      }
+      else {
+        // Métricas / Hardware Badge general
+        ctx.fillStyle = r.color;
+        ctx.font = '900 84px Montserrat';
+        ctx.textAlign = 'center';
+        ctx.fillText(r.metrics.after || r.metrics.step2 || 'OPTIMIZADO', centerX, centerY - 40);
+
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '700 36px "Space Grotesk"';
+        ctx.fillText(r.metrics.status || 'BYTE FIX PROTOCOL', centerX, centerY + 50);
+
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+        roundRect(ctx, 240, centerY + 110, 600, 60, 16, true, false);
+        ctx.fillStyle = r.color;
+        ctx.font = '800 28px "JetBrains Mono"';
+        ctx.fillText(r.metrics.delta || r.metrics.step3 || '100% ESTABLE', centerX, centerY + 150);
+      }
+      ctx.textAlign = 'left';
+    }
+
+    function drawSubtitles(r, timeSec) {
+      // Frases sincronizadas aproximadas
+      const words = r.script.split('. ');
+      const duration = audio.duration || 32;
+      const index = Math.min(Math.floor((timeSec / duration) * words.length), words.length - 1);
+      const currentSentence = words[index] || '';
+
+      // Caja de subtítulo con fondo oscuro para máxima legibilidad
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.75)';
+      roundRect(ctx, 80, 1340, 920, 260, 24, true, false);
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+      ctx.lineWidth = 2;
+      roundRect(ctx, 80, 1340, 920, 260, 24, false, true);
+
+      // Texto de subtítulo grande con estilo viral
+      ctx.fillStyle = '#ffe600';
+      ctx.font = '900 42px Montserrat';
+      ctx.textAlign = 'center';
+      wrapText(ctx, `"${currentSentence.trim()}"`, 540, 1430, 840, 56);
+      ctx.textAlign = 'left';
+    }
+
+    function wrapText(context, text, x, y, maxWidth, lineHeight) {
+      const words = text.split(' ');
+      let line = '';
+      for (let n = 0; n < words.length; n++) {
+        const testLine = line + words[n] + ' ';
+        const metrics = context.measureText(testLine);
+        if (metrics.width > maxWidth && n > 0) {
+          context.fillText(line, x, y);
+          line = words[n] + ' ';
+          y += lineHeight;
+        } else {
+          line = testLine;
+        }
+      }
+      context.fillText(line, x, y);
+    }
+
+    function roundRect(ctx, x, y, width, height, radius, fill, stroke) {
+      ctx.beginPath();
+      ctx.moveTo(x + radius, y);
+      ctx.lineTo(x + width - radius, y);
+      ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+      ctx.lineTo(x + width, y + height - radius);
+      ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+      ctx.lineTo(x + radius, y + height);
+      ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+      ctx.lineTo(x, y + radius);
+      ctx.quadraticCurveTo(x, y, x + radius, y);
+      ctx.closePath();
+      if (fill) ctx.fill();
+      if (stroke) ctx.stroke();
+    }
+
+    // Audio & Loop
+    function formatTime(sec) {
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    function updateLoop() {
+      drawFrame(audio.currentTime);
+      const progress = (audio.currentTime / (audio.duration || 1)) * 100;
+      progressBar.style.width = `${progress}%`;
+      currentTimeEl.innerText = formatTime(audio.currentTime);
+      if (isPlaying) {
+        animId = requestAnimationFrame(updateLoop);
+      }
+    }
+
+    audio.onloadedmetadata = () => {
+      totalTimeEl.innerText = formatTime(audio.duration);
+      drawFrame(0);
+    };
+
+    audio.onended = () => {
+      isPlaying = false;
+      playBtn.innerHTML = '<i class="fa-solid fa-play"></i> Reproducir';
+      if (isRecording) stopRecording();
+    };
+
+    playBtn.onclick = () => {
+      if (isPlaying) {
+        audio.pause();
+        isPlaying = false;
+        playBtn.innerHTML = '<i class="fa-solid fa-play"></i> Reproducir';
+        cancelAnimationFrame(animId);
+      } else {
+        audio.play();
+        isPlaying = true;
+        playBtn.innerHTML = '<i class="fa-solid fa-pause"></i> Pausar';
+        animId = requestAnimationFrame(updateLoop);
+      }
+    };
+
+    progressWrap.onclick = (e) => {
+      const rect = progressWrap.getBoundingClientRect();
+      const pos = (e.clientX - rect.left) / rect.width;
+      audio.currentTime = pos * (audio.duration || 1);
+      drawFrame(audio.currentTime);
+    };
+
+    // Grabación / Exportación directa a Video MP4/WebM
+    recordBtn.onclick = () => {
+      if (isRecording) {
+        stopRecording();
+      } else {
+        startRecording();
+      }
+    };
+
+    function startRecording() {
+      recordedChunks = [];
+      const canvasStream = canvas.captureStream(30);
+
+      // Capturar audio via Web Audio API
+      let combinedStream = canvasStream;
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const source = audioCtx.createMediaElementSource(audio);
+        const dest = audioCtx.createMediaStreamDestination();
+        source.connect(dest);
+        source.connect(audioCtx.destination);
+        combinedStream = new MediaStream([
+          ...canvasStream.getVideoTracks(),
+          ...dest.stream.getAudioTracks()
+        ]);
+      } catch (err) {
+        console.warn('Audio context already hooked, falling back to video stream', err);
+      }
+
+      const options = { mimeType: 'video/webm;codecs=vp9' };
+      try {
+        mediaRecorder = new MediaRecorder(combinedStream, options);
+      } catch (e) {
+        mediaRecorder = new MediaRecorder(combinedStream);
+      }
+
+      mediaRecorder.ondataavailable = (e) => {
+        if (e.data.size > 0) recordedChunks.push(e.data);
+      };
+
+      mediaRecorder.onstop = () => {
+        const blob = new Blob(recordedChunks, { type: 'video/webm' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${reelsData[currentReelIndex].id}.webm`;
+        a.click();
+        recordBtn.classList.remove('recording');
+        recordBtn.innerHTML = '<i class="fa-solid fa-video"></i> Exportar Video Grabado (MP4/WebM)';
+        isRecording = false;
+      };
+
+      mediaRecorder.start();
+      isRecording = true;
+      recordBtn.classList.add('recording');
+      recordBtn.innerHTML = '<i class="fa-solid fa-stop"></i> Grabando... Toca para Detener';
+
+      audio.currentTime = 0;
+      audio.play();
+      isPlaying = true;
+      playBtn.innerHTML = '<i class="fa-solid fa-pause"></i> Pausar';
+      animId = requestAnimationFrame(updateLoop);
+    }
+
+    function stopRecording() {
+      if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+        mediaRecorder.stop();
+      }
+      audio.pause();
+      isPlaying = false;
+      playBtn.innerHTML = '<i class="fa-solid fa-play"></i> Reproducir';
+    }
+
+    // Pestañas
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.onclick = () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.tab).classList.add('active');
+      };
+    });
+
+    // Copiar al portapapeles
+    document.getElementById('copyBtn').onclick = () => {
+      const text = document.getElementById('copyText').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.getElementById('copyBtn');
+        btn.innerHTML = '<i class="fa-solid fa-check"></i> ¡Copiado!';
+        setTimeout(() => {
+          btn.innerHTML = '<i class="fa-regular fa-copy"></i> Copiar Caption Listo';
+        }, 2000);
+      });
+    };
+
+    // Cargar el primer reel al inicio
+    loadReel(reelsData[0]);
+  </script>
+</body>
+</html>
